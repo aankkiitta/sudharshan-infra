@@ -487,6 +487,143 @@ app.delete("/api/reviews/:id", (req, res) => {
     );
 });
 
+
+
+
+// ==================== INQUIRIES ====================
+
+// CREATE INQUIRY
+app.post("/api/inquiries", (req, res) => {
+    const { name, email, phone, subject, message } = req.body;
+
+    if (!name || !email || !message) {
+        return res.status(400).json({
+            success: false,
+            message: "Name, email and message are required"
+        });
+    }
+
+    const sql = `
+        INSERT INTO inquiries
+        (name, email, phone, subject, message, is_read)
+        VALUES (?, ?, ?, ?, ?, 0)
+    `;
+
+    db.query(
+        sql,
+        [
+            name,
+            email,
+            phone || null,
+            subject || null,
+            message
+        ],
+        (err, result) => {
+
+            if (err) {
+                console.error("❌ Inquiry insert error:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Failed to save inquiry"
+                });
+            }
+
+            console.log("✅ Inquiry saved:", result.insertId);
+
+            res.status(201).json({
+                success: true,
+                message: "Inquiry submitted successfully",
+                id: result.insertId
+            });
+        }
+    );
+});
+
+
+// GET ALL INQUIRIES
+app.get("/api/inquiries", (req, res) => {
+
+    const sql = `
+        SELECT *
+        FROM inquiries
+        ORDER BY id DESC
+    `;
+
+    db.query(sql, (err, rows) => {
+
+        if (err) {
+            console.error("❌ Inquiries fetch error:", err);
+
+            return res.status(500).json({
+                success: false,
+                message: "Failed to load inquiries"
+            });
+        }
+
+        res.json({
+            success: true,
+            inquiries: rows || []
+        });
+    });
+});
+
+
+// DELETE INQUIRY
+app.delete("/api/inquiries/:id", (req, res) => {
+
+    db.query(
+        "DELETE FROM inquiries WHERE id=?",
+        [req.params.id],
+        (err, result) => {
+
+            if (err) {
+                console.error("❌ Inquiry delete error:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Failed to delete inquiry"
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "Inquiry deleted successfully"
+            });
+        }
+    );
+});
+
+
+// MARK INQUIRY AS READ / UNREAD
+app.put("/api/inquiries/:id/read", (req, res) => {
+
+    const { is_read } = req.body;
+
+    db.query(
+        "UPDATE inquiries SET is_read=? WHERE id=?",
+        [is_read ? 1 : 0, req.params.id],
+        (err) => {
+
+            if (err) {
+                console.error("❌ Inquiry read status error:", err);
+
+                return res.status(500).json({
+                    success: false,
+                    message: "Failed to update inquiry"
+                });
+            }
+
+            res.json({
+                success: true,
+                message: "Inquiry status updated"
+            });
+        }
+    );
+});
+
+
+
 // ==================== PROJECTS (Preserved) ====================
 // If projects route exists, keep it
 // Add a basic projects endpoint if needed

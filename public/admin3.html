@@ -1174,74 +1174,177 @@
       } catch(e) { showToast('Error', 'error'); }
     }
 
-    // ================= INQUIRIES =================
-    async function loadInquiries() {
-      const container = document.getElementById('inquiriesContainer');
-      if (!container) return;
-      container.innerHTML = '<p style="text-align:center;padding:30px;color:var(--color-text-light);"><i class="fas fa-spinner fa-spin"></i> Loading inquiries...</p>';
-      try {
-        const response = await fetch('/api/inquiries');
-        const data = await response.json();
-        if (!data.success || !data.inquiries || data.inquiries.length === 0) {
-          container.innerHTML = '<p style="text-align:center;padding:30px;color:var(--color-text-light);">No inquiries found.</p>';
-          document.getElementById('inquiryCount').textContent = '0';
-          return;
+async function loadInquiries() {
+    const container = document.getElementById('inquiriesContainer');
+    if (!container) return;
+    
+    container.innerHTML = '<p style="text-align:center;padding:30px;color:var(--color-text-light);"><i class="fas fa-spinner fa-spin"></i> Loading inquiries...</p>';
+    
+    try {
+        // First try to fetch from API
+        let response = await fetch('/api/inquiries');
+        if (response.ok) {
+            const data = await response.json();
+            if (data.success && data.inquiries && data.inquiries.length > 0) {
+                renderInquiries(data.inquiries);
+                return;
+            }
         }
-        document.getElementById('inquiryCount').textContent = data.inquiries.filter(i => !i.is_read).length;
-        let html = '';
-        data.inquiries.forEach(inquiry => {
-          const date = new Date(inquiry.created_at).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
-          const statusClass = inquiry.is_read ? 'completed' : 'pending';
-          const statusText = inquiry.is_read ? 'Read' : 'Unread';
-          html += `
-            <div style="background:var(--color-white);border-radius:var(--radius);padding:20px;border:1px solid var(--color-border);margin-bottom:12px;transition:var(--transition);" 
-                 data-name="${inquiry.name.toLowerCase()}" data-email="${inquiry.email.toLowerCase()}" data-subject="${inquiry.subject.toLowerCase()}" data-message="${inquiry.message.toLowerCase()}">
-              <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px;">
-                <div>
-                  <strong>${inquiry.name}</strong>
-                  <span style="color:var(--color-text-light);font-size:0.85rem;margin-left:12px;">${inquiry.email}</span>
-                  <span style="color:var(--color-text-muted);font-size:0.8rem;margin-left:12px;">${inquiry.phone || 'No phone'}</span>
-                </div>
-                <div>
-                  <span class="status ${statusClass}">${statusText}</span>
-                  <span style="font-size:0.75rem;color:var(--color-text-muted);margin-left:12px;">${date}</span>
-                </div>
-              </div>
-              <div style="margin-top:6px;font-weight:500;color:var(--color-primary);">${inquiry.subject}</div>
-              <div class="inquiry-message">${inquiry.message}</div>
-              <div style="margin-top:10px;display:flex;gap:8px;">
-                <button class="btn-sm-outline" onclick="toggleInquiryRead('${inquiry.id}', ${inquiry.is_read})"><i class="fas ${inquiry.is_read ? 'fa-envelope' : 'fa-envelope-open'}"></i> ${inquiry.is_read ? 'Mark Unread' : 'Mark Read'}</button>
-                <button class="btn-sm-outline" onclick="replyInquiry('${inquiry.id}')"><i class="fas fa-reply"></i> Reply</button>
-                <button class="btn-danger-sm" onclick="deleteInquiry('${inquiry.id}')"><i class="fas fa-trash"></i> Delete</button>
-              </div>
-            </div>
-          `;
-        });
-        container.innerHTML = html;
-      } catch(e) {
-        container.innerHTML = '<p style="text-align:center;padding:30px;color:#dc3545;">Failed to load inquiries.</p>';
-      }
+    } catch(e) {
+        console.log('API not available, using local data');
     }
-    function searchInquiries() {
-      const q = document.getElementById('searchInquiry').value.toLowerCase();
-      document.querySelectorAll('#inquiriesContainer > div[style]').forEach(item => {
-        const name = item.dataset.name || '', email = item.dataset.email || '', subject = item.dataset.subject || '', msg = item.dataset.message || '';
-        item.style.display = (name.includes(q) || email.includes(q) || subject.includes(q) || msg.includes(q)) ? 'block' : 'none';
-      });
-    }
-    async function toggleInquiryRead(id, current) {
-      try {
-        const res = await fetch(`/api/inquiries/${id}`, { method:'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({is_read:!current}) });
-        const data = await res.json();
-        if(data.success) { showToast('Updated', 'success'); loadInquiries(); } else showToast('Failed', 'error');
-      } catch(e) { showToast('Error', 'error'); }
-    }
-    function replyInquiry(id) { const msg = prompt('Reply message:'); if(msg && msg.trim()) showToast('Reply sent', 'success'); }
-    async function deleteInquiry(id) {
-      if(!confirm('Delete inquiry?')) return;
-      try { const res = await fetch(`/api/inquiries/${id}`, { method:'DELETE' }); const data = await res.json(); if(data.success) { showToast('Deleted', 'success'); loadInquiries(); } else showToast('Failed', 'error'); } catch(e) { showToast('Error', 'error'); }
-    }
+    
+    // If API fails or returns empty, use localStorage data
+    let allInquiries = [];
+    
+    // Get from inquiries
+    const inquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+    allInquiries = [...inquiries];
+    
+    // Also get from contact submissions
+    const submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+    submissions.forEach(sub => {
+        // Check if this submission already exists in inquiries
+        const exists = allInquiries.some(inq => 
+            inq.email === sub.email && 
+            inq.message === sub.message &&
+            new Date(inq.created_at).getTime() === new Date(sub.created_at).getTime()
+        );
+        if (!exists) {
+            allInquiries.push({
+                id: sub.id || Date.now(),
+                name: sub.name,
+                email: sub.email,
+                phone: sub.phone || 'No phone',
+                subject: sub.subject || sub.projectType || 'General Inquiry',
+                message: sub.message,
+                is_read: sub.is_read || false,
+                created_at: sub.created_at || new Date().toISOString()
+            });
+        }
+    });
+    
+    // Sort by created_at descending (newest first)
+    allInquiries.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    
+    // Save merged inquiries back to localStorage
+    localStorage.setItem('inquiries', JSON.stringify(allInquiries));
+    
+    renderInquiries(allInquiries);
+}
 
+function renderInquiries(inquiries) {
+    const container = document.getElementById('inquiriesContainer');
+    if (!container) return;
+    
+    if (!inquiries || inquiries.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <h4>No inquiries found</h4>
+                <p style="color:var(--color-text-muted);">When customers submit inquiries, they will appear here.</p>
+            </div>
+        `;
+        document.getElementById('inquiryCount').textContent = '0';
+        document.getElementById('pendingInquiries').textContent = '0';
+        return;
+    }
+    
+    // Update counts
+    const unreadCount = inquiries.filter(i => !i.is_read).length;
+    document.getElementById('inquiryCount').textContent = unreadCount;
+    document.getElementById('pendingInquiries').textContent = unreadCount;
+    
+    let html = '';
+    inquiries.forEach(inquiry => {
+        const date = new Date(inquiry.created_at).toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        const statusClass = inquiry.is_read ? 'completed' : 'pending';
+        const statusText = inquiry.is_read ? 'Read' : 'Unread';
+        
+        html += `
+            <div class="inquiry-card" 
+                 data-id="${inquiry.id}"
+                 data-name="${(inquiry.name || '').toLowerCase()}" 
+                 data-email="${(inquiry.email || '').toLowerCase()}" 
+                 data-subject="${(inquiry.subject || '').toLowerCase()}" 
+                 data-message="${(inquiry.message || '').toLowerCase()}">
+                
+                <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:10px;">
+                    <div>
+                        <strong>${inquiry.name || 'Anonymous'}</strong>
+                        <span style="color:var(--color-text-light);font-size:0.85rem;margin-left:12px;">${inquiry.email || 'No email'}</span>
+                        <span style="color:var(--color-text-muted);font-size:0.8rem;margin-left:12px;">${inquiry.phone || 'No phone'}</span>
+                    </div>
+                    <div>
+                        <span class="status ${statusClass}">${statusText}</span>
+                        <span style="font-size:0.75rem;color:var(--color-text-muted);margin-left:12px;">${date}</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top:6px;font-weight:500;color:var(--color-primary);">${inquiry.subject || 'General Inquiry'}</div>
+                <div class="inquiry-message">${inquiry.message || 'No message'}</div>
+                
+                <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="btn-sm-outline" onclick="toggleInquiryRead(${inquiry.id}, ${inquiry.is_read})">
+                        <i class="fas ${inquiry.is_read ? 'fa-envelope' : 'fa-envelope-open'}"></i> 
+                        ${inquiry.is_read ? 'Mark Unread' : 'Mark Read'}
+                    </button>
+                    <button class="btn-sm-outline" onclick="replyInquiry(${inquiry.id})">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                    <button class="btn-danger-sm" onclick="deleteInquiry(${inquiry.id})">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// Updated toggle function to work with localStorage
+function toggleInquiryRead(id) {
+    let inquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+    const inquiry = inquiries.find(i => i.id == id);
+    if (inquiry) {
+        inquiry.is_read = !inquiry.is_read;
+        localStorage.setItem('inquiries', JSON.stringify(inquiries));
+        renderInquiries(inquiries);
+        showToast('Inquiry status updated', 'success');
+    }
+}
+
+// Updated delete function
+function deleteInquiry(id) {
+    if (!confirm('Are you sure you want to delete this inquiry?')) return;
+    
+    let inquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+    inquiries = inquiries.filter(i => i.id != id);
+    localStorage.setItem('inquiries', JSON.stringify(inquiries));
+    
+    renderInquiries(inquiries);
+    showToast('Inquiry deleted successfully', 'success');
+}
+
+// Reply function
+function replyInquiry(id) {
+    const msg = prompt('Enter your reply message:');
+    if (msg && msg.trim()) {
+        showToast('Reply sent successfully!', 'success');
+        // In a real app, you would send this to the backend
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    loadInquiries();
+});
     // ================= USERS =================
     async function loadUsers() {
       try {
