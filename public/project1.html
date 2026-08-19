@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Modern Minimalist Penthouse – SudarshanInfra</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="project1.css">
+</head>
+<body>
+
+    <!-- ============================================================
+    HEADER — same as All Projects
+    ============================================================ -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                    <a href="#hero" class="logo">
+    <img src="/uploads/logo.png" alt="Sudharshan Infra Logo">
+</a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#" class="active">Portfolio</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Testimonials</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    PROJECT HERO
+    ============================================================ -->
+    <section class="project-hero" style="background-image:url('https://i.ibb.co/d0JPzX0Y/delhi4.jpg');">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="#">Home</a>
+                <span class="sep">/</span>
+                <a href="#">Projects</a>
+                <span class="sep">/</span>
+                <span>Modern Minimalist Penthouse</span>
+            </div>
+            <div class="hero-content">
+                <span class="project-badge"><i class="fas fa-star"></i> Featured Project</span>
+                <h1>Modern Minimalist Penthouse</h1>
+                <div class="hero-meta">
+                    <span><i class="fas fa-map-pin"></i> Manhattan, NYC</span>
+                    <span><i class="fas fa-calendar-alt"></i> Completed 2025</span>
+                    <span><i class="fas fa-tag"></i> Residential</span>
+                    <span><i class="fas fa-ruler-combined"></i> 2,400 sq ft</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+    <!-- ============================================================
+    PROJECT OVERVIEW — CENTERED LAYOUT
+    ============================================================ -->
+    <section class="project-overview">
+        <div class="container">
+            <div class="overview-wrapper reveal">
+                <div class="overview-description">
+                    <span class="section-tag">Overview</span>
+                    <h2>A Sculptural Urban Sanctuary</h2>
+                    <p>
+                        Perched high above the Manhattan skyline, this 2,400-square-foot penthouse
+                        redefines urban luxury through a lens of minimalist sophistication.
+                        The design philosophy centered on creating a serene retreat that feels
+                        both expansive and intimate — a place where light, texture, and proportion
+                        come together in perfect harmony.
+                    </p>
+                    <p>
+                        Every surface, material, and detail was meticulously curated to evoke
+                        a sense of calm and timeless elegance. From the floor-to-ceiling windows
+                        that frame panoramic city views to the hand-selected natural stone and
+                        warm oak flooring, the space breathes with an effortless, understated luxury.
+                    </p>
+                </div>
+
+                <div class="overview-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">2,400</span>
+                        <span class="stat-label">Square Feet</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">Bedrooms</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3.5</span>
+                        <span class="stat-label">Bathrooms</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">6</span>
+                        <span class="stat-label">Months</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+        <!-- ============================================================
+    PROJECT GALLERY
+    ============================================================ -->
+<section class="project-gallery" id="projectGallery">
+    <div class="container">
+
+        <div class="gallery-header reveal">
+            <span class="section-tag">
+                <i class="fas fa-images"></i> Project Gallery
+            </span>
+
+            <h2 class="section-title">
+                Explore <span class="highlight">Project Photos</span>
+            </h2>
+
+            <p class="section-sub">
+                Browse our completed work and craftsmanship. Click any image to view it in full screen.
+            </p>
+
+        </div>
+
+        <!-- Images will be added dynamically -->
+        <div class="gallery-grid" id="galleryGrid"></div>
+
+        <div style="text-align:center;margin-top:40px;">
+            <button class="btn-primary" id="viewMoreBtn">
+                <i class="fas fa-images"></i> View More Photos
+            </button>
+        </div>
+
+    </div>
+</section>
+
+    <!-- ============================================================
+    LIGHTBOX / SLIDER
+    ============================================================ -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose"><i class="fas fa-times"></i></button>
+        <div class="lightbox-main">
+            <button class="lightbox-nav prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+            <img id="lightboxImg" src="" alt="Project Image" />
+            <button class="lightbox-nav next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="lightbox-counter" id="lightboxCounter">1 / 6</div>
+        <div class="lightbox-thumbs" id="lightboxThumbs"></div>
+    </div>
+
+ <section class="project-nav">
+    <div class="container">
+        <div class="nav-header reveal">
+            <span class="section-tag">Explore</span>
+            <h2>More <span class="highlight">Projects</span></h2>
+            <p class="section-sub">Scroll through our latest work or view the full portfolio.</p>
+        </div>
+
+        <div class="nav-scroll-wrapper reveal" id="navScrollWrapper">
+            <div class="nav-scroll" id="projectScroll">
+                <!-- Hardcoded fallback cards -->
+                <a href="#" class="nav-card">
+                    <div class="nav-card-thumb" style="background-image:url('https://i.ibb.co/d0JPzX0Y/delhi4.jpg')"></div>
+                    <span class="nav-card-title">Urban Penthouse</span>
+                    <span class="nav-card-tag">Residential</span>
+                </a>
+                <a href="#" class="nav-card">
+                    <div class="nav-card-thumb" style="background-image:url('https://i.ibb.co/zV9C6y8W/delhi5.jpg')"></div>
+                    <span class="nav-card-title">Minimalist Villa</span>
+                    <span class="nav-card-tag">Luxury Living</span>
+                </a>
+                <a href="#" class="nav-card">
+                    <div class="nav-card-thumb" style="background-image:url('https://i.ibb.co/v6FqKNjh/delhi7.jpg')"></div>
+                    <span class="nav-card-title">Modern Apartment</span>
+                    <span class="nav-card-tag">Interior Design</span>
+                </a>
+                <a href="#" class="nav-card all-projects">
+                    <i class="fas fa-th-large"></i>
+                    <span class="nav-card-title">All Projects</span>
+                    <span class="nav-card-tag">View Full Portfolio →</span>
+                </a>
+            </div>
+
+            <!-- Arrow Controls -->
+            <div class="nav-scroll-controls">
+                <button class="scroll-btn" id="scrollLeft" aria-label="Scroll left">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="scroll-btn" id="scrollRight" aria-label="Scroll right">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- ============================================================
+    PROJECT INFORMATION TABLE
+    ============================================================ -->
+    <section class="project-info">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag">Details</span>
+                <h2 class="section-title">Project <span class="highlight">Information</span></h2>
+                <p class="section-sub">Complete specifications and key data for this project.</p>
+            </div>
+            <div class="reveal" style="overflow-x:auto;">
+                <table class="info-table">
+                    <tr>
+                        <td>Client</td>
+                        <td>ABC Pvt Ltd</td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td>Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td>Area</td>
+                        <td>5,000 sq.ft</td>
+                    </tr>
+                    <tr>
+                        <td>Budget</td>
+                        <td>₹2.5 Cr</td>
+                    </tr>
+                    <tr>
+                        <td>Duration</td>
+                        <td>8 Months</td>
+                    </tr>
+                    <tr>
+                        <td>Completion</td>
+                        <td>March 2026</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    MATERIALS USED
+    ============================================================ -->
+    <section class="project-materials">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag">Materials</span>
+                <h2 class="section-title">Materials <span class="highlight">Used</span></h2>
+                <p class="section-sub">Premium quality materials selected for durability and aesthetics.</p>
+            </div>
+            <div class="materials-grid reveal">
+                <div class="material-item"><i class="fas fa-hard-hat"></i><span>Cement</span></div>
+                <div class="material-item"><i class="fas fa-industry"></i><span>Steel</span></div>
+                <div class="material-item"><i class="fas fa-th-large"></i><span>Tiles</span></div>
+                <div class="material-item"><i class="fas fa-gem"></i><span>Marble</span></div>
+                <div class="material-item"><i class="fas fa-paint-roller"></i><span>Paint</span></div>
+                <div class="material-item"><i class="fas fa-tree"></i><span>Wood</span></div>
+                <div class="material-item"><i class="fas fa-lightbulb"></i><span>Lighting Brands</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PREMIUM FEATURES
+    ============================================================ -->
+    <section class="premium-features">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-tag">Premium</span>
+                <h2 class="section-title">Project <span class="highlight">Features</span></h2>
+                <p class="section-sub">Explore the full experience with our premium tools and content.</p>
+            </div>
+            <div class="premium-grid reveal">
+                <div class="premium-card">
+                    <span class="icon"><i class="fas fa-vr-cardboard"></i></span>
+                    <h4>360° Virtual Tour</h4>
+                    <p>Immersive walkthrough of the entire space.</p>
+                    <button class="btn-sm">Launch Tour</button>
+                </div>
+                <div class="premium-card">
+                    <span class="icon"><i class="fas fa-video"></i></span>
+                    <h4>Drone Video</h4>
+                    <p>Aerial cinematography capturing the full scope.</p>
+                    <button class="btn-sm">Watch Video</button>
+                </div>
+                <div class="premium-card">
+                    <span class="icon"><i class="fas fa-sliders-h"></i></span>
+                    <h4>Progress Timeline Slider</h4>
+                    <p>See the journey from start to finish.</p>
+                    <button class="btn-sm">View Timeline</button>
+                </div>
+                <div class="premium-card">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <h4>Download Brochure (PDF)</h4>
+                    <p>Complete project details in a printable format.</p>
+                    <button class="btn-sm"><i class="fas fa-download"></i> Download</button>
+                </div>
+                <div class="premium-card">
+                    <span class="icon"><i class="fas fa-map-marked-alt"></i></span>
+                    <h4>Google Map Location</h4>
+                    <p>Find the project on the map.</p>
+                    <button class="btn-sm">Open Map</button>
+                </div>
+                <div class="premium-card">
+                    <span class="icon"><i class="fas fa-users"></i></span>
+                    <h4>Team Members</h4>
+                    <p>Meet the experts behind the project.</p>
+                    <button class="btn-sm">View Team</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+<!-- ============================================================
+TESTIMONIALS
+============================================================ -->
+<section class="testimonials" id="testimonials">
+
+    <div class="container">
+
+        <div class="testimonials-header reveal">
+            <span class="section-tag">Testimonials</span>
+
+            <h2 class="section-title">
+                What Our <span class="highlight">Clients</span> Say
+            </h2>
+
+            <p class="section-sub">
+                Real stories from real people who trusted us with their spaces.
+            </p>
+        </div>
+
+        <!-- Reviews -->
+        <div class="testimonial-slider-wrapper reveal" id="reviewsContainer">
+
+        </div>
+
+        <!-- Dynamic Dots -->
+        <div class="slider-dots" id="reviewDots"></div>
+
+        <!-- Review Button -->
+        <div class="testimonials-cta reveal">
+
+            <button class="btn-review" onclick="openReviewForm()">
+
+                <i class="fas fa-star"></i>
+
+                Leave a Review
+
+                <i class="fas fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+    <!-- review form-->
+<!-- Review Modal -->
+<div class="review-modal" id="reviewModal">
+    <div class="review-modal-content">
+        <button class="review-modal-close" onclick="closeReviewModal()">&times;</button>
+        
+        <h3><i class="fas fa-star" style="color:#FFD700;"></i> Leave a Review</h3>
+        <p>Your feedback helps us improve!</p>
+        
+        <!-- Rating -->
+        <div class="rating-input">
+            <span>Rating:</span>
+            <div class="stars-input">
+                <i class="fas fa-star" onclick="setRating(1)"></i>
+                <i class="fas fa-star" onclick="setRating(2)"></i>
+                <i class="fas fa-star" onclick="setRating(3)"></i>
+                <i class="fas fa-star" onclick="setRating(4)"></i>
+                <i class="fas fa-star" onclick="setRating(5)"></i>
+            </div>
+            <span id="ratingDisplay">0/5</span>
+        </div>
+        
+        <form id="reviewForm" enctype="multipart/form-data" onsubmit="submitReview(event)">
+            <!-- Photo -->
+            <div class="form-group">
+                <label>Your Photo</label>
+                <input type="file" id="reviewImage" accept="image/*">
+                <img id="reviewPreview" src="/uploads/avatars/default.png" alt="Preview">
+            </div>
+            
+            <!-- Name -->
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="reviewName" placeholder="John Doe" required>
+            </div>
+            
+            <!-- Email -->
+            <div class="form-group">
+                <label>Your Email</label>
+                <input type="email" id="reviewEmail" placeholder="john@example.com" required>
+            </div>
+            
+            <!-- Review -->
+            <div class="form-group">
+                <label>Your Review</label>
+                <textarea id="reviewText" rows="3" placeholder="Share your experience..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> Submit Review
+            </button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+  
+    <!-- ============================================================
+    FAQ — SIMPLE ONE-LINE LIST
+    ============================================================ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-header reveal">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
+                <p class="section-sub">Common questions about this project and our process.</p>
+            </div>
+            <div class="faq-list reveal">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <span class="q-icon"><i class="fas fa-clock"></i></span>
+                        <span class="q-text">What was the project timeline?</span>
+                        <span class="q-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        The project was completed in 8 months from concept to handover, including design, procurement, and construction phases.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="q-icon"><i class="fas fa-layer-group"></i></span>
+                        <span class="q-text">What materials were used for the flooring?</span>
+                        <span class="q-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        We used premium Italian marble in the living areas and engineered oak wood flooring in the bedrooms.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="q-icon"><i class="fas fa-home"></i></span>
+                        <span class="q-text">Can I get a similar design for my home?</span>
+                        <span class="q-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! Our team specializes in bespoke designs tailored to each client's needs and space.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="q-icon"><i class="fas fa-shield-alt"></i></span>
+                        <span class="q-text">What is the warranty on the work?</span>
+                        <span class="q-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        We offer a comprehensive 5-year warranty on all structural and finishing work, with dedicated after-sales support.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ============================================================
+    CTA SECTION
+    ============================================================ -->
+    <section class="project-cta">
+        <div class="container">
+            <span class="section-tag reveal">Let's Create</span>
+            <h2 class="section-title reveal">Ready to Start Your <span class="highlight">Project</span>?</h2>
+            <p class="section-sub reveal">Whether you're dreaming of a complete renovation or a single bespoke piece, we're here to bring your vision to life.</p>
+            <div class="cta-buttons reveal">
+                <a href="next1.html#contact" class="btn-primary"><i class="fas fa-pen-fancy"></i> Start Your Project</a>
+                <a href="#" class="btn-secondary"><i class="fas fa-grid-2"></i> View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">Sudarshan<span>Infra</span></div>
+                    <p>Premium furniture contracting for residential &amp; commercial spaces. Built to last, designed to inspire.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Services</a>
+                    <a href="#">Portfolio</a>
+                    <a href="#">Testimonials</a>
+                    <a href="#">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="#">Kitchen</a>
+                    <a href="#">Wardrobe</a>
+                    <a href="#">Living Room</a>
+                    <a href="#">Office</a>
+                    <a href="#">Dining Room</a>
+                </div>
+
+                <div class="footer-col footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for design inspiration and exclusive offers.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address" id="newsletterEmail" />
+                        <button class="btn-primary" onclick="handleNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 SudarshanInfra. All rights reserved.</span>
+                <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </button>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+    <!-- ============================================================
+    CHAT WIDGET
+    ============================================================ -->
+   <!-- Chatbot -->
+<div id="chatbot-container"></div>
+
+<script src="load-chatbot.js"></script>
+
+ <script src="project1.js"></script>
+  <script src="load-testimonials.js"></script>
+
+</body>
+</html>

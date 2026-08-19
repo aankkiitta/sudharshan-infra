@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FurnitureCraft · Premium Furniture & Interiors</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="next1.css">
+    <link rel="stylesheet" href="portfolio.css">
+
+
+</head>
+
+
+<body>
+
+    <!-- ============================================================
+    LOADER
+    ============================================================ -->
+    <div id="loader" style="position:fixed;inset:0;z-index:9999;background:#FAF8F5;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.6s ease,visibility 0.6s ease;">
+        <div style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(44,85,48,0.12);border-top-color:var(--color-primary);animation:spin 0.8s linear infinite;"></div>
+        <span style="font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--color-text-light);font-weight:500;">Loading</span>
+        <style>
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+        </style>
+    </div>
+
+    <!-- ============================================================
+    HEADER — logo left, nav right, no phone/button
+    ============================================================ -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+       <a href="#hero" class="logo">
+    <img src="/uploads/logo.png" alt="Sudharshan Infra Logo">
+</a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <!-- ===== LOGIN BUTTON / WELCOME ===== -->
+                <div class="nav-actions" id="navActions">
+                    <!-- Login Button - Links to login.html -->
+                    <a href="login.html" class="btn-login" id="loginBtn">
+                        <i class="fas fa-user"></i> Login
+                    </a>
+                    <!-- Welcome (hidden by default) -->
+                    <div class="welcome-user" id="welcomeUser" style="display:none;">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Welcome, <strong id="userNameDisplay">User</strong></span>
+                    </div>
+                </div>
+                <button class="mobile-menu-toggle" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+ 
+  <!-- ============================================================
+HERO
+============================================================ -->
+<section class="hero" id="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+
+        <span class="section-tag">
+            Trusted Infrastructure & Interior Solutions
+        </span>
+
+        <h1>
+            Building Excellence.<br>
+            <span class="highlight">Delivering Quality Every Step.</span>
+        </h1>
+
+        <p>
+            Sudharshan Infra provides complete turnkey infrastructure and interior
+            solutions including civil construction, electrical works, plumbing,
+            office interiors, false ceilings, painting, renovations, maintenance,
+            and customized furniture for residential and commercial projects.
+        </p>
+
+        <div class="hero-btns">
+            <a href="#contact" class="btn-primary">
+                Get Free Consultation
+            </a>
+
+            <a href="#portfolio" class="btn-secondary">
+                View Projects
+            </a>
+        </div>
+
+    </div>
+</section>
+
+    <!-- ============================================================
+    SERVICES — Centered Header + 6 Cards
+    ============================================================ -->
+<section class="services" id="services">
+    <div class="container">
+<div class="services-header reveal">
+   <span class="section-tag">Our Services</span>
+    <h2 class="section-title">Complete Project Solutions</h2>
+    <p class="section-sub">
+        From planning and execution to maintenance, we provide reliable, high-quality infrastructure and interior solutions tailored to your needs.
+    </p>
+</div>
+
+        <div class="service-grid">
+
+            <!-- Furniture -->
+            <div class="service-card reveal" style="transition-delay:.05s;">
+                <div class="card-image"
+                    style="background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80');">
+                </div>
+
+                <div class="card-body">
+                    <span class="badge">Furniture</span>
+
+                    <h4>Custom Furniture</h4>
+
+   <p>
+    High-quality office furniture solutions
+    including workstations, executive cabins,
+    conference tables, storage units, and
+    customized furniture for modern workplaces.
+</p>
+                    <a href="furniture.html" class="btn-sm btn-sm-primary">
+                        Learn More
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Office -->
+            <div class="service-card reveal" style="transition-delay:.10s;">
+                <div class="card-image"
+                    style="background-image:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80');">
+                </div>
+
+                <div class="card-body">
+                    <span class="badge">Commercial</span>
+
+                    <h4>Office Interior</h4>
+
+                    <p>
+    Complete office interior fit-outs including partitions,
+    false ceilings, flooring, modular workspaces, lighting,
+    and turnkey workspace solutions.
+</p>
+
+                    <a href="office-project.html" class="btn-sm btn-sm-primary">
+                        Learn More
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Home Renovation -->
+            <div class="service-card reveal" style="transition-delay:.15s;">
+                <div class="card-image"
+                    style="background-image:url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80');">
+                </div>
+
+                <div class="card-body">
+                    <span class="badge">Home</span>
+
+                    <h4>Home Renovation</h4>
+
+              <p>
+    Professional civil construction, renovation, remodeling,
+    painting, flooring, waterproofing, and structural
+    improvement services for residential and commercial projects.
+</p>
+
+                    <a href="home-renovation.html" class="btn-sm btn-sm-primary">
+                        Learn More
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Electrical -->
+            <div class="service-card reveal" style="transition-delay:.20s;">
+                <div class="card-image"
+                    style="background-image:url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80');">
+                </div>
+
+                <div class="card-body">
+                    <span class="badge">Electrical</span>
+
+                    <h4>Electrical Services</h4>
+
+               <p>
+    Comprehensive electrical installation, power distribution,
+    lighting systems, panel boards, cabling, testing,
+    and preventive maintenance services.
+</p>
+
+                    <a href="electrical.html" class="btn-sm btn-sm-primary">
+                        Learn More
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Plumbing -->
+            <div class="service-card reveal" style="transition-delay:.25s;">
+                <div class="card-image"
+                    style="background-image:url('https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=800&q=80');">
+                </div>
+
+                <div class="card-body">
+                    <span class="badge">Plumbing</span>
+
+                    <h4>Plumbing Solutions</h4>
+
+                   <p>
+    Reliable plumbing solutions including water supply,
+    drainage systems, sanitary fittings, piping,
+    leak repairs, and maintenance services.
+</p>
+
+                    <a href="plumbing.html" class="btn-sm btn-sm-primary">
+                        Learn More
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Interior -->
+            <div class="service-card reveal" style="transition-delay:.30s;">
+                <div class="card-image"
+                    style="background-image:url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80');">
+                </div>
+
+                <div class="card-body">
+                    <span class="badge">Interior</span>
+
+                    <h4>Interior Design</h4>
+<p>
+    Innovative interior solutions for offices, commercial
+    spaces, and residential projects, combining functionality,
+    aesthetics, and quality craftsmanship.
+</p>
+
+                    <a href="portfolio.html" class="btn-sm btn-sm-primary">
+                        Learn More
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+   
+<!-- ============================================================
+PORTFOLIO
+============================================================ -->
+<section class="portfolio" id="portfolio">
+    <div class="container">
+
+        <div class="portfolio-header reveal">
+            <span class="section-tag">Portfolio</span>
+            <h2 class="section-title">
+                Featured <span class="highlight">Projects</span>
+            </h2>
+            <p class="section-sub">
+                Explore our recent work across residential, commercial, and luxury spaces.
+            </p>
+        </div>
+
+        <div class="portfolio-filters reveal">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="residential">Residential</button>
+            <button class="filter-btn" data-filter="commercial">Commercial</button>
+            <button class="filter-btn" data-filter="luxury">Luxury</button>
+        </div>
+
+        <!-- Portfolio Cards -->
+   <div class="portfolio-grid" id="portfolioGrid"></div>
+
+        <div class="portfolio-cta reveal">
+            <a href="view-all-project.html" class="btn-secondary">
+                <i class="fas fa-grid-2"></i>
+                View More Projects
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+
+<!-- ============================================================
+TESTIMONIALS
+============================================================ -->
+<section class="testimonials" id="testimonials">
+
+    <div class="container">
+
+        <div class="testimonials-header reveal">
+            <span class="section-tag">Testimonials</span>
+
+            <h2 class="section-title">
+                What Our <span class="highlight">Clients</span> Say
+            </h2>
+
+            <p class="section-sub">
+                Real stories from real people who trusted us with their spaces.
+            </p>
+        </div>
+
+        <!-- Reviews -->
+        <div class="testimonial-slider-wrapper reveal" id="reviewsContainer">
+
+        </div>
+
+        <!-- Dynamic Dots -->
+        <div class="slider-dots" id="reviewDots"></div>
+
+        <!-- Review Button -->
+        <div class="testimonials-cta reveal">
+
+            <button class="btn-review" onclick="openReviewForm()">
+
+                <i class="fas fa-star"></i>
+
+                Leave a Review
+
+                <i class="fas fa-arrow-right"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+   <!-- ============================================================
+ABOUT
+============================================================ -->
+<section class="about" id="about">
+    <div class="container about-grid">
+
+        <div class="about-image-wrapper reveal-left">
+            <div class="about-image-main"
+                style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80');">
+            </div>
+
+            <div class="experience-badge">
+                <span class="exp-number">8+</span>
+                <span class="exp-label">Years of Excellence</span>
+            </div>
+        </div>
+
+        <div class="about-content reveal-right">
+
+            <span class="section-tag">About Us</span>
+
+            <h2 class="section-title">
+                Building <span class="highlight">Trust</span> Through Excellence
+            </h2>
+
+            <p class="about-story">
+                Sudharshan Infra is a trusted infrastructure and turnkey
+                contracting company delivering innovative solutions for
+                commercial and residential projects. With expertise in
+                interior fit-outs, civil works, electrical, plumbing,
+                office furniture, maintenance, and renovation services,
+                we are committed to quality, safety, and timely project delivery.
+            </p>
+
+            <div class="about-stats-grid">
+
+                <div class="stat-item">
+                    <span class="stat-number">8+</span>
+                    <span class="stat-label">Years Experience</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Projects Completed</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Skilled Professionals</span>
+                </div>
+
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Client Satisfaction</span>
+                </div>
+
+            </div>
+
+            <div class="about-quote">
+                <i class="fas fa-quote-left"></i>
+
+                We don't just complete projects—we create reliable,
+                functional, and inspiring spaces that reflect our
+                commitment to quality, innovation, and long-term client satisfaction.
+
+                <strong>— Sudharshan Infra Team</strong>
+            </div>
+
+            <div class="about-buttons">
+
+                <a href="#contact" class="btn-primary">
+                    <i class="fas fa-phone-alt"></i>
+                    Get a Free Consultation
+                </a>
+
+                <a href="company-profile.html" class="btn-secondary">
+                    <i class="fas fa-building"></i>
+                    Company Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+    <!-- ============================================================
+    WHY CHOOSE
+
+    <section class="whychoose" id="whychoose">
+        <div class="container">
+            <div class="whychoose-header reveal">
+                <span class="section-tag">Why Choose Us</span>
+                <h2 class="section-title">Built on <span class="highlight">Quality</span> &amp; Trust</h2>
+                <p class="section-sub">We combine artisanal skill with modern technology to deliver furniture that exceeds expectations.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-card reveal" style="transition-delay:0.05s;">
+                    <div class="icon"><i class="fas fa-gem"></i></div>
+                    <h5>Premium Materials</h5>
+                    <p>Sourced from the world's finest mills and suppliers.</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay:0.10s;">
+                    <div class="icon"><i class="fas fa-pencil-ruler"></i></div>
+                    <h5>Custom Design</h5>
+                    <p>Every piece is tailored to your unique vision and space.</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay:0.15s;">
+                    <div class="icon"><i class="fas fa-tools"></i></div>
+                    <h5>Expert Craftsmanship</h5>
+                    <p>Master artisans with decades of combined experience.</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay:0.20s;">
+                    <div class="icon"><i class="fas fa-clock"></i></div>
+                    <h5>On-Time Delivery</h5>
+                    <p>We respect your timeline and deliver as promised.</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay:0.25s;">
+                    <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                    <h5>Lifetime Warranty</h5>
+                    <p>We stand behind every piece we create.</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay:0.30s;">
+                    <div class="icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h5>Client First</h5>
+                    <p>Your satisfaction is our greatest reward.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+        ============================================================ -->
+
+
+    <!-- ============================================================
+    PROCESS
+    
+    <section class="process" id="process">
+        <div class="container">
+            <span class="section-tag reveal">How We Work</span>
+            <h2 class="section-title reveal">Our <span class="highlight">Process</span></h2>
+            <p class="section-sub reveal">A seamless journey from your initial idea to the final installation.</p>
+            <div class="process-timeline reveal">
+                <div class="process-step"><span class="step-num">01</span> Consultation</div>
+                <div class="process-step"><span class="step-num">02</span> Site Visit &amp; Measure</div>
+                <div class="process-step"><span class="step-num">03</span> Design &amp; 3D Rendering</div>
+                <div class="process-step"><span class="step-num">04</span> Manufacturing</div>
+                <div class="process-step"><span class="step-num">05</span> Installation &amp; Review</div>
+            </div>
+        </div>
+    </section>
+
+
+    ============================================================ -->
+
+
+    <!-- ============================================================
+    CONTACT
+    ============================================================ -->
+    <section class="contact" id="contact">
+        <div class="container contact-grid">
+            <div class="contact-info reveal-left">
+                <div class="contact-image" style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');"></div>
+                <span class="section-tag">Get In Touch</span>
+                <h2 class="section-title">Let's <span class="highlight">Create</span> Together</h2>
+                <p>Reach out for a free consultation. We'll bring your vision to life.</p>
+                <div class="detail"><i class="fas fa-map-marker-alt"></i>202 shivam Residency Dombivli , maharashtra</div>
+                <div class="detail"><i class="fas fa-phone-alt"></i>91+ 9867474721</div>
+                <div class="detail"><i class="fas fa-envelope"></i> chauhan.ramvilas@gmail.com</div>
+                <div class="detail"><i class="fas fa-clock"></i> Mon–Fri: 8am – 6pm EST</div>
+                
+            </div>
+
+            <div class="contact-form reveal-right">
+                <h3>Send a Message</h3>
+                <p>We'll respond within 24 hours.</p>
+                <form id="contactForm" onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label for="cName">Full Name</label>
+                        <input type="text" id="cName" placeholder="xyz" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="cEmail">Email Address</label>
+                        <input type="email" id="cEmail" placeholder="xyz@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="cPhone">Phone Number</label>
+                        <input type="tel" id="cPhone" placeholder="+1 (555) 000-0000" />
+                    </div>
+                    <div class="form-group">
+                        <label for="cProject">Project Type</label>
+                        <select id="cProject">
+                            <option value="">Select a project type</option>
+                            <option value="kitchen">Kitchen</option>
+                            <option value="wardrobe">Wardrobe / Closet</option>
+                            <option value="living">Living Room</option>
+                            <option value="office">Office</option>
+                            <option value="dining">Dining Room</option>
+                            <option value="bathroom">Bathroom</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cMessage">Project Details</label>
+                        <textarea id="cMessage" placeholder="Tell us about your vision, timeline, and budget..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">Sudharshan<span>Infra</span></div>
+                    <p>Premium furniture contracting for residential &amp; commercial spaces. Built to last, designed to inspire.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#about">About Us</a>
+                    <a href="#services">Services</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#testimonials">Testimonials</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="#">Kitchen</a>
+                    <a href="#">Wardrobe</a>
+                    <a href="#">Living Room</a>
+                    <a href="#">Office</a>
+                    <a href="#">Dining Room</a>
+                </div>
+
+               
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2025 FurnitureCraft. All rights reserved.</span>
+                <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </button>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- review form-->
+<!-- Review Modal -->
+<div class="review-modal" id="reviewModal">
+    <div class="review-modal-content">
+        <button class="review-modal-close" onclick="closeReviewModal()">&times;</button>
+        
+        <h3><i class="fas fa-star" style="color:#FFD700;"></i> Leave a Review</h3>
+        <p>Your feedback helps us improve!</p>
+        
+        <!-- Rating -->
+        <div class="rating-input">
+            <span>Rating:</span>
+            <div class="stars-input">
+                <i class="fas fa-star" onclick="setRating(1)"></i>
+                <i class="fas fa-star" onclick="setRating(2)"></i>
+                <i class="fas fa-star" onclick="setRating(3)"></i>
+                <i class="fas fa-star" onclick="setRating(4)"></i>
+                <i class="fas fa-star" onclick="setRating(5)"></i>
+            </div>
+            <span id="ratingDisplay">0/5</span>
+        </div>
+        
+        <form id="reviewForm" enctype="multipart/form-data" onsubmit="submitReview(event)">
+            <!-- Photo -->
+            <div class="form-group">
+                <label>Your Photo</label>
+                <input type="file" id="reviewImage" accept="image/*">
+                <img id="reviewPreview" src="/uploads/avatars/default.png" alt="Preview">
+            </div>
+            
+            <!-- Name -->
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="reviewName" placeholder="John Doe" required>
+            </div>
+            
+            <!-- Email -->
+            <div class="form-group">
+                <label>Your Email</label>
+                <input type="email" id="reviewEmail" placeholder="john@example.com" required>
+            </div>
+            
+            <!-- Review -->
+            <div class="form-group">
+                <label>Your Review</label>
+                <textarea id="reviewText" rows="3" placeholder="Share your experience..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-paper-plane"></i> Submit Review
+            </button>
+        </form>
+    </div>
+</div>
+
+    <!-- ============================================================
+    CHAT BOT FLOATING
+    ============================================================ -->
+   <!-- Chatbot -->
+<div id="chatbot-container"></div>
+
+<script src="load-chatbot.js"></script>
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+
+
+
+
+            
+            // load portfilio project
+
+
+            
+async function loadPortfolio() {
+
+    try {
+
+        const response = await fetch("./projects.json");
+        const projects = await response.json();
+
+        console.log(projects); // Check karo data aa raha hai
+
+        const grid = document.getElementById("portfolioGrid");
+
+        grid.innerHTML = "";
+
+        projects.slice(0, 6).forEach(project => {
+
+            grid.innerHTML += `
+                <div class="portfolio-item" data-category="${project.category}">
+
+                    <img src="${project.image}" alt="${project.title}">
+
+                    <div class="portfolio-overlay">
+                        <h3>${project.title}</h3>
+                        <p>${project.category}</p>
+                    </div>
+
+                </div>
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.error("Portfolio Load Error:", err);
+
+    }
+
+}
+
+loadPortfolio();
+
+
+
+            // ============================================================
+            // LOADER
+            // ============================================================
+            window.addEventListener('load', function() {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    setTimeout(function() {
+                        loader.style.opacity = '0';
+                        loader.style.visibility = 'hidden';
+                    }, 400);
+                }
+                initReveal();
+                initPortfolioFilters();
+                initTestimonialSlider();
+                initMobilePortfolio();
+                checkLoginState(); // restore login state from login.html
+            });
+
+
+
+
+
+
+
+            // ============================================================
+            // SCROLL REVEAL
+            // ============================================================
+            function initReveal() {
+                const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+                els.forEach(function(el) {
+                    observer.observe(el);
+                });
+            }
+
+            // ============================================================
+            // HEADER SCROLL
+            // ============================================================
+            const header = document.getElementById('header');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                if (scrollY > 50) {
+                    header.classList.add('scrolled');
+                    if (scrollY > lastScrollY && scrollY > 200) {
+                        header.classList.add('hidden');
+                    } else {
+                        header.classList.remove('hidden');
+                    }
+                } else {
+                    header.classList.remove('scrolled');
+                    header.classList.remove('hidden');
+                }
+                lastScrollY = scrollY;
+            });
+
+            // ============================================================
+            // MOBILE MENU — slides from left
+            // ============================================================
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            const icon = hamburger.querySelector('i');
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // ============================================================
+            // ACTIVE NAV LINK
+            // ============================================================
+            const sections = document.querySelectorAll('section[id]');
+            const allNavLinks = document.querySelectorAll('.nav-links a');
+
+            function updateActiveNav() {
+                let current = 'hero';
+                sections.forEach(function(section) {
+                    const top = section.offsetTop - 120;
+                    if (window.scrollY >= top) {
+                        current = section.id;
+                    }
+                });
+                allNavLinks.forEach(function(link) {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveNav);
+            window.addEventListener('load', updateActiveNav);
+
+            // ============================================================
+            // PORTFOLIO FILTERS
+            // ============================================================
+            function initPortfolioFilters() {
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+                filterBtns.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        filterBtns.forEach(function(b) { b.classList.remove('active'); });
+                        this.classList.add('active');
+
+                        const filter = this.getAttribute('data-filter');
+
+                        portfolioItems.forEach(function(item) {
+                            const category = item.getAttribute('data-category');
+                            if (filter === 'all' || category === filter) {
+                                item.style.display = 'block';
+                                item.classList.remove('show-overlay');
+                                setTimeout(function() {
+                                    item.classList.add('visible');
+                                }, 80);
+                            } else {
+                                item.classList.remove('visible', 'show-overlay');
+                                setTimeout(function() {
+                                    item.style.display = 'none';
+                                }, 300);
+                            }
+                        });
+                    });
+                });
+
+                portfolioItems.forEach(function(item, index) {
+                    setTimeout(function() {
+                        item.classList.add('visible');
+                    }, index * 80);
+                });
+            }
+
+            // ============================================================
+            // MOBILE PORTFOLIO — tap to toggle overlay
+            // ============================================================
+            function initMobilePortfolio() {
+                const items = document.querySelectorAll('.portfolio-item');
+
+                items.forEach(function(item) {
+                    item.addEventListener('click', function(e) {
+                        if (e.target.closest('.overlay-btn')) return;
+                        items.forEach(function(other) {
+                            if (other !== this) {
+                                other.classList.remove('show-overlay');
+                            }
+                        });
+                        this.classList.toggle('show-overlay');
+                    });
+                });
+
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.portfolio-item')) {
+                        items.forEach(function(item) {
+                            item.classList.remove('show-overlay');
+                        });
+                    }
+                });
+            }
+
+            // ============================================================
+            // TESTIMONIAL SLIDER
+            // ============================================================
+            function initTestimonialSlider() {
+                const slides = document.querySelectorAll('.testimonial-slide');
+                const dots = document.querySelectorAll('.dot');
+                let current = 0;
+                let interval;
+
+                function showSlide(index) {
+                    slides.forEach(function(s, i) {
+                        s.classList.remove('active', 'prev');
+                        if (i === index) {
+                            s.classList.add('active');
+                        } else if (i === (index - 1 + slides.length) % slides.length) {
+                            s.classList.add('prev');
+                        }
+                    });
+                    dots.forEach(function(d, i) {
+                        d.classList.toggle('active', i === index);
+                    });
+                    current = index;
+                }
+
+                function nextSlide() {
+                    showSlide((current + 1) % slides.length);
+                }
+
+                dots.forEach(function(dot) {
+                    dot.addEventListener('click', function() {
+                        clearInterval(interval);
+                        const index = parseInt(this.getAttribute('data-slide'));
+                        showSlide(index);
+                        interval = setInterval(nextSlide, 5000);
+                    });
+                });
+
+                interval = setInterval(nextSlide, 5000);
+
+                const wrapper = document.querySelector('.testimonial-slider-wrapper');
+                wrapper.addEventListener('mouseenter', function() {
+                    clearInterval(interval);
+                });
+                wrapper.addEventListener('mouseleave', function() {
+                    interval = setInterval(nextSlide, 5000);
+                });
+            }
+
+
+            // ============================================================
+// REVIEW MODAL FUNCTIONS
+// ============================================================
+
+let selectedRating = 0;
+
+window.openReviewForm = function () {
+
+    const modal = document.getElementById("reviewModal");
+
+    modal.classList.add("show");
+
+    document.body.style.overflow = "hidden";
+
+};
+window.closeReviewModal = function () {
+
+    document.getElementById("reviewModal").classList.remove("show");
+
+    document.body.style.overflow = "";
+
+};
+
+window.setRating = function(rating) {
+    selectedRating = rating;
+    const stars = document.querySelectorAll('.stars-input i');
+    stars.forEach((star, index) => {
+        star.classList.toggle('active', index < rating);
+    });
+    document.getElementById('ratingDisplay').textContent = `${rating}/5`;
+}
+
+window.submitReview = async function(e){
+
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("name", reviewName.value);
+    formData.append("email", reviewEmail.value);
+    formData.append("review", reviewText.value);
+    formData.append("rating", selectedRating);
+
+    if(reviewImage.files.length){
+        formData.append("image", reviewImage.files[0]);
+    }
+
+    const response = await fetch("/api/reviews",{
+
+        method:"POST",
+
+        body:formData
+
+    });
+
+    const data = await response.json();
+
+    if(data.success){
+
+        alert("Review Submitted");
+
+        closeReviewModal();
+
+        loadReviews();
+
+    }
+
+}
+
+
+
+// Close modal on outside click
+document.addEventListener('click', function(e) {
+    const modal = document.getElementById('reviewModal');
+    if (modal && e.target === modal) {
+        closeReviewModal();
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeReviewModal();
+    }
+});
+
+
+// load review
+
+async function loadReviews() {
+
+    try {
+
+        const response = await fetch("/api/reviews");
+        const data = await response.json();
+
+        const container = document.getElementById("reviewsContainer");
+        const dots = document.getElementById("reviewDots");
+
+        container.innerHTML = "";
+        dots.innerHTML = "";
+
+        if (!data.success || data.reviews.length === 0) {
+
+            container.innerHTML = `
+                <div class="testimonial-slide active">
+                    <p class="text">No reviews yet.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        data.reviews.forEach((review, index) => {
+
+            let stars = "";
+
+            for (let i = 0; i < review.rating; i++) {
+                stars += `<i class="fas fa-star"></i>`;
+            }
+
+            const image = review.image
+                ? `/uploads/reviews/${review.image}`
+                : "/uploads/avatars/default.png";
+
+            container.innerHTML += `
+
+                <div class="testimonial-slide ${index === 0 ? "active" : ""}">
+
+                    <div class="stars">
+                        ${stars}
+                    </div>
+
+                    <p class="text">
+                        "${review.review}"
+                    </p>
+
+                    <div class="author">
+
+                        <div class="avatar"
+                             style="background-image:url('${image}')">
+                        </div>
+
+                        <div class="info">
+
+                            <h5>${review.name}</h5>
+
+                            <span>${review.email}</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+            dots.innerHTML += `
+                <span class="dot ${index === 0 ? "active" : ""}"
+                      data-slide="${index}">
+                </span>
+            `;
+
+        });
+
+        initTestimonialSlider();
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
+}
+
+loadReviews();
+            // ============================================================
+            // CONTACT FORM
+            // ============================================================
+            window.handleContact = function(e) {
+                e.preventDefault();
+                const btn = document.getElementById('submitBtn');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                btn.disabled = true;
+
+                setTimeout(function() {
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Sent!';
+                    btn.style.background = '#2c5530';
+                    setTimeout(function() {
+                        btn.innerHTML = original;
+                        btn.style.background = '';
+                        btn.disabled = false;
+                        document.getElementById('contactForm').reset();
+                    }, 2000);
+                }, 1500);
+            };
+
+            // ============================================================
+            // NEWSLETTER
+            // ============================================================
+            window.handleNewsletter = function() {
+                const input = document.getElementById('newsletterEmail');
+                const email = input.value.trim();
+                if (!email || !email.includes('@')) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                const original = input.placeholder;
+                input.placeholder = '✓ Subscribed!';
+                input.value = '';
+                setTimeout(function() {
+                    input.placeholder = original;
+                }, 2500);
+            };
+
+            // ============================================================
+            // SMOOTH SCROLL
+            // ============================================================
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const offset = 80;
+                        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // ============================================================
+            // CHAT WIDGET
+            // ============================================================
+            const chat = document.getElementById('chatWidget');
+            chat.onclick = function() {
+                alert('Open Chatbot');
+            };
+
+
+            // ============================================================
+            // LOGIN / LOGOUT FUNCTIONALITY - Linked to login.html
+            // ============================================================
+            
+            // Check login state from localStorage (set by login.html)
+          function checkLoginState() {
+
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const userName = localStorage.getItem('userName') || 'User';
+
+    const loginBtn = document.getElementById('loginBtn');
+    const welcomeUser = document.getElementById('welcomeUser');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+
+    if (isLoggedIn) {
+
+        loginBtn.style.display = 'none';
+        welcomeUser.style.display = 'flex';
+        userNameDisplay.textContent = userName;
+
+    } else {
+
+        loginBtn.style.display = 'inline-flex';
+        welcomeUser.style.display = 'none';
+
+    }
+
+}function checkLoginState() {
+
+    const loginBtn = document.getElementById("loginBtn");
+    const welcomeUser = document.getElementById("welcomeUser");
+    const userNameDisplay = document.getElementById("userNameDisplay");
+
+    const userName = localStorage.getItem("userName");
+
+    if (userName) {
+
+        loginBtn.style.display = "none";
+        welcomeUser.style.display = "flex";
+        userNameDisplay.textContent = userName;
+
+    } else {
+
+        loginBtn.style.display = "inline-flex";
+        welcomeUser.style.display = "none";
+
+    }
+}
+            // Logout on click - show confirmation
+            document.getElementById('welcomeUser')?.addEventListener('click', function() {
+                if (confirm('Logout?')) {
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('userName');
+                    // Update UI
+                    const loginBtn = document.getElementById('loginBtn');
+                    const welcomeUser = document.getElementById('welcomeUser');
+                    loginBtn.style.display = 'inline-flex';
+                    welcomeUser.style.display = 'none';
+                    // Refresh page to show login button
+                    location.reload();
+                }
+            });
+
+            // Listen for storage changes (if user logs in from another tab)
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'isLoggedIn' || e.key === 'userName') {
+                    checkLoginState();
+                }
+            });
+
+            // Check login state on page load
+            checkLoginState();
+
+        })();
+    </script>
+
+   
+
+</body>
+</html>

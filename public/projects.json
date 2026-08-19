@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "title": "Luxury Bedroom",
+    "image": "images/project3.jpg",
+    "category": "luxury",
+    "location": "Miami, USA",
+    "year": "2025",
+    "description": "Premium bedroom interior with elegant furniture, modern lighting and luxury finishes.",
+    "tags": ["Interior", "Luxury", "Bedroom"],
+    "link": "project3.html"
+  },
+  {
+    "id": 2,
+    "title": "Modern Minimalist Penthouse",
+    "image": "images/project1.jpg",
+    "category": "residential",
+    "location": "Manhattan, NYC",
+    "year": "2025",
+    "description": "A sculptural urban sanctuary defined by clean lines, natural light and bespoke materials.",
+    "tags": ["Interior", "Luxury", "Penthouse"],
+    "link": "project1.html"
+  },
+  {
+    "id": 3,
+    "title": "Luxury Kitchen",
+    "image": "images/project2.jpg",
+    "category": "kitchen",
+    "location": "London",
+    "year": "2025",
+    "description": "Modern luxury kitchen with premium wooden finish.",
+    "tags": ["Kitchen", "Luxury"],
+    "link": "project2.html"
+  },
+    {
+    "id": 2,
+    "title": "Modern Minimalist Penthouse",
+    "image": "images/project1.jpg",
+    "category": "residential",
+    "location": "Manhattan, NYC",
+    "year": "2025",
+    "description": "A sculptural urban sanctuary defined by clean lines, natural light and bespoke materials.",
+    "tags": ["Interior", "Luxury", "Penthouse"],
+    "link": "project1.html"
+  },
+  {
+    "id": 3,
+    "title": "Luxury Kitchen",
+    "image": "images/project2.jpg",
+    "category": "kitchen",
+    "location": "London",
+    "year": "2025",
+    "description": "Modern luxury kitchen with premium wooden finish.",
+    "tags": ["Kitchen", "Luxury"],
+    "link": "project2.html"
+  },
+    {
+    "id": 2,
+    "title": "Modern Minimalist Penthouse",
+    "image": "images/project1.jpg",
+    "category": "residential",
+    "location": "Manhattan, NYC",
+    "year": "2025",
+    "description": "A sculptural urban sanctuary defined by clean lines, natural light and bespoke materials.",
+    "tags": ["Interior", "Luxury", "Penthouse"],
+    "link": "project1.html"
+  },
+  {
+    "id": 3,
+    "title": "Luxury Kitchen",
+    "image": "images/project2.jpg",
+    "category": "kitchen",
+    "location": "London",
+    "year": "2025",
+    "description": "Modern luxury kitchen with premium wooden finish.",
+    "tags": ["Kitchen", "Luxury"],
+    "link": "project2.html"
+  }
+]

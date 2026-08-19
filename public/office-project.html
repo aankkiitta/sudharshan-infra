@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Office Interior </title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <link rel="stylesheet" href="office.css">
+</head>
+
+<body>
+
+    <!-- ============================================================
+    LOADER
+    ============================================================ -->
+    <div id="loader" style="position:fixed;inset:0;z-index:9999;background:#FAF8F5;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.6s ease,visibility 0.6s ease;">
+        <div style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(44,85,48,0.12);border-top-color:var(--color-primary);animation:spin 0.8s linear infinite;"></div>
+        <span style="font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--color-text-light);font-weight:500;">Loading</span>
+        <style>
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </div>
+
+    <!-- ============================================================
+    HEADER
+    ============================================================ -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+              <a href="next1.html" class="logo">
+    <img src="/uploads/logo.png" alt="Sudharshan Infra Logo">
+</a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="next1.html">Home</a></li>
+                    <li><a href="next1.html#services" class="active">Office Interior</a></li>
+                    <li><a href="next1.html#portfolio">Portfolio</a></li>
+                    <li><a href="next1.html#about">About</a></li>
+                    <li><a href="next1.html#testimonials">Testimonials</a></li>
+                    <li><a href="next1.html#contact">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-toggle" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    1. PAGE BANNER
+    ============================================================ -->
+    <section class="page-banner">
+        <div class="container">
+            <div class="banner-content reveal">
+                <span class="section-tag">Office Interior</span>
+                <h1>Office <span class="highlight">Interior</span> Design</h1>
+                <p>
+    Complete office interior fit-outs including partitions,
+    false ceilings, flooring, modular workspaces, lighting,
+    and turnkey workspace solutions.
+</p>
+
+                <div class="breadcrumb">
+                    <a href="next1.html">Home</a>
+                    <span class="sep"><i class="fas fa-chevron-right" style="font-size:0.5rem;"></i></span>
+                    <a href="next1.html#services">Services</a>
+                    <span class="sep"><i class="fas fa-chevron-right" style="font-size:0.5rem;"></i></span>
+                    <span class="current">Office Interior</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    2. ABOUT OFFICE INTERIOR
+    ============================================================ -->
+  <section class="about-office">
+    <div class="container">
+
+        <div class="about-office-grid">
+
+            <div class="about-office-image reveal-left"
+                style="background-image:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80');">
+            </div>
+
+            <div class="about-office-content reveal-right">
+
+                <span class="section-tag">About Our Service</span>
+
+                <h2 class="section-title">
+                    Professional <span class="highlight">Office Interior</span> Solutions
+                </h2>
+
+                <p>
+                    Sudharshan Infra delivers complete office interior solutions
+                    that combine modern design, functionality, and quality
+                    craftsmanship. We create efficient workspaces that enhance
+                    productivity while reflecting your company's vision and identity.
+                </p>
+
+                <p>
+                    From space planning and partitions to false ceilings, flooring,
+                    electrical works, furniture installation, and turnkey execution,
+                    our experienced team manages every stage of the project with
+                    precision, quality, and timely delivery.
+                </p>
+
+                <ul class="highlight-list">
+                    <li><i class="fas fa-check-circle"></i> Space Planning & Interior Design</li>
+                    <li><i class="fas fa-check-circle"></i> Modular Workstations & Office Furniture</li>
+                    <li><i class="fas fa-check-circle"></i> False Ceiling, Flooring & Partitions</li>
+                    <li><i class="fas fa-check-circle"></i> Electrical, Plumbing & Turnkey Execution</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+  <!-- ============================================================
+3. OFFICE PROJECTS WE DELIVER
+============================================================ -->
+<section class="office-spaces">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Our Expertise</span>
+            <h2 class="section-title">
+                Office Solutions <span class="highlight">We Deliver</span>
+            </h2>
+            <p class="section-sub" style="margin:8px auto 0;">
+                End-to-end office interior and fit-out solutions tailored to every business environment.
+            </p>
+        </div>
+
+        <div class="spaces-grid">
+
+            <div class="space-card reveal" style="transition-delay:0.05s;">
+                <div class="space-icon"><i class="fas fa-building"></i></div>
+                <h4>Corporate Offices</h4>
+                <p>Complete office interiors for corporate headquarters and commercial workspaces.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.10s;">
+                <div class="space-icon"><i class="fas fa-rocket"></i></div>
+                <h4>Startup Offices</h4>
+                <p>Smart, flexible office layouts designed for growing businesses and startups.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.15s;">
+                <div class="space-icon"><i class="fas fa-user-tie"></i></div>
+                <h4>Executive Cabins</h4>
+                <p>Premium executive cabins with elegant interiors and functional layouts.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.20s;">
+                <div class="space-icon"><i class="fas fa-users"></i></div>
+                <h4>Open Workstations</h4>
+                <p>Efficient workstation layouts that maximize productivity and collaboration.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.25s;">
+                <div class="space-icon"><i class="fas fa-door-open"></i></div>
+                <h4>Reception Areas</h4>
+                <p>Modern reception spaces that create a lasting first impression for visitors.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.30s;">
+                <div class="space-icon"><i class="fas fa-chalkboard"></i></div>
+                <h4>Conference Rooms</h4>
+                <p>Professional meeting rooms with functional layouts and premium finishes.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.35s;">
+                <div class="space-icon"><i class="fas fa-layer-group"></i></div>
+                <h4>Glass Partitions</h4>
+                <p>Modern glass partition systems for privacy while maintaining openness.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.40s;">
+                <div class="space-icon"><i class="fas fa-border-all"></i></div>
+                <h4>False Ceilings</h4>
+                <p>Premium false ceiling solutions with integrated lighting and clean finishes.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.45s;">
+                <div class="space-icon"><i class="fas fa-lightbulb"></i></div>
+                <h4>Electrical & Lighting</h4>
+                <p>Complete electrical installation and modern lighting solutions for offices.</p>
+            </div>
+
+            <div class="space-card reveal" style="transition-delay:0.50s;">
+                <div class="space-icon"><i class="fas fa-tools"></i></div>
+                <h4>Turnkey Fit-Outs</h4>
+                <p>Complete office fit-out services from design and planning to final handover.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+    <!-- ============================================================
+    4. OUR WORKING PROCESS — VERTICAL TIMELINE
+    ============================================================ -->
+<!-- ============================================================
+4. OUR WORKING PROCESS
+============================================================ -->
+<section class="working-process">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Our Process</span>
+            <h2 class="section-title">
+                Our <span class="highlight">Working Process</span>
+            </h2>
+            <p class="section-sub">
+                A systematic approach to delivering high-quality office interior solutions.
+            </p>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-step reveal" style="transition-delay:0.05s;">
+                <div class="step-number">01</div>
+                <h5>Consultation</h5>
+                <p>We discuss your business requirements, workspace goals, budget, and project timeline.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.10s;">
+                <div class="step-number">02</div>
+                <h5>Site Survey</h5>
+                <p>Our experts inspect the site, take measurements, and evaluate project requirements.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.15s;">
+                <div class="step-number">03</div>
+                <h5>Design & Planning</h5>
+                <p>Customized layouts, space planning, and material specifications are prepared for approval.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.20s;">
+                <div class="step-number">04</div>
+                <h5>Project Proposal</h5>
+                <p>We submit a detailed quotation, project schedule, and execution plan.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.25s;">
+                <div class="step-number">05</div>
+                <h5>Execution</h5>
+                <p>Our skilled team carries out civil, electrical, plumbing, furniture, and interior works.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.30s;">
+                <div class="step-number">06</div>
+                <h5>Quality Assurance</h5>
+                <p>Every stage is monitored to ensure quality, safety, and compliance with project standards.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.35s;">
+                <div class="step-number">07</div>
+                <h5>Project Handover</h5>
+                <p>After final inspection, the completed workspace is handed over to the client.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.40s;">
+                <div class="step-number">08</div>
+                <h5>After-Sales Support</h5>
+                <p>We provide ongoing maintenance and dedicated support to ensure lasting client satisfaction.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<!-- ============================================================
+5. WHAT'S INCLUDED
+============================================================ -->
+<section class="what-included">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Complete Turnkey Solutions</span>
+
+            <h2 class="section-title">
+                What's <span class="highlight">Included</span>
+            </h2>
+
+            <p class="section-sub" style="margin:8px auto 0;">
+                Comprehensive office interior solutions designed to deliver
+                functional, modern, and productive workspaces.
+            </p>
+        </div>
+
+        <ul class="included-grid">
+
+            <li class="reveal" style="transition-delay:0.05s;">
+                <i class="fas fa-check-circle"></i>
+                Site Survey & Space Planning
+            </li>
+
+            <li class="reveal" style="transition-delay:0.10s;">
+                <i class="fas fa-check-circle"></i>
+                Interior Design & 3D Visualization
+            </li>
+
+            <li class="reveal" style="transition-delay:0.15s;">
+                <i class="fas fa-check-circle"></i>
+                Modular Workstations & Office Furniture
+            </li>
+
+            <li class="reveal" style="transition-delay:0.20s;">
+                <i class="fas fa-check-circle"></i>
+                Executive Cabins & Conference Rooms
+            </li>
+
+            <li class="reveal" style="transition-delay:0.25s;">
+                <i class="fas fa-check-circle"></i>
+                Glass Partitions & False Ceilings
+            </li>
+
+            <li class="reveal" style="transition-delay:0.30s;">
+                <i class="fas fa-check-circle"></i>
+                Electrical & Lighting Installation
+            </li>
+
+            <li class="reveal" style="transition-delay:0.35s;">
+                <i class="fas fa-check-circle"></i>
+                Flooring & Wall Finishing
+            </li>
+
+            <li class="reveal" style="transition-delay:0.40s;">
+                <i class="fas fa-check-circle"></i>
+                Painting & Decorative Finishes
+            </li>
+
+            <li class="reveal" style="transition-delay:0.45s;">
+                <i class="fas fa-check-circle"></i>
+                HVAC, Plumbing & Utility Coordination
+            </li>
+
+            <li class="reveal" style="transition-delay:0.50s;">
+                <i class="fas fa-check-circle"></i>
+                Quality Inspection & Safety Checks
+            </li>
+
+            <li class="reveal" style="transition-delay:0.55s;">
+                <i class="fas fa-check-circle"></i>
+                Project Handover & Documentation
+            </li>
+
+            <li class="reveal" style="transition-delay:0.60s;">
+                <i class="fas fa-check-circle"></i>
+                After-Sales Support & Maintenance
+            </li>
+
+        </ul>
+
+    </div>
+</section>
+
+<!-- ============================================================
+6. WHY CHOOSE SUDHARSHAN INFRA
+============================================================ -->
+<section class="why-choose-office">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Why Choose Us</span>
+
+            <h2 class="section-title">
+                Why Choose <span class="highlight">Sudharshan Infra</span>
+            </h2>
+
+            <p class="section-sub" style="margin:8px auto 0;">
+                Your trusted partner for innovative, high-quality, and turnkey office interior solutions.
+            </p>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card reveal" style="transition-delay:0.05s;">
+                <div class="icon"><i class="fas fa-award"></i></div>
+                <h5>Industry Experience</h5>
+                <p>Proven expertise in delivering successful commercial and corporate interior projects.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.10s;">
+                <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                <h5>Innovative Design</h5>
+                <p>Creative workspace solutions that combine aesthetics, functionality, and efficiency.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.15s;">
+                <div class="icon"><i class="fas fa-gem"></i></div>
+                <h5>Premium Quality</h5>
+                <p>High-quality materials and superior craftsmanship for durable, elegant interiors.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.20s;">
+                <div class="icon"><i class="fas fa-project-diagram"></i></div>
+                <h5>Turnkey Execution</h5>
+                <p>Complete project management from planning and design to execution and handover.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.25s;">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <h5>On-Time Delivery</h5>
+                <p>Efficient project execution with strict adherence to timelines and milestones.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.30s;">
+                <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                <h5>Transparent Pricing</h5>
+                <p>Clear quotations with no hidden charges, ensuring complete cost transparency.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.35s;">
+                <div class="icon"><i class="fas fa-shield-check"></i></div>
+                <h5>Quality & Safety</h5>
+                <p>Strict quality control and safety standards maintained throughout every project.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.40s;">
+                <div class="icon"><i class="fas fa-headset"></i></div>
+                <h5>Dedicated Support</h5>
+                <p>Reliable after-sales assistance and maintenance for complete client satisfaction.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ============================================================
+PROJECT GALLERY
+============================================================ -->
+<section class="project-gallery">
+
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Gallery</span>
+
+            <h2 class="section-title">
+                Our <span class="highlight">Projects</span>
+            </h2>
+
+            <p class="section-sub">
+                A glimpse into our office interior transformations.
+            </p>
+        </div>
+
+        <div class="gallery-slider">
+
+            <!-- Left Arrow -->
+            <button class="slider-arrow left" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <!-- Cards -->
+            <div class="gallery-track" id="officeProjects">
+
+                <!-- JSON se cards yaha aayenge -->
+
+            </div>
+
+            <!-- Right Arrow -->
+            <button class="slider-arrow right" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+   <!-- ============================================================
+11. FREQUENTLY ASKED QUESTIONS
+============================================================ -->
+<section class="faq-section">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">FAQ</span>
+
+            <h2 class="section-title">
+                Frequently Asked <span class="highlight">Questions</span>
+            </h2>
+
+            <p class="section-sub" style="margin:8px auto 0;">
+                Everything you need to know about our office interior and turnkey solutions.
+            </p>
+        </div>
+
+        <div class="faq-list">
+
+            <div class="faq-item active reveal" style="transition-delay:0.05s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you provide complete turnkey office interior solutions?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Yes. We handle every stage of the project, including design,
+                    civil work, electrical, plumbing, false ceilings, flooring,
+                    furniture, installation, and final handover.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.10s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>How long does an office interior project take?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    The duration depends on the project size and scope.
+                    We provide a detailed timeline before work begins and
+                    ensure timely project completion.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.15s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Can you customize the design to match our brand?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely. Every workspace is customized to reflect your
+                    company's brand identity, workflow, and functional requirements.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.20s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you work within a specific project budget?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Yes. We offer cost-effective solutions with transparent
+                    pricing while maintaining high standards of quality and workmanship.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.25s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you provide post-project support?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Yes. We provide after-sales support, maintenance services,
+                    and prompt assistance to ensure long-term client satisfaction.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- ============================================================
+12. FINAL CALL TO ACTION
+============================================================ -->
+<section class="final-info">
+    <div class="container">
+
+        <div class="final-content reveal">
+
+            <span class="section-tag">Let's Build Together</span>
+
+            <h2 class="section-title">
+                Transform Your <span class="highlight">Workspace</span> with Confidence
+            </h2>
+
+            <p>
+                At Sudharshan Infra, we believe every workspace should reflect
+                your organization's vision, culture, and operational goals.
+                Our experienced team delivers customized office interior and
+                turnkey solutions that combine functionality, innovation,
+                and superior craftsmanship.
+            </p>
+
+            <p style="margin-top:12px;">
+                From concept and design to execution and project handover,
+                we ensure every detail is managed with precision, quality,
+                and professionalism. Let us help you create a workspace that
+                inspires productivity and supports your business growth.
+            </p>
+
+            <div class="final-cta">
+                <a href="#contact" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    Get a Free Consultation
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+  <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">Sudarshan<span>Infra</span></div>
+                    <p>Premium furniture contracting for residential &amp; commercial spaces. Built to last, designed to inspire.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="next1.html#about">About Us</a>
+                    <a href="next1.html">Civil & Finishing</a>
+                    <a href="next1.html#portfolio">Portfolio</a>
+                    <a href="next1.html#testimonials">Testimonials</a>
+                    <a href="next1.html#contact">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="next1.html">Civil & Finishing</a>
+                    <a href="next1.html#services">Residential</a>
+                    <a href="next1.html#services">Kitchen</a>
+                    <a href="next1.html#services">Wardrobe</a>
+                    <a href="next1.html#services">Living Room</a>
+                </div>
+
+                <div class="footer-col footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for design inspiration and exclusive offers.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address" id="newsletterEmail" />
+                        <button class="btn-primary" onclick="handleNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2025 SudarshanInfra. All rights reserved.</span>
+                <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    CHAT WIDGET
+    ============================================================ -->
+    <div class="chat-widget" id="chatWidget">
+        <img src="chatbot1.png" alt="Chatbot">
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // LOADER
+            // ============================================================
+            window.addEventListener('load', function() {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    setTimeout(function() {
+                        loader.style.opacity = '0';
+                        loader.style.visibility = 'hidden';
+                    }, 400);
+                }
+                initReveal();
+                initFaq();
+            });
+
+            // ============================================================
+            // SCROLL REVEAL
+            // ============================================================
+            function initReveal() {
+                const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+                els.forEach(function(el) {
+                    observer.observe(el);
+                });
+            }
+
+            // ============================================================
+            // HEADER SCROLL
+            // ============================================================
+            const header = document.getElementById('header');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                if (scrollY > 50) {
+                    header.classList.add('scrolled');
+                    if (scrollY > lastScrollY && scrollY > 200) {
+                        header.classList.add('hidden');
+                    } else {
+                        header.classList.remove('hidden');
+                    }
+                } else {
+                    header.classList.remove('scrolled');
+                    header.classList.remove('hidden');
+                }
+                lastScrollY = scrollY;
+            });
+
+            // ============================================================
+            // MOBILE MENU
+            // ============================================================
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            const icon = hamburger.querySelector('i');
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                }
+            });
+
+
+
+
+// card slider
+
+let current = 0;
+const cardWidth = 375;
+
+async function loadGallery(){
+
+    const response = await fetch("projects.json");
+    const projects = await response.json();
+
+    const track = document.getElementById("officeProjects");
+
+    track.innerHTML = "";
+
+    projects.forEach(project=>{
+
+        track.innerHTML += `
+
+        <div class="gallery-item">
+
+            <img src="${project.image}" alt="${project.title}">
+
+            <div class="gallery-label">
+
+                ${project.title}
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById("nextBtn").onclick = ()=>{
+
+        if(current < projects.length-3){
+
+            current++;
+
+            track.style.transform=
+            `translateX(-${current*cardWidth}px)`;
+
+        }
+
+    };
+
+    document.getElementById("prevBtn").onclick = ()=>{
+
+        if(current>0){
+
+            current--;
+
+            track.style.transform=
+            `translateX(-${current*cardWidth}px)`;
+
+        }
+
+    };
+
+}
+
+loadGallery();
+
+
+
+
+
+            async function loadOfficeProjects() {
+    try {
+
+        const response = await fetch("projects.json");
+        const data = await response.json();
+
+        console.log(data);
+
+        const gallery = document.getElementById("officeProjects");
+
+        gallery.innerHTML = "";
+
+        data.forEach(project => {
+
+            gallery.innerHTML += `
+                <div class="gallery-item">
+                    <img src="${project.image}" alt="${project.title}">
+                    <div class="gallery-label">${project.title}</div>
+                </div>
+            `;
+
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadOfficeProjects);
+            // ============================================================
+            // FAQ TOGGLE
+            // ============================================================
+            function initFaq() {
+                const firstFaq = document.querySelector('.faq-item.active');
+                if (firstFaq) {
+                    firstFaq.querySelector('.faq-answer').style.maxHeight = firstFaq.querySelector('.faq-answer')
+                        .scrollHeight + 'px';
+                }
+            }
+
+            window.toggleFaq = function(el) {
+                const parent = el.closest('.faq-item');
+                const isActive = parent.classList.contains('active');
+
+                const siblings = parent.parentElement.querySelectorAll('.faq-item');
+                siblings.forEach(function(sib) {
+                    if (sib !== parent) {
+                        sib.classList.remove('active');
+                        const answer = sib.querySelector('.faq-answer');
+                        if (answer) {
+                            answer.style.maxHeight = '0';
+                        }
+                    }
+                });
+
+                parent.classList.toggle('active');
+                const answer = parent.querySelector('.faq-answer');
+                if (answer) {
+                    if (parent.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    } else {
+                        answer.style.maxHeight = '0';
+                    }
+                }
+            };
+
+            // ============================================================
+            // NEWSLETTER
+            // ============================================================
+            window.handleNewsletter = function() {
+                const input = document.getElementById('newsletterEmail');
+                const email = input.value.trim();
+                if (!email || !email.includes('@')) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                const original = input.placeholder;
+                input.placeholder = '✓ Subscribed!';
+                input.value = '';
+                setTimeout(function() {
+                    input.placeholder = original;
+                }, 2500);
+            };
+
+            // ============================================================
+            // SMOOTH SCROLL
+            // ============================================================
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const offset = 80;
+                        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // ============================================================
+            // CHAT WIDGET
+            // ============================================================
+            const chat = document.getElementById('chatWidget');
+            chat.onclick = function() {
+                alert('Open Chatbot');
+            };
+
+            // ============================================================
+            // ACTIVE NAV LINK
+            // ============================================================
+            const allNavLinks = document.querySelectorAll('.nav-links a');
+            allNavLinks.forEach(function(link) {
+                if (link.getAttribute('href') === 'office.html' || link.getAttribute('href') === '#') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+</html>

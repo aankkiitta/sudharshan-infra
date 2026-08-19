@@ -1,0 +1,1217 @@
+<!-- ============================================================
+     REUSABLE CHATBOT COMPONENT – SudarshanInfra AI Assistant
+     Embed via: <script src="/chatbot/load-chatbot.js"></script>
+     ============================================================ -->
+<div class="chat-widget" id="chatWidget">
+  <img src="/uploads/chatbot1.png" alt="Chat with SudarshanInfra">
+</div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="chat-side-panel" id="chatSidePanel">
+  <div class="panel-header">
+    <div class="logo">🪑</div>
+    <span class="title">SudarshanInfra</span>
+
+    <button class="panel-close" id="closePanelBtn">✕</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="message bot">
+      <span class="icon">👋</span> Hello! Welcome to SudarshanInfra.<br>
+      I'm your virtual assistant. I can help with<br>
+      • Office Interior • Furniture • False Ceiling • Painting<br>
+      • Electrical • Civil • Maintenance • Free Quotation<br><br>
+      How may I help you today?
+      <div class="quick-grid" id="quickGrid">
+        <button class="quick-btn" data-text="Office Interior">🏢 Office Interior</button>
+        <button class="quick-btn" data-text="Office Furniture">🪑 Furniture</button>
+        <button class="quick-btn" data-text="Maintenance">🔧 Maintenance</button>
+        <button class="quick-btn" data-text="False Ceiling">📐 False Ceiling</button>
+        <button class="quick-btn" data-text="Painting">🎨 Painting</button>
+        <button class="quick-btn" data-text="Electrical">⚡ Electrical</button>
+        <button class="quick-btn" data-text="Quotation">💰 Quotation</button>
+        <button class="quick-btn" data-text="Contact Us">📞 Contact</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Ask about interior, furniture, quotation..." autocomplete="off" />
+    <button id="sendBtn">Send</button>
+  </div>
+</div>
+<style>
+
+  /* ============================================================
+   CHATBOT STYLES – Refactored & Clean
+   Design System: Green Theme | Glassmorphism
+   Spacing Scale: 8px, 12px, 16px, 20px, 24px
+   ============================================================ */
+
+/* ============================================================
+   1. FLOATING WIDGET
+   ============================================================ */
+.chat-widget {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  z-index: 999999;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+.chat-widget img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 24px rgba(0, 30, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.chat-widget:hover {
+  transform: scale(1.08);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ============================================================
+   2. OVERLAY
+   ============================================================ */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999997;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   3. CHAT PANEL - Main Container
+   ============================================================ */
+.chat-side-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 480px;
+  max-width: 94vw;
+  height: 72vh;
+  max-height: 700px;
+  min-height: 450px;
+  z-index: 9999998;
+  
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 20px 50px rgba(0, 20, 0, 0.18);
+  border: 1px solid rgba(42, 107, 60, 0.15);
+  border-radius: 32px;
+  
+  /* Flex Layout */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  /* Animation */
+  transform: scale(0.85) translateY(30px);
+  transform-origin: bottom right;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  opacity: 0;
+  
+  color: #1a1a1a;
+  pointer-events: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.chat-side-panel.open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   4. HEADER
+   ============================================================ */
+.panel-header {
+  background: #2a6b3c;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-bottom: 2px solid #1e4f2b;
+}
+
+.panel-header .logo {
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.panel-header .title {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #fff;
+  letter-spacing: -0.2px;
+}
+
+.panel-header .status {
+  font-size: 0.6rem;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 14px;
+  border-radius: 40px;
+  color: #e6f5e6;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.panel-close {
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 40px;
+  font-size: 18px;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.panel-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: rotate(90deg);
+}
+
+/* ============================================================
+   5. MESSAGES AREA
+   ============================================================ */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  background: rgba(250, 248, 245, 0.3);
+}
+
+/* Scrollbar - doesn't affect content width */
+.chat-messages::-webkit-scrollbar {
+  width: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background: #3d8b52;
+  border-radius: 10px;
+}
+
+/* Firefox scrollbar */
+.chat-messages {
+  scrollbar-width: thin;
+  scrollbar-color: #3d8b52 transparent;
+}
+
+/* ============================================================
+   6. MESSAGES
+   ============================================================ */
+.message {
+  max-width: 88%;
+  padding: 10px 16px;
+  border-radius: 20px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  animation: msgIn 0.25s ease;
+  word-break: break-word;
+  color: #1a1a1a;
+}
+
+@keyframes msgIn {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.message.bot {
+  align-self: flex-start;
+  background: #e8f0e5;
+  border: 1px solid #d0dfcb;
+  border-bottom-left-radius: 4px;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: #2a6b3c;
+  border: 1px solid #1e4f2b;
+  border-bottom-right-radius: 4px;
+  color: #fff;
+}
+
+.message .icon {
+  margin-right: 6px;
+}
+
+/* ============================================================
+   7. QUICK BUTTONS
+   ============================================================ */
+.quick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.quick-btn {
+  background: white;
+  border: 1.5px solid rgba(42, 107, 60, 0.25);
+  padding: 6px 14px;
+  border-radius: 40px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: #1e4f2b;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.quick-btn:hover {
+  background: #2a6b3c;
+  color: white;
+  border-color: #2a6b3c;
+  transform: scale(0.96);
+}
+
+/* ============================================================
+   8. TYPING INDICATOR
+   ============================================================ */
+.typing-indicator {
+  display: flex;
+  gap: 4px;
+  padding: 8px 14px;
+  background: #e8f0e5;
+  border-radius: 30px;
+  width: fit-content;
+  align-self: flex-start;
+  border: 1px solid #d0dfcb;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: #3d8b52;
+  border-radius: 50%;
+  animation: blink 1.2s infinite;
+}
+
+.typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 60% { opacity: 0.3; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ============================================================
+   9. INPUT AREA
+   ============================================================ */
+.chat-input-area {
+  padding: 10px 20px 16px;
+  background: rgba(250, 248, 245, 0.7);
+  border-top: 1px solid #e2ddd8;
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.chat-input-area input {
+  flex: 1;
+  border: 2px solid #d4d4d4;
+  border-radius: 60px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  background: #fff;
+  outline: none;
+  transition: all 0.2s ease;
+  color: #1a1a1a;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.chat-input-area input:focus {
+  border-color: #2a6b3c;
+  box-shadow: 0 0 0 3px rgba(42, 107, 60, 0.15);
+}
+
+.chat-input-area input::placeholder {
+  color: #999;
+}
+
+.chat-input-area button {
+  background: #2a6b3c;
+  border: none;
+  border-radius: 60px;
+  padding: 10px 24px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #1e4f2b;
+  white-space: nowrap;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.chat-input-area button:hover {
+  background: #1e4f2b;
+  transform: scale(0.97);
+}
+
+/* ============================================================
+   10. QUOTATION FORM
+   ============================================================ */
+.quote-form-container {
+  background: white;
+  border-radius: 20px;
+  padding: 18px 20px;
+  margin: 6px 0 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e0e8e0;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.quote-form-container.active {
+  display: flex;
+}
+
+.quote-form-container .form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quote-form-container label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1e4f2b;
+  letter-spacing: 0.3px;
+}
+
+.quote-form-container input,
+.quote-form-container select,
+.quote-form-container textarea {
+  padding: 10px 14px;
+  border: 1.5px solid #d0d8d0;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  background: #fafcfa;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  width: 100%;
+  color: #1a1a1a;
+  box-sizing: border-box;
+}
+
+.quote-form-container input:focus,
+.quote-form-container select:focus,
+.quote-form-container textarea:focus {
+  border-color: #2a6b3c;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(42, 107, 60, 0.12);
+}
+
+.quote-form-container textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.quote-form-container .submit-quote-btn {
+  background: #2a6b3c;
+  border: none;
+  padding: 12px;
+  border-radius: 40px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 4px;
+  border: 1px solid #1e4f2b;
+  font-family: inherit;
+}
+
+.quote-form-container .submit-quote-btn:hover {
+  background: #1e4f2b;
+  transform: scale(0.98);
+}
+
+/* ============================================================
+   11. TABLET RESPONSIVE (769px - 1024px)
+   ============================================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .chat-side-panel {
+    width: 440px;
+    max-width: 90vw;
+    height: 70vh;
+    max-height: 650px;
+    min-height: 400px;
+  }
+
+  .chat-messages {
+    padding: 16px 18px;
+  }
+
+  .chat-input-area {
+    padding: 10px 18px 16px;
+  }
+}
+
+/* ============================================================
+   12. MOBILE RESPONSIVE (up to 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Centered modal */
+  .chat-side-panel {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    width: 92%;
+    max-width: 400px;
+    height: 80vh;
+    max-height: 600px;
+    min-height: 400px;
+    transform: translate(-50%, -50%) scale(0.92);
+    border-radius: 24px;
+  }
+
+  .chat-side-panel.open {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  /* Floating widget */
+  .chat-widget {
+    width: 80px;
+    height: 80px;
+    right: 16px;
+    bottom: 16px;
+  }
+
+  /* Header */
+  .panel-header {
+    padding: 12px 16px;
+    gap: 8px;
+  }
+
+  .panel-header .logo {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  .panel-header .title {
+    font-size: 0.95rem;
+  }
+
+  .panel-header .status {
+    font-size: 0.5rem;
+    padding: 2px 10px;
+  }
+
+  .panel-close {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  /* Messages */
+  .chat-messages {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .message {
+    max-width: 90%;
+    font-size: 0.85rem;
+    padding: 9px 14px;
+  }
+
+  /* Quick buttons - 2 columns */
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .quick-btn {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    border-radius: 10px;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.3;
+  }
+
+  /* Input */
+  .chat-input-area {
+    padding: 8px 14px 14px;
+    gap: 8px;
+  }
+
+  .chat-input-area input {
+    font-size: 0.85rem;
+    padding: 8px 14px;
+  }
+
+  .chat-input-area button {
+    font-size: 0.85rem;
+    padding: 8px 18px;
+  }
+
+  /* Typing indicator */
+  .typing-indicator {
+    padding: 6px 12px;
+  }
+
+  .typing-indicator span {
+    width: 7px;
+    height: 7px;
+  }
+
+  /* Quotation form */
+  .quote-form-container {
+    padding: 14px 16px;
+  }
+
+  .quote-form-container input,
+  .quote-form-container select,
+  .quote-form-container textarea {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+
+  .quote-form-container .submit-quote-btn {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+}
+
+/* ============================================================
+   13. VERY SMALL MOBILE (up to 380px)
+   ============================================================ */
+@media (max-width: 380px) {
+  .chat-side-panel {
+    width: 95%;
+    max-width: 340px;
+    height: 75vh;
+    max-height: 550px;
+    min-height: 350px;
+    border-radius: 20px;
+  }
+
+  .chat-widget {
+    width: 65px;
+    height: 65px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .panel-header {
+    padding: 10px 12px;
+  }
+
+  .panel-header .title {
+    font-size: 0.85rem;
+  }
+
+  .chat-messages {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .message {
+    max-width: 92%;
+    font-size: 0.78rem;
+    padding: 7px 12px;
+  }
+
+  .quick-grid {
+    gap: 6px;
+  }
+
+  .quick-btn {
+    padding: 6px 8px;
+    font-size: 0.68rem;
+  }
+
+  .chat-input-area {
+    padding: 6px 10px 10px;
+    gap: 6px;
+  }
+
+  .chat-input-area input {
+    font-size: 0.78rem;
+    padding: 6px 10px;
+  }
+
+  .chat-input-area button {
+    font-size: 0.78rem;
+    padding: 6px 14px;
+  }
+}
+
+/* ============================================================
+   14. LANDSCAPE MOBILE (height < 500px)
+   ============================================================ */
+@media (max-height: 500px) and (max-width: 768px) {
+  .chat-side-panel {
+    height: 90vh;
+    max-height: 90vh;
+    min-height: 300px;
+  }
+
+  .panel-header {
+    padding: 8px 14px;
+  }
+
+  .panel-header .logo {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+
+  .panel-header .title {
+    font-size: 0.85rem;
+  }
+
+  .chat-messages {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+
+  .message {
+    max-width: 88%;
+    font-size: 0.8rem;
+    padding: 7px 12px;
+  }
+
+  .quick-btn {
+    padding: 5px 10px;
+    font-size: 0.7rem;
+  }
+
+  .chat-input-area {
+    padding: 6px 12px 10px;
+  }
+
+  .chat-input-area input {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .chat-input-area button {
+    font-size: 0.8rem;
+    padding: 6px 14px;
+  }
+}
+</style>
+<script>
+  (function() {
+    // ============================================================
+    // DOM refs
+    // ============================================================
+    const widget = document.getElementById('chatWidget');
+    const sidePanel = document.getElementById('chatSidePanel');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('closePanelBtn');
+    const messages = document.getElementById('chatMessages');
+    const input = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const quickGrid = document.getElementById('quickGrid');
+
+    // ============================================================
+    // Panel controls
+    // ============================================================
+    function openPanel() {
+      sidePanel.classList.add('open');
+      overlay.classList.add('active');
+      setTimeout(() => input.focus(), 250);
+    }
+    function closePanel() {
+      sidePanel.classList.remove('open');
+      overlay.classList.remove('active');
+    }
+
+    // Single widget click handler
+    widget.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (!sidePanel.classList.contains('open')) {
+        openPanel();
+      } else {
+        input.focus();
+      }
+    });
+
+    overlay.addEventListener('click', closePanel);
+    closeBtn.addEventListener('click', closePanel);
+
+    // ============================================================
+    // Message helpers
+    // ============================================================
+    function addMessage(text, sender = 'bot', isHTML = false) {
+      const div = document.createElement('div');
+      div.className = `message ${sender}`;
+      const icon = sender === 'bot' ? '🤖' : '🧑';
+      if (isHTML) {
+        div.innerHTML = `<span class="icon">${icon}</span> ${text}`;
+      } else {
+        div.innerHTML = `<span class="icon">${icon}</span> ${text}`;
+      }
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+      return div;
+    }
+
+    function showTyping() {
+      const div = document.createElement('div');
+      div.className = 'typing-indicator';
+      div.id = 'typingIndicator';
+      div.innerHTML = '<span></span><span></span><span></span>';
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+    function hideTyping() {
+      const el = document.getElementById('typingIndicator');
+      if (el) el.remove();
+    }
+
+    // ============================================================
+    // QUOTATION FORM (embedded in chat)
+    // ============================================================
+    function renderQuoteForm() {
+      const oldForm = document.getElementById('quoteFormContainer');
+      if (oldForm) oldForm.remove();
+
+      const container = document.createElement('div');
+      container.id = 'quoteFormContainer';
+      container.className = 'quote-form-container active';
+      container.innerHTML = `
+        <div class="form-row">
+          <label>Full Name *</label>
+          <input type="text" id="qfName" placeholder="Your full name" />
+        </div>
+        <div class="form-row">
+          <label>Email Address *</label>
+          <input type="email" id="qfEmail" placeholder="you@example.com" />
+        </div>
+        <div class="form-row">
+          <label>Phone Number *</label>
+          <input type="tel" id="qfPhone" placeholder="+91 98765 43210" />
+        </div>
+        <div class="form-row">
+          <label>Project Type</label>
+          <select id="qfProject">
+            <option value="Office">Office</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Painting">Painting</option>
+            <option value="False Ceiling">False Ceiling</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Civil">Civil</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Project Details (Budget, Timeline, Requirements)</label>
+          <textarea id="qfMessage" placeholder="Describe your project..."></textarea>
+        </div>
+        <button class="submit-quote-btn" id="submitQuoteBtn">📩 Submit Quotation</button>
+      `;
+      messages.appendChild(container);
+      messages.scrollTop = messages.scrollHeight;
+
+      document.getElementById('submitQuoteBtn').addEventListener('click', function() {
+        const name = document.getElementById('qfName').value.trim();
+        const email = document.getElementById('qfEmail').value.trim();
+        const phone = document.getElementById('qfPhone').value.trim();
+        const project = document.getElementById('qfProject').value;
+        const message = document.getElementById('qfMessage').value.trim();
+
+        if (!name || !email || !phone) {
+          alert('Please fill in Name, Email and Phone.');
+          return;
+        }
+
+        // populate hidden fields (for existing form)
+        const nameField = document.getElementById('cName');
+        const emailField = document.getElementById('cEmail');
+        const phoneField = document.getElementById('cPhone');
+        const projectField = document.getElementById('cProject');
+        const messageField = document.getElementById('cMessage');
+        if (nameField) nameField.value = name;
+        if (emailField) emailField.value = email;
+        if (phoneField) phoneField.value = phone;
+        if (projectField) projectField.value = project;
+        if (messageField) messageField.value = message;
+
+        if (typeof handleContact === 'function') {
+          handleContact(event || null);
+        } else {
+          const form = document.querySelector('form');
+          if (form) form.submit();
+        }
+
+        container.remove();
+        addMessage('✅ Thank you. Your quotation request has been received successfully. Our team will contact you shortly.', 'bot');
+        console.log('Quotation submitted:', { name, email, phone, project, message });
+      });
+    }
+
+    // ============================================================
+    // COMPLETE SUDARSHANINFRA AI KNOWLEDGE (all Q&A)
+    // ============================================================
+    function getBotReply(msg) {
+      const lower = msg.toLowerCase().trim();
+
+      // ---- QUOTATION trigger ----
+      if (lower.includes('quotation') || lower.includes('quote') || lower.includes('price') ||
+          lower.includes('budget') || lower.includes('estimate') || lower.includes('cost') ||
+          lower.includes('need interior') || lower.includes('need furniture') ||
+          lower.includes('need office') || lower.includes('need renovation') ||
+          lower.includes('need painting') || lower.includes('need false ceiling') ||
+          lower.includes('need electrical') || lower.includes('need plumbing') ||
+          lower.includes('need amc') || lower.includes('need work') ||
+          lower.includes('need design') || lower.includes('need contractor') ||
+          lower.includes('free quotation') || lower.includes('get a quote') ||
+          lower.includes('need quotation') || lower.includes('i need a quotation') ||
+          lower.includes('i need quotation')) {
+        setTimeout(() => renderQuoteForm(), 400);
+        return "Thank you for your interest in SudarshanInfra! We'd be happy to provide a free quotation. Please fill in the form below and our team will contact you shortly.";
+      }
+
+      // ---- GREETINGS ----
+      if (lower.match(/\b(hi|hello|hey|namaste|good morning|good evening|howdy|sup|greetings)\b/)) {
+        if (lower.includes('morning')) return "Good Morning! 🌞 Welcome to SudarshanInfra. How may I help you today?";
+        if (lower.includes('evening')) return "Good Evening! 🌆 Welcome to SudarshanInfra. How can I assist you?";
+        return "Hello! 👋 Welcome to SudarshanInfra. I'm here to help you with interior design, furniture, renovation, maintenance, and free quotations. How can I assist you today?";
+      }
+
+      // ---- COMPANY / ABOUT ----
+      if (lower.includes('who are you')) {
+        return "I am SudarshanInfra's virtual assistant. I can help you with office interiors, furniture, maintenance, renovation, pricing, and quotation requests.";
+      }
+      if (lower.includes('tell me about') || lower.includes('about company') || lower.includes('tell me about your company')) {
+        return "SudarshanInfra has over 8 years of experience in interior design, office furniture, turnkey projects, maintenance, civil work, painting, false ceilings, and electrical services. We deliver customized, high-quality solutions for residential and commercial spaces.";
+      }
+      if (lower.includes('location') || lower.includes('where are you')) {
+        return "Our office is located at: 📍 202 Shivam Residency, Dombivli, Maharashtra.";
+      }
+      if (lower.includes('working hours') || lower.includes('timing') || lower.includes('hours')) {
+        return "Monday to Friday 🕗 8:00 AM – 6:00 PM. We're closed on weekends.";
+      }
+      if (lower.includes('contact') || lower.includes('phone') || lower.includes('email') || lower.includes('how to contact')) {
+        return "📞 Phone: +91 9867474721\n📧 Email: chauhan.ramvilas@gmail.com\n📍 Address: 202 Shivam Residency, Dombivli, Maharashtra";
+      }
+
+      // ---- SERVICES ----
+      if (lower.includes('services') || lower.includes('what services') || lower.includes('what do you provide')) {
+        return "We provide:\n• Office Interior\n• Home Interior\n• Office Furniture\n• Modular Furniture\n• False Ceiling\n• Electrical Work\n• Civil Work\n• Plumbing\n• Painting\n• Renovation\n• Maintenance\n• Turnkey Projects";
+      }
+      if (lower.includes('office interior') || lower.includes('commercial interior') || lower.includes('corporate interior')) {
+        return "Yes. We design and execute complete office interiors including workstations, cabins, conference rooms, reception areas, partitions, lighting, and furniture.";
+      }
+      if (lower.includes('home interior') || lower.includes('residential interior')) {
+        return "Yes. We provide complete home interior solutions including bedrooms, living rooms, modular kitchens, wardrobes, TV units, and custom furniture.";
+      }
+
+      // ---- FURNITURE ----
+      if (lower.includes('custom furniture') || lower.includes('customize furniture') || lower.includes('make custom')) {
+        return "Yes. We manufacture customized furniture according to your space, design, material, and budget. You can customize the size, color, material, finish, storage, and design.";
+      }
+      if (lower.includes('what furniture') || lower.includes('furniture do you') || lower.includes('which furniture')) {
+        return "We manufacture:\n• Office Tables\n• Executive Tables\n• Conference Tables\n• Reception Counters\n• Workstations\n• Wardrobes\n• Beds\n• TV Units\n• Storage Cabinets\n• Modular Furniture";
+      }
+      if (lower.includes('furniture') && !lower.includes('custom') && !lower.includes('what')) {
+        return "Yes, we provide complete office and home furniture solutions. Everything can be customized. Would you like a quotation?";
+      }
+
+      // ---- FALSE CEILING ----
+      if (lower.includes('false ceiling') || lower.includes('gypsum') || lower.includes('pop')) {
+        return "Yes. We install gypsum, POP, designer, and office false ceilings with modern lighting options. Great for acoustics and aesthetics.";
+      }
+
+      // ---- PAINTING ----
+      if (lower.includes('painting') || lower.includes('texture painting') || lower.includes('interior painting') || lower.includes('exterior painting')) {
+        return "Yes. We provide interior painting, exterior painting, texture painting, and commercial painting using premium quality paints.";
+      }
+
+      // ---- ELECTRICAL ----
+      if (lower.includes('electrical') || lower.includes('wiring') || lower.includes('lighting') || lower.includes('panel board')) {
+        return "Yes. We handle electrical wiring, lighting installation, panel boards, power distribution, and office electrical maintenance.";
+      }
+
+      // ---- PLUMBING ----
+      if (lower.includes('plumbing') || lower.includes('pipe') || lower.includes('water')) {
+        return "Yes. We provide plumbing installation, repairs, bathroom plumbing, kitchen plumbing, and water pipeline work.";
+      }
+
+      // ---- CIVIL ----
+      if (lower.includes('civil') || lower.includes('flooring') || lower.includes('tiles') || lower.includes('brickwork')) {
+        return "Yes. Our civil services include flooring, tiling, brickwork, plastering, renovation, and structural modifications.";
+      }
+
+      // ---- MAINTENANCE ----
+      if (lower.includes('maintenance') || lower.includes('amc') || lower.includes('repair')) {
+        return "Yes. We offer annual maintenance contracts (AMC) and regular maintenance for offices, commercial spaces, and residential properties. Reliable and prompt service.";
+      }
+
+      // ---- PRICING / SITE VISIT ----
+      if (lower.includes('price') || lower.includes('cost') || lower.includes('how much')) {
+        return "Pricing depends on the project size, materials, and customization. Please share your requirements, and we'll prepare a free quotation.";
+      }
+      if (lower.includes('site visit') || lower.includes('free consultation') || lower.includes('visit')) {
+        return "Yes. We offer a free consultation and site visit for eligible projects. Just request a quotation and our team will get in touch.";
+      }
+
+      // ---- TIMELINE ----
+      if (lower.includes('how long') || lower.includes('timeline') || lower.includes('duration') || lower.includes('time')) {
+        return "Project duration depends on the scope. Small projects typically take 7–15 days, while larger projects may take 15–30 days or more. We'll provide a clear timeline during consultation.";
+      }
+
+      // ---- WARRANTY ----
+      if (lower.includes('warranty') || lower.includes('guarantee')) {
+        return "Yes. Warranty depends on the type of work and materials used. Our team will explain the warranty details during the quotation process.";
+      }
+
+      // ---- CLIENTS ----
+      if (lower.includes('clients') || lower.includes('client') || lower.includes('projects')) {
+        return "We've worked with DSP BlackRock, Wildlife Conservation Trust, Scan Holidays, and Future Generali India Insurance. Trusted by corporates for quality and reliability.";
+      }
+
+      // ---- MODULAR KITCHEN ----
+      if (lower.includes('modular kitchen') || lower.includes('kitchen')) {
+        return "Yes. We design and install modern modular kitchens with customized layouts, premium hardware, soft-close drawers, loft storage, pantry units, and elegant finishes.";
+      }
+
+      // ---- WARDROBE ----
+      if (lower.includes('wardrobe') || lower.includes('closet')) {
+        return "We manufacture customized sliding and hinged wardrobes in various colors, finishes, laminates, acrylic, glass, and mirror designs.";
+      }
+
+      // ---- TV UNIT ----
+      if (lower.includes('tv unit') || lower.includes('entertainment unit')) {
+        return "Yes. We design customized TV units with storage, shelves, LED lighting, and decorative wall panels.";
+      }
+
+      // ---- BEDROOM ----
+      if (lower.includes('bedroom')) {
+        return "We provide complete bedroom interior solutions including wardrobes, beds, side tables, TV units, false ceilings, wallpaper, and lighting.";
+      }
+
+      // ---- LIVING ROOM ----
+      if (lower.includes('living room') || lower.includes('hall')) {
+        return "We create stylish living rooms with TV units, sofa layouts, false ceilings, lighting, wall panels, partitions, and decorative furniture.";
+      }
+
+      // ---- OFFICE FURNITURE ----
+      if (lower.includes('workstation') || lower.includes('office table') || lower.includes('conference table') || lower.includes('executive table')) {
+        return "We manufacture office workstations, executive tables, conference tables, reception counters, storage units, and customized office furniture.";
+      }
+
+      // ---- RECEPTION ----
+      if (lower.includes('reception')) {
+        return "We design premium reception areas with reception counters, branding walls, waiting lounges, lighting, and modern interiors.";
+      }
+
+      // ---- PARTITION ----
+      if (lower.includes('partition')) {
+        return "We install glass partitions, gypsum partitions, aluminum partitions, wooden partitions, and modular office partition systems.";
+      }
+
+      // ---- CARPENTRY ----
+      if (lower.includes('carpenter') || lower.includes('carpentry')) {
+        return "Yes. Our carpentry services include furniture manufacturing, repairs, wooden partitions, wardrobes, modular kitchens, doors, and custom woodwork.";
+      }
+
+      // ---- TURNKEY ----
+      if (lower.includes('turnkey')) {
+        return "Our turnkey services cover design, planning, civil work, electrical, plumbing, furniture, painting, false ceiling, installation, and final handover—all managed by one team.";
+      }
+
+      // ---- RENOVATION ----
+      if (lower.includes('renovation') || lower.includes('remodel')) {
+        return "We provide complete renovation services for offices, homes, retail stores, restaurants, and commercial buildings.";
+      }
+
+      // ---- MATERIAL ----
+      if (lower.includes('material') || lower.includes('plywood') || lower.includes('laminate')) {
+        return "We use premium materials including Greenply, Century Ply, Marine Ply, HDHMR, MDF, Greenlam, Merino, Century Laminates, and other branded products.";
+      }
+
+      // ---- BRANDS ----
+      if (lower.includes('brands') || lower.includes('which brand')) {
+        return "We work with trusted brands like Greenply, Century Ply, Greenlam, Merino, Asian Paints, Berger, Havells, Anchor, Jaquar, and more.";
+      }
+
+      // ---- DESIGN ----
+      if (lower.includes('design style') || lower.includes('modern') || lower.includes('luxury') || lower.includes('minimal')) {
+        return "We offer Modern, Luxury, Contemporary, Minimalist, Industrial, Scandinavian, and Classic interior design styles.";
+      }
+
+      // ---- 3D DESIGN ----
+      if (lower.includes('3d') || lower.includes('3d design') || lower.includes('render')) {
+        return "Yes. We provide 2D layouts and realistic 3D design visualizations before project execution.";
+      }
+
+      // ---- SITE VISIT ----
+      if (lower.includes('inspection') || lower.includes('site inspection')) {
+        return "Our experts can visit your site to understand the space and provide the best design and quotation.";
+      }
+
+      // ---- PROCESS ----
+      if (lower.includes('process') || lower.includes('how do you work')) {
+        return "Our process includes Consultation → Site Visit → Design → Quotation → Approval → Manufacturing → Installation → Final Handover.";
+      }
+
+      // ---- PAYMENT ----
+      if (lower.includes('payment') || lower.includes('advance')) {
+        return "Payment terms depend on the project. Usually, work starts after an advance payment, with the remaining amount paid in agreed project milestones.";
+      }
+
+      // ---- INSTALLATION ----
+      if (lower.includes('installation') || lower.includes('install')) {
+        return "Yes. Our experienced team handles complete installation and finishing for all furniture and interior projects.";
+      }
+
+      // ---- DELIVERY ----
+      if (lower.includes('delivery')) {
+        return "Delivery timelines depend on the project size. Ready products generally take 3–7 days, while customized projects usually take 15–30 days.";
+      }
+
+      // ---- LOCATION ----
+      if (lower.includes('mumbai') || lower.includes('thane') || lower.includes('navi mumbai') || lower.includes('pune')) {
+        return "Yes. We undertake projects across Mumbai, Thane, Navi Mumbai, Pune, Dombivli, Kalyan, and nearby locations.";
+      }
+
+      // ---- OFFICE SIZE ----
+      if (lower.includes('1000 sq') || lower.includes('office size')) {
+        return "No matter the office size, we can recommend a customized interior solution that optimizes space, functionality, and aesthetics.";
+      }
+
+      // ---- PORTFOLIO ----
+      if (lower.includes('portfolio') || lower.includes('gallery') || lower.includes('previous work')) {
+        return "You can explore our completed residential and commercial projects in the Portfolio section. We have successfully completed office interiors, furniture, and turnkey projects for various clients.";
+      }
+
+      // ---- FREE QUOTATION ----
+      if (lower.includes('quotation') || lower.includes('estimate') || lower.includes('budget')) {
+        return "We'd be happy to prepare a FREE quotation. Please share your Name, Phone Number, Email, Project Type, Location, and Project Details to get started.";
+      }
+
+      // ---- AFTER SALES ----
+      if (lower.includes('after sales') || lower.includes('support')) {
+        return "Yes. We provide after-sales support, maintenance, and assistance even after project completion.";
+      }
+
+      // ---- THANK YOU ----
+      if (lower.includes('thank')) {
+        return "You're most welcome! 😊 If you have any more questions or need a free quotation, feel free to ask anytime.";
+      }
+
+      // ---- BYE ----
+      if (lower.includes('bye') || lower.includes('goodbye')) {
+        return "Thank you for visiting SudarshanInfra. Have a wonderful day! 👋 We look forward to working with you.";
+      }
+
+      // ---- UNKNOWN ----
+      return "I'm here to help with SudarshanInfra's interior, furniture, renovation, maintenance, and turnkey services. Please ask me about our services, products, pricing, or request a free quotation.";
+    }
+
+    // ============================================================
+    // SEND MESSAGE
+    // ============================================================
+    function handleSend() {
+      const text = input.value.trim();
+      if (!text) return;
+      addMessage(text, 'user');
+      input.value = '';
+
+      showTyping();
+      setTimeout(() => {
+        hideTyping();
+        const reply = getBotReply(text);
+        addMessage(reply, 'bot');
+      }, 500 + Math.random() * 400);
+    }
+
+    // ============================================================
+    // Event listeners
+    // ============================================================
+    sendBtn.addEventListener('click', handleSend);
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+
+    // Quick buttons - single handler using delegation
+    quickGrid.addEventListener('click', function(e) {
+      const btn = e.target.closest('.quick-btn');
+      if (!btn) return;
+      const text = btn.dataset.text || btn.textContent;
+      input.value = text;
+      handleSend();
+    });
+
+    widget.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!sidePanel.classList.contains('open'))
+        openPanel();
+    else
+        input.focus();
+});
+  })();
+</script>

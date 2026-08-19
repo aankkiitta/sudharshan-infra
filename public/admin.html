@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel · FurnitureCraft</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- header -->
+  <header>
+    <div class="navbar">
+      <div class="logo">Sudarshan<span>Infra</span></div>
+      <button class="mobile-menu-toggle" id="hamburger"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="admin.html" class="active">Admin <span class="admin-badge">panel</span></a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- admin wrapper -->
+  <div class="admin-wrapper">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="sidebar-user">
+        <div class="avatar">A</div>
+        <div class="user-info">
+          <h5>Admin User</h5>
+          <span>admin@SudarshanInfra.com</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-label">Main</div>
+        <a href="#" class="active" data-section="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a>
+        <a href="#" data-section="projects"><i class="fas fa-folder-open"></i> Projects</a>
+        <a href="#" data-section="clients"><i class="fas fa-users"></i> Clients</a>
+        <a href="#" data-section="services"><i class="fas fa-concierge-bell"></i> Services</a>
+        <div class="nav-label" style="margin-top:16px;">Management</div>
+        <a href="#" data-section="inquiries"><i class="fas fa-envelope"></i> Inquiries <span class="badge">12</span></a>
+        <a href="#" data-section="users"><i class="fas fa-user-cog"></i> Users</a>
+        <div class="nav-label" style="margin-top:16px;">System</div>
+        <a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a>
+        <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <div class="page-header">
+        <div>
+          <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="header-actions">
+          <button class="btn-secondary" onclick="window.location.href='index.html'"><i class="fas fa-external-link-alt"></i> View Site</button>
+         <button class="btn-primary" id="addProjectBtn">
+    <i class="fas fa-plus"></i> Add Project
+</button>
+        </div>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div class="admin-section active" id="section-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-project-diagram"></i></div><span class="stat-change"><i class="fas fa-arrow-up"></i> 12%</span></div><div class="stat-number">48</div><div class="stat-label">Total Projects</div></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-users"></i></div><span class="stat-change"><i class="fas fa-arrow-up"></i> 8%</span></div><div class="stat-number">127</div><div class="stat-label">Happy Clients</div></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-envelope"></i></div><span class="stat-change negative"><i class="fas fa-arrow-down"></i> 3%</span></div><div class="stat-number">12</div><div class="stat-label">Pending Inquiries</div></div>
+          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-star"></i></div><span class="stat-change"><i class="fas fa-arrow-up"></i> 5%</span></div><div class="stat-number">4.9</div><div class="stat-label">Avg. Rating</div></div>
+        </div>
+        <div class="table-wrap">
+          <div class="table-header"><h4>Recent Projects</h4><div class="table-actions"><input type="text" placeholder="Search projects..." /><button class="btn-sm-primary">Filter</button></div></div>
+          <table><thead><tr><th>Project</th><th>Client</th><th>Service</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Modern Office Interior</strong></td><td>TechCorp</td><td>Office Interior</td><td>Dec 15, 2025</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Residential Villa Renovation</strong></td><td>Mr. Sharma</td><td>Home Renovation</td><td>Jan 20, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Executive Office Furniture</strong></td><td>Global Solutions</td><td>Furniture Works</td><td>Feb 05, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="admin-section" id="section-projects">
+        <div class="table-wrap">
+          <div class="table-header"><h4>All Projects</h4><div class="table-actions"><input type="text" placeholder="Search..." /><button class="btn-sm-primary">Add New</button></div></div>
+          <table><thead><tr><th>Project</th><th>Client</th><th>Service</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Modern Office Interior</strong></td><td>TechCorp</td><td>Office Interior</td><td>Dec 15, 2025</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Residential Villa Renovation</strong></td><td>Mr. Sharma</td><td>Home Renovation</td><td>Jan 20, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Executive Office Furniture</strong></td><td>Global Solutions</td><td>Furniture Works</td><td>Feb 05, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CLIENTS -->
+      <div class="admin-section" id="section-clients">
+        <div class="table-wrap">
+          <div class="table-header"><h4>All Clients</h4><div class="table-actions"><input type="text" placeholder="Search clients..." /><button class="btn-sm-primary">Add Client</button></div></div>
+          <table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Projects</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>TechCorp</strong></td><td>info@techcorp.com</td><td>+1 (555) 123-4567</td><td>3</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Mr. Sharma</strong></td><td>sharma@email.com</td><td>+1 (555) 234-5678</td><td>2</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Global Solutions</strong></td><td>contact@globalsolutions.com</td><td>+1 (555) 345-6789</td><td>1</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SERVICES -->
+      <div class="admin-section" id="section-services">
+        <div class="settings-grid">
+          <div class="settings-card"><h4>Manage Services</h4><p>Add, edit or remove services.</p>
+            <div class="form-group"><label>Service Name</label><input type="text" value="Office Interior" /></div>
+            <div class="form-group"><label>Description</label><textarea>Modern office interior design.</textarea></div>
+            <button class="btn-primary">Update Service</button>
+            <button class="btn-secondary" style="margin-left:12px;">Add New</button>
+          </div>
+          <div class="settings-card"><h4>Service List</h4>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--color-bg);border-radius:var(--radius);border:1px solid var(--color-border);">
+                <span><i class="fas fa-building" style="color:var(--color-primary);width:24px;"></i> Office Interior</span>
+                <div><button class="btn-sm-outline">Edit</button><button class="btn-danger-sm" style="margin-left:6px;">Delete</button></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--color-bg);border-radius:var(--radius);border:1px solid var(--color-border);">
+                <span><i class="fas fa-bolt" style="color:var(--color-primary);width:24px;"></i> Electrical Works</span>
+                <div><button class="btn-sm-outline">Edit</button><button class="btn-danger-sm" style="margin-left:6px;">Delete</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INQUIRIES (FIXED) -->
+      <div class="admin-section" id="section-inquiries">
+        <div class="table-wrap">
+          <div class="table-header">
+            <h4>Recent Inquiries <span style="font-size:0.8rem;font-weight:400;color:var(--color-text-light);">(12 unread)</span></h4>
+            <div class="table-actions">
+              <input type="text" placeholder="Search inquiries..." />
+              <button class="btn-sm-primary">Mark All Read</button>
+            </div>
+          </div>
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Date</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><strong>John Doe</strong></td><td>john@email.com</td><td>Office Interior Inquiry</td><td>Today</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Sarah Smith</strong></td><td>sarah@email.com</td><td>Home Renovation Quote</td><td>Yesterday</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Mike Johnson</strong></td><td>mike@email.com</td><td>Furniture Works</td><td>Jan 28, 2026</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
+              <tr><td><strong>Emily Davis</strong></td><td>emily@email.com</td><td>Electrical Work</td><td>Jan 25, 2026</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+<!-- USERS -->
+<div class="admin-section" id="section-users">
+
+    <div class="table-wrap">
+
+        <div class="table-header">
+
+            <h4>Registered Users</h4>
+
+            <div class="table-actions">
+
+                <input
+                    type="text"
+                    id="searchUser"
+                    placeholder="Search user..."
+                    onkeyup="searchUsers()"
+                >
+
+            </div>
+
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Avatar</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="usersTable">
+
+                <tr>
+
+                    <td colspan="5" style="text-align:center;padding:25px;">
+                        Loading users...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- ================= Add Project Form ================= -->
+<!-- ================= ADD PROJECT FORM (UPDATED) ================= -->
+<div class="admin-section" id="section-addproject">
+  <div class="settings-card add-project-card">
+    <h3><i class="fas fa-plus-circle"></i> Add New Project</h3>
+    
+    <form id="projectForm" enctype="multipart/form-data">
+      <!-- Project Image -->
+      <div class="form-group">
+        <label>Project Image <span style="color:var(--color-text-muted);font-weight:400;font-size:0.8rem;">(optional)</span></label>
+        <div class="upload-box">
+          <input type="file" id="projectImage" accept="image/*" />
+          <img id="imagePreview" src="https://via.placeholder.com/500x300/E8E3DC/2c5530?text=Click+to+upload+image" alt="Preview" />
+          <p style="font-size:0.75rem;color:var(--color-text-muted);margin-top:8px;">
+            <i class="fas fa-info-circle"></i> Click to browse or drag & drop
+          </p>
+        </div>
+      </div>
+
+      <!-- Category -->
+      <div class="form-group">
+        <label>Category <span style="color:#dc3545;">*</span></label>
+        <select id="category" required>
+          <option value="">Select Category</option>
+          <option value="Residential">Residential</option>
+          <option value="Commercial">Commercial</option>
+          <option value="Luxury">Luxury</option>
+          <option value="Office">Office</option>
+          <option value="Retail">Retail</option>
+          <option value="Hospitality">Hospitality</option>
+        </select>
+      </div>
+
+      <!-- Project Title -->
+      <div class="form-group">
+        <label>Project Title <span style="color:#dc3545;">*</span></label>
+        <input type="text" id="projectTitle" placeholder="e.g. Modern Living Room" required />
+      </div>
+
+      <!-- Short Description -->
+      <div class="form-group">
+        <label>Short Description <span style="color:#dc3545;">*</span></label>
+        <input type="text" id="projectDescription" placeholder="e.g. Residential design with natural light" required />
+      </div>
+
+      <!-- View Page -->
+      <div class="form-group">
+        <label>View Project Page</label>
+        <input type="text" id="projectPage" placeholder="e.g. project-modern-living" value="project1.html" />
+        <span style="font-size:0.7rem;color:var(--color-text-muted);margin-top:4px;">
+          <i class="fas fa-link"></i> URL slug or filename for the project detail page
+        </span>
+      </div>
+
+      <!-- Form Buttons -->
+      <div class="form-buttons">
+        <button type="reset" class="btn-secondary" id="resetBtn">
+          <i class="fas fa-times"></i> Cancel
+        </button>
+        <button type="submit" class="btn-primary" id="saveProjectBtn">
+          <i class="fas fa-save"></i> Save Project
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+      <!-- SETTINGS -->
+      <div class="admin-section" id="section-settings">
+        <div class="settings-grid">
+          <div class="settings-card"><h4>General Settings</h4><p>Update site config.</p>
+            <div class="form-group"><label>Site Name</label><input type="text" value="FurnitureCraft" /></div>
+            <div class="form-group"><label>Contact Email</label><input type="email" value="hello@furniturecraft.com" /></div>
+            <button class="btn-primary">Save Settings</button>
+          </div>
+          <div class="settings-card"><h4>Appearance</h4><p>Customize colors.</p>
+            <div class="form-group"><label>Primary Color</label><input type="color" value="#2c5530" style="width:50px;height:44px;padding:2px;" /></div>
+            <button class="btn-primary">Save Appearance</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+ 
+
+  <!-- chat widget -->
+  <div class="chat-widget" onclick="alert('Chatbot opened')">
+    <img src="https://via.placeholder.com/120/2c5530/FFFFFF?text=🤖" alt="Chatbot" />
+  </div>
+
+
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,844 @@
+/* ============================================================
+   PORTFOLIO COMPONENT STYLES
+   ============================================================ */
+
+/* ----- Portfolio Section ----- */
+.portfolio {
+    padding: 80px 0;
+    background: var(--color-white, #FFFFFF);
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.section-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-secondary, #b68d40);
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 18px;
+}
+
+.section-tag::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 2px;
+    background: var(--color-secondary, #b68d40);
+}
+
+.section-title {
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-black, #1A1A1A);
+}
+
+.section-title .highlight {
+    color: var(--color-secondary, #b68d40);
+}
+
+.section-sub {
+    color: var(--color-text-light, #6B6B6B);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 500px;
+    margin-top: 12px;
+}
+
+/* ----- Portfolio Filters ----- */
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 10px 28px;
+    background: transparent;
+    border: 1.5px solid var(--color-border, #E8E3DC);
+    font-weight: 600;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: var(--transition, 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275));
+    border-radius: 60px;
+    color: var(--color-text-light, #6B6B6B);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.3px;
+}
+
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary, #2c5530);
+    border-radius: 60px;
+    z-index: -1;
+    transform: scale(0);
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.filter-btn:hover {
+    color: var(--color-white, #FFFFFF);
+    border-color: var(--color-primary, #2c5530);
+}
+
+.filter-btn:hover::before {
+    transform: scale(1);
+}
+
+.filter-btn.active {
+    color: var(--color-white, #FFFFFF);
+    border-color: var(--color-primary, #2c5530);
+}
+
+.filter-btn.active::before {
+    transform: scale(1);
+}
+
+/* ----- Portfolio Grid ----- */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+/* ----- Portfolio Item ----- */
+.portfolio-item {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    position: relative;
+    height: 300px;
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+    transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    background: var(--color-white, #FFFFFF);
+}
+
+.portfolio-item.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.portfolio-item:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.portfolio-item:hover img {
+    transform: scale(1.06);
+}
+
+/* ----- Floating Badge ----- */
+.card-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+    background: var(--color-secondary, #b68d40);
+    color: var(--color-white, #FFFFFF);
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 4px 14px;
+    border-radius: 40px;
+    box-shadow: 0 4px 15px rgba(182, 141, 64, 0.35);
+    pointer-events: none;
+}
+
+/* ----- Portfolio Overlay ----- */
+.portfolio-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 24px 28px;
+    background: linear-gradient(to bottom, transparent, rgba(26, 26, 26, 0.85));
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+/* Desktop hover */
+@media (hover: hover) {
+    .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+}
+
+/* Mobile/Tablet tap */
+.portfolio-item.show-overlay .portfolio-overlay {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.portfolio-overlay h3 {
+    color: var(--color-white, #FFFFFF);
+    font-family: var(--font-serif, 'Playfair Display', serif);
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+    font-weight: 700;
+}
+
+.portfolio-overlay p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+/* ----- "View Project" Button ----- */
+.overlay-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: var(--color-secondary, #b68d40);
+    color: var(--color-white, #FFFFFF);
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.overlay-btn:hover {
+    background: var(--color-secondary-light, #c9a45e);
+    transform: translateX(4px);
+    gap: 12px;
+}
+
+.overlay-btn i {
+    font-size: 0.65rem;
+    transition: transform 0.3s ease;
+}
+
+.overlay-btn:hover i {
+    transform: translateX(4px);
+}
+
+/* ----- Portfolio CTA ----- */
+.portfolio-cta {
+    text-align: center;
+    margin-top: 48px;
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 40px;
+    background: transparent;
+    color: var(--color-black, #1A1A1A);
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1.5px solid var(--color-border, #E8E3DC);
+    transition: var(--transition, 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275));
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-secondary:hover {
+    border-color: var(--color-primary, #2c5530);
+    background: var(--color-primary, #2c5530);
+    color: var(--color-white, #FFFFFF);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(44, 85, 48, 0.25);
+}
+
+.btn-secondary i {
+    font-size: 0.9rem;
+}
+
+/* ----- Loading State ----- */
+.loading-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--color-text-light, #6B6B6B);
+    grid-column: 1 / -1;
+}
+
+.loading-state .spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(44, 85, 48, 0.1);
+    border-top-color: var(--color-primary, #2c5530);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 16px;
+}
+
+/* ----- Animation ----- */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    .portfolio-item {
+        height: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio {
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .section-sub {
+        font-size: 0.95rem;
+    }
+
+    .portfolio-item {
+        height: 240px;
+        border-radius: 10px;
+    }
+    
+    .portfolio-overlay {
+        padding: 20px 18px 20px;
+    }
+    
+    .portfolio-overlay h3 {
+        font-size: 1rem;
+    }
+    
+    .portfolio-overlay p {
+        font-size: 0.75rem;
+        margin-bottom: 10px;
+    }
+    
+    .overlay-btn {
+        padding: 6px 16px;
+        font-size: 0.7rem;
+    }
+    
+    .card-badge {
+        font-size: 0.5rem;
+        padding: 3px 12px;
+        top: 12px;
+        left: 12px;
+    }
+    
+    .portfolio-grid {
+        gap: 16px;
+    }
+    
+    .filter-btn {
+        padding: 8px 18px;
+        font-size: 0.75rem;
+    }
+    
+    .portfolio-cta {
+        margin-top: 36px;
+    }
+    
+    .btn-secondary {
+        padding: 12px 28px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    
+    .portfolio-item {
+        height: 200px;
+        border-radius: 8px;
+    }
+    
+    .portfolio-overlay {
+        padding: 16px 16px 16px;
+    }
+    
+    .portfolio-overlay h3 {
+        font-size: 0.95rem;
+    }
+    
+    .portfolio-overlay p {
+        font-size: 0.7rem;
+        margin-bottom: 8px;
+    }
+    
+    .overlay-btn {
+        padding: 5px 14px;
+        font-size: 0.65rem;
+    }
+    
+    .overlay-btn i {
+        font-size: 0.55rem;
+    }
+    
+    .card-badge {
+        font-size: 0.45rem;
+        padding: 2px 10px;
+        top: 10px;
+        left: 10px;
+    }
+    
+    .filter-btn {
+        padding: 6px 14px;
+        font-size: 0.7rem;
+    }
+    
+    .portfolio-filters {
+        gap: 6px;
+    }
+    
+    .portfolio-cta {
+        margin-top: 28px;
+    }
+    
+    .btn-secondary {
+        padding: 10px 24px;
+        font-size: 0.8rem;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+.portfolio-meta{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:10px 0;
+    font-size:13px;
+    color:#fff;
+}
+
+.portfolio-meta span{
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.portfolio-desc{
+    font-size:13px;
+    line-height:1.6;
+    margin:12px 0;
+    color:#fff;
+}
+
+.portfolio-tags{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.portfolio-tags span{
+    padding:5px 12px;
+    border-radius:20px;
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.3);
+    color:#fff;
+    font-size:11px;
+    font-weight:600;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================================================
+   PROJECT CARDS - COMPLETE STYLING
+   ============================================================ */
+
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+/* ============================================================
+   PROJECT CARD
+   ============================================================ */
+.project-card {
+    background: var(--color-white, #FFFFFF);
+    border-radius: var(--radius, 12px);
+    overflow: hidden;
+    border: 1px solid var(--color-border, #D4D0C8);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s ease;
+    box-shadow: 0 2px 12px var(--color-shadow, rgba(26, 26, 26, 0.06));
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px var(--color-shadow-hover, rgba(44, 85, 48, 0.18));
+    border-color: var(--color-primary, #2c5530);
+}
+
+/* ============================================================
+   CARD IMAGE
+   ============================================================ */
+.project-card .card-image {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    transition: transform 0.5s ease;
+    overflow: hidden;
+}
+
+.project-card:hover .card-image {
+    transform: scale(1.03);
+}
+
+/* Card Badge (optional, included for completeness) */
+.project-card .card-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--color-primary, #2c5530);
+    color: #fff;
+    font-size: 0.55rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 14px 3px 10px;
+    border-radius: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 16px rgba(44, 85, 48, 0.35);
+    z-index: 2;
+}
+
+.project-card .card-badge i {
+    font-size: 0.5rem;
+}
+
+/* ============================================================
+   CARD BODY
+   ============================================================ */
+.project-card .card-body {
+    padding: 20px 22px 24px;
+}
+
+.project-card .card-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: var(--color-black, #1A1A1A);
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .card-body h3 {
+    color: var(--color-primary, #2c5530);
+}
+
+/* Card Excerpt (description) */
+.project-card .card-excerpt {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #666;
+    margin: 0 0 14px;
+}
+
+/* ============================================================
+   CARD META
+   ============================================================ */
+.project-card .card-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 0.75rem;
+    color: var(--color-text-light, #6B6B6B);
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.project-card .card-meta i {
+    color: var(--color-primary, #2c5530);
+    margin-right: 4px;
+    width: 14px;
+    font-size: 0.7rem;
+}
+
+.project-card .card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* ============================================================
+   CARD TAGS
+   ============================================================ */
+.project-card .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.project-card .card-tags span {
+    font-size: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #999;
+    background: #f0f0ee;
+    padding: 2px 12px;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .card-tags span {
+    background: var(--color-primary-lighter, #4a8a50);
+    color: #fff;
+}
+
+/* ============================================================
+   CARD LINK
+   ============================================================ */
+.project-card .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-primary, #2c5530);
+    transition: gap 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.project-card .card-link i {
+    transition: transform 0.3s ease;
+}
+
+.project-card .card-link:hover {
+    gap: 14px;
+    color: var(--color-primary-light, #3a6e3f);
+}
+
+.project-card .card-link:hover i {
+    transform: translateX(4px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .project-card .card-image {
+        height: 180px;
+    }
+    
+    .project-card .card-body {
+        padding: 16px 18px 20px;
+    }
+    
+    .project-card .card-body h3 {
+        font-size: 1rem;
+    }
+    
+    .project-card .card-excerpt {
+        font-size: 0.82rem;
+    }
+    
+    .project-card .card-meta {
+        font-size: 0.7rem;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-grid {
+        gap: 16px;
+    }
+    
+    .project-card .card-image {
+        height: 160px;
+    }
+    
+    .project-card .card-body {
+        padding: 14px 16px 18px;
+    }
+    
+    .project-card .card-body h3 {
+        font-size: 0.95rem;
+    }
+    
+    .project-card .card-excerpt {
+        font-size: 0.78rem;
+        margin-bottom: 10px;
+    }
+    
+    .project-card .card-tags {
+        gap: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .project-card .card-tags span {
+        font-size: 0.45rem;
+        padding: 2px 10px;
+    }
+    
+    .project-card .card-meta {
+        font-size: 0.65rem;
+        gap: 10px;
+        margin-bottom: 6px;
+    }
+    
+    .project-card .card-link {
+        font-size: 0.75rem;
+    }
+}
+
+/* ============================================================
+   CARD VARIANTS (optional additional styles)
+   ============================================================ */
+
+/* Dark variant */
+.project-card.dark {
+    background: var(--color-black, #1A1A1A);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.project-card.dark .card-body h3 {
+    color: var(--color-white, #FFFFFF);
+}
+
+.project-card.dark .card-body h3:hover {
+    color: var(--color-primary-light, #3a6e3f);
+}
+
+.project-card.dark .card-excerpt {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.project-card.dark .card-meta {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.project-card.dark .card-tags span {
+    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.project-card.dark .card-link {
+    color: var(--color-primary-light, #3a6e3f);
+}
+
+/* Compact variant */
+.project-card.compact .card-image {
+    height: 160px;
+}
+
+.project-card.compact .card-body {
+    padding: 14px 16px 16px;
+}
+
+.project-card.compact .card-body h3 {
+    font-size: 0.95rem;
+}
+
+.project-card.compact .card-excerpt {
+    font-size: 0.78rem;
+    margin-bottom: 10px;
+}
+
+.project-card.compact .card-tags {
+    margin-bottom: 10px;
+}
+
+.project-card.compact .card-meta {
+    margin-bottom: 6px;
+}
+
+/* Feature variant (with accent border) */
+.project-card.featured {
+    border-top: 3px solid var(--color-primary, #2c5530);
+}
+
+.project-card.featured .card-badge {
+    background: var(--color-primary, #2c5530);
+}
+
+

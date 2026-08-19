@@ -1,0 +1,2578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electrical Works · FurnitureCraft</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+           1. RESET & VARIABLES — GREEN THEME
+           ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #FAF8F5;
+            --color-white: #FFFFFF;
+            --color-black: #1A1A1A;
+            --color-charcoal: #2C2C2C;
+            --color-primary: #2c5530;
+            --color-primary-light: #3a6e3f;
+            --color-primary-dark: #1f3d22;
+            --color-primary-lighter: #e8f0e6;
+            --color-secondary: #b68d40;
+            --color-secondary-light: #c9a45e;
+            --color-secondary-dark: #a07d32;
+            --color-text: #2C2C2C;
+            --color-text-light: #6B6B6B;
+            --color-text-muted: #9A9A9A;
+            --color-border: #E8E3DC;
+            --color-shadow: rgba(26, 26, 26, 0.06);
+            --color-shadow-hover: rgba(26, 26, 26, 0.12);
+            --radius: 12px;
+            --radius-lg: 20px;
+            --transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-slow: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            --font: 'Inter', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --header-height: 72px;
+            --max-width: 1200px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: var(--header-height);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+        button {
+            font-family: var(--font);
+            cursor: pointer;
+            border: none;
+            background: none;
+            outline: none;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================================
+           2. BUTTONS — GREEN THEME
+           ============================================================ */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--color-primary-light);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .btn-primary:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(44, 85, 48, 0.35);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--color-black);
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1.5px solid var(--color-border);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+            color: var(--color-white);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(44, 85, 48, 0.25);
+        }
+
+        .btn-sm {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+        .btn-sm-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .btn-sm-primary:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(44, 85, 48, 0.30);
+        }
+
+        /* ============================================================
+           3. SECTION HELPERS — GREEN ACCENTS
+           ============================================================ */
+        .section-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 18px;
+        }
+        .section-tag::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--color-black);
+        }
+        .section-title .highlight {
+            color: var(--color-primary);
+        }
+
+        .section-sub {
+            color: var(--color-text-light);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            max-width: 500px;
+            margin-top: 12px;
+        }
+
+        /* ============================================================
+           4. HEADER / NAVBAR
+           ============================================================ */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            transition: var(--transition-slow);
+            transform: translateY(0);
+        }
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+        }
+        header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-primary);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        .logo:hover::after {
+            transform: translateX(0);
+        }
+        .logo span {
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links li {
+            margin-left: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-text-light);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            position: relative;
+            display: inline-block;
+        }
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--color-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .nav-links a.active {
+            color: var(--color-black);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--color-black);
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+        .mobile-menu-toggle:hover {
+            color: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: var(--header-height);
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background-color: var(--color-white);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+                gap: 10px;
+                margin: 0;
+            }
+            .nav-links.active {
+                left: 0;
+                display: flex;
+            }
+            .nav-links li {
+                margin: 10px 0;
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            .nav-links.active li {
+                opacity: 1;
+                transform: translateY(0);
+                transition: all 0.4s ease;
+            }
+            .nav-links.active li:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links.active li:nth-child(2) { transition-delay: 0.2s; }
+            .nav-links.active li:nth-child(3) { transition-delay: 0.3s; }
+            .nav-links.active li:nth-child(4) { transition-delay: 0.4s; }
+            .nav-links.active li:nth-child(5) { transition-delay: 0.5s; }
+            .nav-links.active li:nth-child(6) { transition-delay: 0.6s; }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.4rem;
+            }
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* ============================================================
+           5. REVEAL ANIMATIONS
+           ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-24px);
+            transition: all 0.6s ease;
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(24px);
+            transition: all 0.6s ease;
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ============================================================
+           6. FOOTER
+           ============================================================ */
+        footer {
+            background: var(--color-black);
+            color: rgba(255, 255, 255, 0.60);
+            padding: 56px 0 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .logo {
+            color: var(--color-white);
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+        }
+        .footer-brand .logo span:last-child {
+            color: var(--color-primary-light);
+        }
+        .footer-brand p {
+            max-width: 300px;
+            margin: 12px 0 18px;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        .footer-socials {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-socials a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.30);
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        .footer-socials a:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-col h4 {
+            color: var(--color-white);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+        .footer-col a {
+            display: block;
+            color: rgba(255, 255, 255, 0.40);
+            font-size: 0.9rem;
+            padding: 4px 0;
+            transition: var(--transition);
+        }
+        .footer-col a:hover {
+            color: var(--color-white);
+            padding-left: 4px;
+        }
+
+        .footer-newsletter p {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .footer-newsletter .newsletter-form {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .footer-newsletter .newsletter-form input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--color-white);
+            font-family: var(--font);
+            font-size: 0.85rem;
+            min-width: 120px;
+        }
+        .footer-newsletter .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .footer-newsletter .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--color-primary-light);
+        }
+        .footer-newsletter .newsletter-form .btn-primary {
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .footer-bottom .back-top {
+            color: rgba(255, 255, 255, 0.25);
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .footer-bottom .back-top:hover {
+            color: var(--color-white);
+        }
+
+        /* ============================================================
+           7. CHAT WIDGET
+           ============================================================ */
+        .chat-widget {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            z-index: 999999;
+            animation: float 3s ease-in-out infinite;
+            transition: 0.35s;
+        }
+        .chat-widget img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: 0.35s;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.18));
+        }
+        .chat-widget:hover {
+            transform: scale(1.08);
+        }
+        .chat-widget:hover img {
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.28));
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ============================================================
+           8. PAGE BANNER
+           ============================================================ */
+        .page-banner {
+            padding: 60px 0 50px;
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+        .page-banner .banner-content h1 {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--color-black);
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+        .page-banner .banner-content h1 .highlight {
+            color: var(--color-primary);
+        }
+        .page-banner .banner-content p {
+            color: var(--color-text-light);
+            font-size: 1.05rem;
+            max-width: 500px;
+            margin-top: 4px;
+        }
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+        .breadcrumb a {
+            color: var(--color-primary);
+            transition: var(--transition);
+        }
+        .breadcrumb a:hover {
+            color: var(--color-primary-light);
+        }
+        .breadcrumb .sep {
+            color: var(--color-text-muted);
+        }
+        .breadcrumb .current {
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        /* ============================================================
+           9. ABOUT ELECTRICAL WORKS
+           ============================================================ */
+        .about-electrical {
+            padding: 80px 0;
+            background: var(--color-bg);
+        }
+        .about-electrical-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-electrical-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            min-height: 360px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.04);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .about-electrical-image:hover {
+            transform: scale(1.01);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
+        }
+        .about-electrical-content .section-title {
+            margin-bottom: 4px;
+        }
+        .about-electrical-content p {
+            color: var(--color-text-light);
+            line-height: 1.8;
+            font-size: 1rem;
+            margin-top: 12px;
+        }
+        .about-electrical-content .highlight-list {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 20px;
+        }
+        .about-electrical-content .highlight-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--color-text);
+        }
+        .about-electrical-content .highlight-list li i {
+            color: var(--color-primary);
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+           10. ELECTRICAL SERVICES — PROPER BOXES
+           ============================================================ */
+        .electrical-services {
+            padding: 80px 0;
+            background: var(--color-white);
+        }
+        .electrical-services .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .service-card {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            padding: 28px 20px 24px;
+            text-align: center;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px var(--color-shadow);
+            transition: var(--transition);
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px var(--color-shadow-hover);
+            border-color: var(--color-primary);
+        }
+        .service-card .service-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--color-primary-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: var(--color-primary);
+            font-size: 1.6rem;
+            transition: var(--transition);
+        }
+        .service-card:hover .service-icon {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .service-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .service-card p {
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           11. WORKING PROCESS — COMPACT GRID
+           ============================================================ */
+        .working-process {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #F7F3EE 0%, #EFE8E0 100%);
+            border-top: 1px solid rgba(44, 85, 48, 0.06);
+            border-bottom: 1px solid rgba(44, 85, 48, 0.06);
+        }
+        .working-process .section-sub {
+            margin: 8px auto 0;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 36px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .process-step {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            padding: 20px 18px;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px var(--color-shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .process-step:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px var(--color-shadow-hover);
+            border-color: var(--color-primary);
+        }
+
+        .process-step .step-number {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--color-white);
+            background: var(--color-primary);
+            padding: 2px 12px;
+            border-radius: 40px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .process-step h5 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--color-black);
+            margin-bottom: 4px;
+        }
+
+        .process-step p {
+            color: var(--color-text-light);
+            font-size: 0.82rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* ============================================================
+           12. WHAT'S INCLUDED — CARD GRID
+           ============================================================ */
+        .what-included {
+            padding: 60px 0;
+            background: var(--color-white);
+        }
+
+        .what-included .included-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 32px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0;
+            list-style: none;
+        }
+
+        .what-included .included-grid li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: var(--color-text);
+            padding: 14px 18px;
+            background: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            box-shadow: 0 2px 8px var(--color-shadow);
+            transition: var(--transition);
+            cursor: default;
+            list-style: none;
+        }
+
+        .what-included .included-grid li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px var(--color-shadow-hover);
+            border-color: var(--color-primary);
+        }
+
+        .what-included .included-grid li i {
+            color: var(--color-primary);
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
+           13. WHY CHOOSE — PROPER BOXES
+           ============================================================ */
+        .why-choose {
+            padding: 80px 0;
+            background: var(--color-bg);
+        }
+        .why-choose .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .why-choose .feature-card {
+            background: var(--color-white);
+            padding: 28px 20px 24px;
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px var(--color-shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        .why-choose .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px var(--color-shadow-hover);
+            border-color: var(--color-primary);
+        }
+        .why-choose .feature-card .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--color-primary-lighter);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            color: var(--color-primary);
+            font-size: 1.4rem;
+            transition: var(--transition);
+        }
+        .why-choose .feature-card:hover .icon {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+        .why-choose .feature-card h5 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .why-choose .feature-card p {
+            color: var(--color-text-light);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+/* ============================================================
+   PROJECT GALLERY — with img tags and content overlay
+   ============================================================ */
+
+.project-gallery {
+    padding: 80px 0;
+    background: var(--color-white);
+}
+
+.project-gallery .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.project-gallery .gallery-item {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 2px 12px var(--color-shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    aspect-ratio: 4/3;
+    background: var(--color-bg);
+}
+
+.project-gallery .gallery-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px var(--color-shadow-hover);
+    border-color: var(--color-primary);
+}
+
+.project-gallery .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.project-gallery .gallery-item:hover img {
+    transform: scale(1.06);
+}
+
+/* Content overlay at bottom */
+.project-gallery .gallery-item .gallery-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 24px 22px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, transparent 100%);
+    color: var(--color-white);
+    transition: var(--transition);
+}
+
+.project-gallery .gallery-item .gallery-content h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-family: var(--font-serif);
+}
+
+.project-gallery .gallery-item .gallery-content p {
+    font-size: 0.8rem;
+    opacity: 0.85;
+    margin: 0;
+}
+
+/* Hover overlay effect */
+.project-gallery .gallery-item .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(44, 85, 48, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+    pointer-events: none;
+}
+
+.project-gallery .gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.project-gallery .gallery-item .gallery-overlay i {
+    color: var(--color-white);
+    font-size: 2rem;
+    opacity: 0.70;
+}
+
+/* Gallery Button */
+.gallery-btn {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.gallery-btn .btn-primary {
+    min-width: 220px;
+    justify-content: center;
+}
+
+/* ============================================================
+   RESPONSIVE — Gallery (4 → 3 → 2 → 1)
+   ============================================================ */
+@media (max-width: 1200px) {
+    .project-gallery .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .project-gallery .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-gallery {
+        padding: 60px 0;
+    }
+    .project-gallery .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .project-gallery .gallery-item .gallery-content {
+        padding: 16px 18px 18px;
+    }
+    .project-gallery .gallery-item .gallery-content h4 {
+        font-size: 0.9rem;
+    }
+    .project-gallery .gallery-item .gallery-content p {
+        font-size: 0.75rem;
+    }
+    .gallery-btn {
+        margin-top: 36px;
+    }
+    .gallery-btn .btn-primary {
+        min-width: 180px;
+        padding: 12px 24px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ===== MOBILE: SINGLE COLUMN ===== */
+@media (max-width: 576px) {
+    .project-gallery {
+        padding: 50px 0;
+    }
+    .project-gallery .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 28px;
+    }
+    .project-gallery .gallery-item {
+        aspect-ratio: 16/10;
+        border-radius: var(--radius);
+    }
+    .project-gallery .gallery-item .gallery-content {
+        padding: 20px 22px 22px;
+    }
+    .project-gallery .gallery-item .gallery-content h4 {
+        font-size: 1.05rem;
+    }
+    .project-gallery .gallery-item .gallery-content p {
+        font-size: 0.85rem;
+    }
+    .project-gallery .gallery-item .gallery-overlay i {
+        font-size: 1.8rem;
+    }
+    .gallery-btn {
+        margin-top: 32px;
+    }
+    .gallery-btn .btn-primary {
+        min-width: 100%;
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .project-gallery .gallery-item {
+        aspect-ratio: 4/3;
+    }
+    .project-gallery .gallery-item .gallery-content {
+        padding: 14px 16px 16px;
+    }
+    .project-gallery .gallery-item .gallery-content h4 {
+        font-size: 0.9rem;
+    }
+    .project-gallery .gallery-item .gallery-content p {
+        font-size: 0.75rem;
+    }
+}
+/* ============================================================
+   RESPONSIVE — Gallery
+   ============================================================ */
+@media (max-width: 1024px) {
+    .project-gallery .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-gallery {
+        padding: 60px 0;
+    }
+    .project-gallery .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    .project-gallery .gallery-item .gallery-content {
+        padding: 16px 18px 18px;
+    }
+    .project-gallery .gallery-item .gallery-content h4 {
+        font-size: 0.9rem;
+    }
+    .project-gallery .gallery-item .gallery-content p {
+        font-size: 0.75rem;
+    }
+    .gallery-btn {
+        margin-top: 36px;
+    }
+    .gallery-btn .btn-primary {
+        min-width: 180px;
+        padding: 12px 24px;
+        font-size: 0.85rem;
+    }
+}
+
+/* ===== MOBILE: SINGLE COLUMN ===== */
+@media (max-width: 576px) {
+    .project-gallery {
+        padding: 50px 0;
+    }
+    .project-gallery .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 28px;
+    }
+    .project-gallery .gallery-item {
+        aspect-ratio: 16/10;
+        border-radius: var(--radius);
+    }
+    .project-gallery .gallery-item .gallery-content {
+        padding: 20px 22px 22px;
+    }
+    .project-gallery .gallery-item .gallery-content h4 {
+        font-size: 1.05rem;
+    }
+    .project-gallery .gallery-item .gallery-content p {
+        font-size: 0.85rem;
+    }
+    .project-gallery .gallery-item .gallery-overlay i {
+        font-size: 1.8rem;
+    }
+    .gallery-btn {
+        margin-top: 32px;
+    }
+    .gallery-btn .btn-primary {
+        min-width: 100%;
+        width: 100%;
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .project-gallery .gallery-item {
+        aspect-ratio: 4/3;
+    }
+    .project-gallery .gallery-item .gallery-content {
+        padding: 14px 16px 16px;
+    }
+    .project-gallery .gallery-item .gallery-content h4 {
+        font-size: 0.9rem;
+    }
+    .project-gallery .gallery-item .gallery-content p {
+        font-size: 0.75rem;
+    }
+}
+        /* ============================================================
+           15. CUSTOM ELECTRICAL SOLUTIONS
+           ============================================================ */
+        .custom-solutions {
+            padding: 80px 0;
+            background: var(--color-bg);
+        }
+        .custom-solutions .solutions-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .custom-solutions .solutions-content .section-title {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .custom-solutions .solutions-content p {
+            color: var(--color-text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .custom-solutions .solutions-content .solutions-cta {
+            margin-top: 28px;
+        }
+
+        /* ============================================================
+           16. FAQ — PROPER BOXES
+           ============================================================ */
+        .faq-section {
+            padding: 80px 0;
+            background: var(--color-white);
+        }
+        .faq-section .faq-list {
+            max-width: 800px;
+            margin: 40px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .faq-section .faq-item {
+            background: var(--color-white);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            box-shadow: 0 2px 12px var(--color-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .faq-section .faq-item:hover {
+            border-color: var(--color-primary);
+        }
+        .faq-section .faq-item .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 24px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--color-black);
+            transition: var(--transition);
+            gap: 16px;
+        }
+        .faq-section .faq-item .faq-question:hover {
+            color: var(--color-primary);
+        }
+        .faq-section .faq-item .faq-question .faq-toggle {
+            font-size: 1rem;
+            color: var(--color-primary);
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        .faq-section .faq-item.active .faq-question .faq-toggle {
+            transform: rotate(180deg);
+        }
+        .faq-section .faq-item .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 24px;
+            color: var(--color-text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .faq-section .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 24px 20px;
+        }
+
+       
+        /* ============================================================
+           18. RESPONSIVE BREAKPOINTS
+           ============================================================ */
+        @media (max-width: 1024px) {
+            .about-electrical-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-electrical-image {
+                min-height: 280px;
+            }
+            .electrical-services .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .why-choose .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .project-gallery .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 64px;
+            }
+            .container {
+                padding: 0 18px;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            .section-sub {
+                font-size: 0.95rem;
+            }
+
+            .page-banner .banner-content h1 {
+                font-size: 2rem;
+            }
+
+            .about-electrical-content .highlight-list {
+                grid-template-columns: 1fr;
+            }
+
+            .electrical-services .services-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .what-included .included-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                max-width: 100%;
+            }
+            .what-included .included-grid li {
+                padding: 12px 14px;
+                font-size: 0.82rem;
+            }
+
+            .why-choose .feature-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .project-gallery .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+
+            .faq-section .faq-item .faq-question {
+                padding: 14px 18px;
+                font-size: 0.9rem;
+            }
+            .faq-section .faq-item .faq-answer {
+                font-size: 0.9rem;
+            }
+            .faq-section .faq-item.active .faq-answer {
+                padding: 0 18px 16px;
+            }
+
+            .cta-section .cta-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .chat-widget {
+                width: 120px;
+                height: 120px;
+                right: 15px;
+                bottom: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-banner .banner-content h1 {
+                font-size: 1.6rem;
+            }
+            .page-banner {
+                padding: 40px 0 32px;
+            }
+
+            .about-electrical-image {
+                min-height: 200px;
+            }
+
+            .electrical-services .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .what-included .included-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .what-included .included-grid li {
+                padding: 12px 16px;
+                font-size: 0.85rem;
+            }
+            .what-included .included-grid li i {
+                font-size: 1rem;
+                width: 20px;
+            }
+
+            .why-choose .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-gallery .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .project-gallery .gallery-item .gallery-label {
+                font-size: 0.7rem;
+                padding: 10px 14px;
+            }
+
+            .service-card {
+                padding: 24px 16px 20px;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .process-step {
+                padding: 16px 14px;
+            }
+            .process-step h5 {
+                font-size: 0.9rem;
+            }
+            .process-step p {
+                font-size: 0.8rem;
+            }
+
+            .custom-solutions .solutions-content .section-title {
+                font-size: 1.5rem;
+            }
+            .custom-solutions .solutions-content p {
+                font-size: 0.9rem;
+            }
+
+            .cta-section .cta-content h2 {
+                font-size: 1.3rem;
+            }
+            .cta-section .cta-content p {
+                font-size: 0.9rem;
+            }
+
+            .breadcrumb {
+                font-size: 0.75rem;
+                gap: 4px;
+            }
+        }
+
+
+
+        
+
+                .gallery-slider{
+    position:relative;
+    margin-top:40px;
+}
+
+.gallery-wrapper{
+    overflow:hidden;
+}
+
+.gallery-track{
+    display:flex;
+    gap:24px;
+    transition:0.5s ease;
+}
+
+.gallery-item{
+
+    min-width:calc((100% - 48px)/3);
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+}
+
+.gallery-item img{
+
+    width:100%;
+
+    height:300px;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+.gallery-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:rgba(0,0,0,.3);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    opacity:0;
+
+    transition:.3s;
+
+}
+
+.gallery-item:hover .gallery-overlay{
+
+    opacity:1;
+
+}
+
+.gallery-label{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    padding:18px;
+
+    color:#fff;
+
+    background:linear-gradient(transparent,rgba(0,0,0,.75));
+
+}
+
+.slider-arrow{
+
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    z-index:10;
+
+    cursor:pointer;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+}
+
+.slider-arrow.left{
+    left:-20px;
+}
+
+.slider-arrow.right{
+    right:-20px;
+}
+
+
+
+        .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo img {
+    height: 80px;
+          /* Adjust logo height */
+    width: auto;
+    display: block;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ============================================================
+    LOADER
+    ============================================================ -->
+    <div id="loader" style="position:fixed;inset:0;z-index:9999;background:#FAF8F5;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity 0.6s ease,visibility 0.6s ease;">
+        <div style="width:40px;height:40px;border-radius:50%;border:2px solid rgba(44,85,48,0.12);border-top-color:var(--color-primary);animation:spin 0.8s linear infinite;"></div>
+        <span style="font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--color-text-light);font-weight:500;">Loading</span>
+        <style>
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+        </style>
+    </div>
+
+    <!-- ============================================================
+    HEADER — EXACT MATCH
+    ============================================================ -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="next1.html" class="logo">
+    <img src="/uploads/logo.png" alt="Sudharshan Infra Logo">
+</a>
+                <ul class="nav-links" id="navLinks">
+    <li><a href="next1.html">Home</a></li>
+    <li><a href="next1.html#services" class="active">Electrical Works</a></li>
+    <li><a href="next1.html#portfolio">Portfolio</a></li>
+    <li><a href="next1.html#about">About Us</a></li>
+    <li><a href="next1.html#testimonials">Testimonials</a></li>
+    <li><a href="next1.html#contact">Contact Us</a></li>
+</ul>
+                <button class="mobile-menu-toggle" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    1. PAGE BANNER
+    ============================================================ -->
+   <section class="page-banner">
+    <div class="container">
+        <div class="banner-content reveal">
+
+            <span class="section-tag">Electrical Works</span>
+
+            <h1>Reliable <span class="highlight">Electrical Solutions</span></h1>
+
+                <p>
+    Comprehensive electrical installation, power distribution,
+    lighting systems, panel boards, cabling, testing,
+    and preventive maintenance services.
+</p>
+
+
+            <div class="breadcrumb">
+                <a href="next1.html">Home</a>
+                <span class="sep">
+                    <i class="fas fa-chevron-right" style="font-size:0.5rem;"></i>
+                </span>
+
+                   <a href="next1.html#services">Services</a>
+
+                <span class="sep">
+                    <i class="fas fa-chevron-right" style="font-size:0.5rem;"></i>
+                </span>
+
+                <span class="current">Electrical Works</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+   <!-- ============================================================
+2. ABOUT ELECTRICAL WORKS
+============================================================ -->
+<section class="about-electrical">
+    <div class="container">
+
+        <div class="about-electrical-grid">
+
+            <div class="about-electrical-image reveal-left"
+                style="background-image:url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80');">
+            </div>
+
+            <div class="about-electrical-content reveal-right">
+
+                <span class="section-tag">About Our Service</span>
+
+                <h2 class="section-title">
+                    Reliable <span class="highlight">Electrical Solutions</span>
+                </h2>
+
+                <p>
+                    Sudharshan Infra delivers comprehensive electrical contracting
+                    services for residential, commercial, industrial, and office
+                    projects. We specialize in safe, efficient, and standards-compliant
+                    electrical installations that ensure reliable performance and
+                    long-term operational efficiency.
+                </p>
+
+                <p>
+                    Our expertise includes electrical wiring, power distribution,
+                    lighting systems, panel boards, cable management, UPS
+                    installations, electrical upgrades, and preventive maintenance.
+                    Every project is executed with premium materials, advanced
+                    technology, and strict adherence to safety standards.
+                </p>
+
+                <ul class="highlight-list">
+                    <li><i class="fas fa-check-circle"></i> Complete Electrical Installations</li>
+                    <li><i class="fas fa-check-circle"></i> Power Distribution & Control Panels</li>
+                    <li><i class="fas fa-check-circle"></i> Lighting, UPS & Cable Management</li>
+                    <li><i class="fas fa-check-circle"></i> Testing, Maintenance & Safety Compliance</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+  <!-- ============================================================
+3. ELECTRICAL SERVICES
+============================================================ -->
+<section class="electrical-services">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Our Services</span>
+
+            <h2 class="section-title">
+                Electrical <span class="highlight">Solutions</span>
+            </h2>
+
+            <p class="section-sub" style="margin:8px auto 0;">
+                Comprehensive electrical contracting services for residential,
+                commercial, industrial, and infrastructure projects.
+            </p>
+        </div>
+
+        <div class="services-grid">
+
+            <div class="service-card reveal" style="transition-delay:0.05s;">
+                <div class="service-icon"><i class="fas fa-bolt"></i></div>
+                <h4>Electrical Installations</h4>
+                <p>Complete electrical installations for residential, commercial, and industrial facilities.</p>
+            </div>
+
+            <div class="service-card reveal" style="transition-delay:0.10s;">
+                <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
+                <h4>Lighting Solutions</h4>
+                <p>LED, architectural, emergency, and energy-efficient lighting installations.</p>
+            </div>
+
+            <div class="service-card reveal" style="transition-delay:0.15s;">
+                <div class="service-icon"><i class="fas fa-server"></i></div>
+                <h4>Power & Control Panels</h4>
+                <p>Installation of LT panels, distribution boards, MCC panels, and control systems.</p>
+            </div>
+
+            <div class="service-card reveal" style="transition-delay:0.20s;">
+                <div class="service-icon"><i class="fas fa-network-wired"></i></div>
+                <h4>Power Distribution</h4>
+                <p>Reliable power distribution systems ensuring safe and uninterrupted operations.</p>
+            </div>
+
+            <div class="service-card reveal" style="transition-delay:0.25s;">
+                <div class="service-icon"><i class="fas fa-plug"></i></div>
+                <h4>Cabling & Wiring</h4>
+                <p>Structured cabling, internal wiring, conduits, sockets, and electrical accessories.</p>
+            </div>
+
+            <div class="service-card reveal" style="transition-delay:0.30s;">
+                <div class="service-icon"><i class="fas fa-battery-half"></i></div>
+                <h4>UPS & Backup Power</h4>
+                <p>UPS systems, DG synchronization, backup power connections, and power continuity solutions.</p>
+            </div>
+
+            <div class="service-card reveal" style="transition-delay:0.35s;">
+                <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                <h4>Safety & Earthing</h4>
+                <p>Earthing, lightning protection, safety systems, and statutory electrical compliance.</p>
+            </div>
+
+            <div class="service-card reveal" style="transition-delay:0.40s;">
+                <div class="service-icon"><i class="fas fa-tools"></i></div>
+                <h4>Maintenance Services</h4>
+                <p>Preventive maintenance, fault diagnosis, repairs, testing, and system upgrades.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+   <!-- ============================================================
+4. OUR WORKING PROCESS
+============================================================ -->
+<section class="working-process">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Our Process</span>
+
+            <h2 class="section-title">
+                Our <span class="highlight">Electrical Project Process</span>
+            </h2>
+
+            <p class="section-sub">
+                A structured workflow ensuring safe, efficient, and standards-compliant electrical installations.
+            </p>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-step reveal" style="transition-delay:0.05s;">
+                <div class="step-number">01</div>
+                <h5>Consultation</h5>
+                <p>We understand your electrical requirements, project scope, budget, and timelines.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.10s;">
+                <div class="step-number">02</div>
+                <h5>Site Inspection</h5>
+                <p>Our engineers assess the site, electrical load, infrastructure, and installation requirements.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.15s;">
+                <div class="step-number">03</div>
+                <h5>Design & Planning</h5>
+                <p>We prepare electrical layouts, load calculations, cable routing, and power distribution plans.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.20s;">
+                <div class="step-number">04</div>
+                <h5>Installation</h5>
+                <p>Professional installation of wiring, panels, lighting systems, switchgear, and electrical equipment.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.25s;">
+                <div class="step-number">05</div>
+                <h5>Testing & Commissioning</h5>
+                <p>Comprehensive testing, safety verification, and system commissioning to ensure reliable performance.</p>
+            </div>
+
+            <div class="process-step reveal" style="transition-delay:0.30s;">
+                <div class="step-number">06</div>
+                <h5>Project Handover</h5>
+                <p>Final inspection, documentation, client handover, and ongoing maintenance support.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ============================================================
+5. OUR ELECTRICAL EXPERTISE
+============================================================ -->
+<section class="what-included">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Our Expertise</span>
+
+            <h2 class="section-title">
+                Complete <span class="highlight">Electrical Solutions</span>
+            </h2>
+
+            <p class="section-sub" style="margin:8px auto 0;">
+                Delivering reliable, safe, and standards-compliant electrical solutions
+                for residential, commercial, industrial, and infrastructure projects.
+            </p>
+        </div>
+
+        <ul class="included-grid">
+
+            <li class="reveal" style="transition-delay:0.05s;">
+                <i class="fas fa-check-circle"></i>
+                HT & LT Electrical Installations
+            </li>
+
+            <li class="reveal" style="transition-delay:0.10s;">
+                <i class="fas fa-check-circle"></i>
+                Power Distribution Systems
+            </li>
+
+            <li class="reveal" style="transition-delay:0.15s;">
+                <i class="fas fa-check-circle"></i>
+                Control Panels & Distribution Boards
+            </li>
+
+            <li class="reveal" style="transition-delay:0.20s;">
+                <i class="fas fa-check-circle"></i>
+                Lighting & Energy-Efficient Solutions
+            </li>
+
+            <li class="reveal" style="transition-delay:0.25s;">
+                <i class="fas fa-check-circle"></i>
+                Structured Cabling & Wiring
+            </li>
+
+            <li class="reveal" style="transition-delay:0.30s;">
+                <i class="fas fa-check-circle"></i>
+                UPS & Backup Power Systems
+            </li>
+
+            <li class="reveal" style="transition-delay:0.35s;">
+                <i class="fas fa-check-circle"></i>
+                Earthing & Lightning Protection
+            </li>
+
+            <li class="reveal" style="transition-delay:0.40s;">
+                <i class="fas fa-check-circle"></i>
+                Electrical Testing & Commissioning
+            </li>
+
+            <li class="reveal" style="transition-delay:0.45s;">
+                <i class="fas fa-check-circle"></i>
+                Preventive Maintenance Services
+            </li>
+
+            <li class="reveal" style="transition-delay:0.50s;">
+                <i class="fas fa-check-circle"></i>
+                Safety Compliance & Quality Assurance
+            </li>
+
+        </ul>
+
+    </div>
+</section>
+    <!-- ============================================================
+    6. WHY CHOOSE OUR ELECTRICAL SERVICES
+    ============================================================ -->
+    <section class="why-choose">
+    <div class="container">
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Why Choose Us</span>
+            <h2 class="section-title">Why Choose Our <span class="highlight">Electrical Services</span></h2>
+            <p class="section-sub" style="margin:8px auto 0;">
+                Delivering safe, efficient, and reliable electrical solutions with quality workmanship.
+            </p>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card reveal" style="transition-delay:0.05s;">
+                <div class="icon"><i class="fas fa-bolt"></i></div>
+                <h5>Expert Electrical Team</h5>
+                <p>Skilled professionals with extensive experience in commercial, industrial, and office electrical projects.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.10s;">
+                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                <h5>Safety First</h5>
+                <p>Every installation is carried out following industry safety standards and thorough quality inspections.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.15s;">
+                <div class="icon"><i class="fas fa-award"></i></div>
+                <h5>Quality Materials</h5>
+                <p>We use trusted electrical components and branded materials to ensure long-lasting performance.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.20s;">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <h5>Timely Project Delivery</h5>
+                <p>Our team follows a well-planned schedule to complete projects efficiently without compromising quality.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.25s;">
+                <div class="icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                <h5>Transparent Quotation</h5>
+                <p>Detailed estimates with clear pricing, ensuring complete transparency throughout the project.</p>
+            </div>
+
+            <div class="feature-card reveal" style="transition-delay:0.30s;">
+                <div class="icon"><i class="fas fa-tools"></i></div>
+                <h5>Maintenance & Support</h5>
+                <p>We provide post-installation maintenance and technical support to keep your electrical systems running safely.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ============================================================
+PROJECT GALLERY
+============================================================ -->
+  <section class="project-gallery">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">Gallery</span>
+
+            <h2 class="section-title">
+                Our <span class="highlight">Projects</span>
+            </h2>
+
+            <p class="section-sub" style="margin:8px auto 0;">
+                A look at some of our completed office furniture projects.
+            </p>
+        </div>
+
+        <!-- Gallery Slider -->
+        <div class="gallery-slider reveal">
+
+            <!-- Left Arrow -->
+            <button class="slider-arrow left" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <!-- Cards -->
+            <div class="gallery-wrapper">
+
+                <div class="gallery-track" id="officeProjects">
+
+                    <!-- JSON/API se cards yaha load honge -->
+
+                </div>
+
+            </div>
+
+            <!-- Right Arrow -->
+            <button class="slider-arrow right" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+        </div>
+
+        <div class="gallery-btn reveal">
+
+            <a href="view-all-project.html?category=furniture" class="btn-primary">
+
+                See More Projects
+
+                <i class="fas fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+</section>
+  
+
+
+
+
+
+
+<!-- ============================================================
+9. FREQUENTLY ASKED QUESTIONS
+============================================================ -->
+<section class="faq-section">
+    <div class="container">
+
+        <div class="reveal" style="text-align:center;">
+            <span class="section-tag">FAQ</span>
+
+            <h2 class="section-title">
+                Frequently Asked <span class="highlight">Questions</span>
+            </h2>
+
+            <p class="section-sub" style="margin:8px auto 0;">
+                Answers to common questions about our electrical contracting services.
+            </p>
+        </div>
+
+        <div class="faq-list">
+
+            <div class="faq-item active reveal" style="transition-delay:0.05s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you provide complete electrical contracting services?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Yes. We provide complete electrical solutions including wiring,
+                    lighting, power distribution, control panels, earthing,
+                    backup power systems, testing, and commissioning.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.10s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you handle commercial and industrial projects?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Yes. Our team undertakes residential, commercial,
+                    office, industrial, and infrastructure electrical projects
+                    of varying scales.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.15s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Are your installations compliant with safety standards?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Absolutely. All installations follow applicable electrical
+                    standards and undergo thorough testing, inspection, and
+                    quality checks before handover.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.20s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Do you provide maintenance services?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Yes. We offer preventive maintenance, fault diagnosis,
+                    repairs, electrical upgrades, and technical support to
+                    ensure reliable system performance.
+                </div>
+            </div>
+
+            <div class="faq-item reveal" style="transition-delay:0.25s;">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Can you customize electrical solutions for our project?</span>
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Certainly. Every project is designed according to your
+                    electrical load, building layout, operational requirements,
+                    and future expansion plans.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+   <!-- ============================================================
+8. CUSTOM ELECTRICAL SOLUTIONS
+============================================================ -->
+<section class="custom-solutions">
+    <div class="container">
+
+        <div class="solutions-content reveal">
+
+            <span class="section-tag">Tailored Solutions</span>
+
+            <h2 class="section-title">
+                Customized <span class="highlight">Electrical Solutions</span>
+            </h2>
+
+            <p>
+                At Sudharshan Infra, we understand that every project has unique
+                electrical requirements. Our team delivers customized electrical
+                solutions designed to meet your operational needs while ensuring
+                safety, efficiency, and long-term reliability.
+            </p>
+
+            <p style="margin-top:12px;">
+                From power distribution and lighting systems to control panels,
+                structured cabling, backup power solutions, and electrical
+                maintenance, we provide complete turnkey services using premium
+                materials and industry-approved installation practices.
+            </p>
+
+            <div class="solutions-cta">
+                <a href="#contact" class="btn-primary">
+                    <i class="fas fa-arrow-right"></i>
+                    Get a Free Consultation
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+    <!-- ============================================================
+    FOOTER — EXACT MATCH
+    ============================================================ -->
+ <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">Sudarshan<span>Infra</span></div>
+                    <p>Premium furniture contracting for residential &amp; commercial spaces. Built to last, designed to inspire.</p>
+                    <div class="footer-socials">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="next1.html#about">About Us</a>
+                    <a href="next1.html">Civil & Finishing</a>
+                    <a href="next1.html#portfolio">Portfolio</a>
+                    <a href="next1.html#testimonials">Testimonials</a>
+                    <a href="next1.html#contact">Contact</a>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="next1.html">Civil & Finishing</a>
+                    <a href="next1.html#services">Residential</a>
+                    <a href="next1.html#services">Kitchen</a>
+                    <a href="next1.html#services">Wardrobe</a>
+                    <a href="next1.html#services">Living Room</a>
+                </div>
+
+                <div class="footer-col footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for design inspiration and exclusive offers.</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address" id="newsletterEmail" />
+                        <button class="btn-primary" onclick="handleNewsletter()">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2025 SudarshanInfra. All rights reserved.</span>
+                <button class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </button>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================================
+    CHAT WIDGET
+    ============================================================ -->
+    <div class="chat-widget" id="chatWidget">
+        <img src="chatbot1.png" alt="Chatbot">
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // LOADER
+            // ============================================================
+            window.addEventListener('load', function() {
+                const loader = document.getElementById('loader');
+                if (loader) {
+                    setTimeout(function() {
+                        loader.style.opacity = '0';
+                        loader.style.visibility = 'hidden';
+                    }, 400);
+                }
+                initReveal();
+                initFaq();
+            });
+
+            // ============================================================
+            // SCROLL REVEAL
+            // ============================================================
+            function initReveal() {
+                const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+                els.forEach(function(el) {
+                    observer.observe(el);
+                });
+            }
+
+            // ============================================================
+            // HEADER SCROLL
+            // ============================================================
+            const header = document.getElementById('header');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', function() {
+                const scrollY = window.scrollY;
+                if (scrollY > 50) {
+                    header.classList.add('scrolled');
+                    if (scrollY > lastScrollY && scrollY > 200) {
+                        header.classList.add('hidden');
+                    } else {
+                        header.classList.remove('hidden');
+                    }
+                } else {
+                    header.classList.remove('scrolled');
+                    header.classList.remove('hidden');
+                }
+                lastScrollY = scrollY;
+            });
+
+
+            // cards
+
+
+
+                          // card 
+
+
+let currentIndex = 0;
+
+async function loadFurnitureProjects() {
+    try {
+
+        const response = await fetch("projects.json");
+        const projects = await response.json();
+
+        const track = document.getElementById("officeProjects");
+        track.innerHTML = "";
+
+        projects.forEach(project => {
+
+            track.innerHTML += `
+                <div class="gallery-item">
+                    <img src="${project.image}" alt="${project.title}">
+
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+
+                    <div class="gallery-label">
+                        ${project.title}
+                    </div>
+                </div>
+            `;
+
+        });
+
+        const cards = document.querySelectorAll("#officeProjects .gallery-item");
+
+        if(cards.length === 0) return;
+
+        const gap = 24;
+        const cardWidth = cards[0].offsetWidth + gap;
+
+        document.getElementById("nextBtn").onclick = function(){
+
+            if(currentIndex < cards.length - 3){
+
+                currentIndex++;
+
+                track.style.transform =
+                    `translateX(-${currentIndex * cardWidth}px)`;
+
+            }
+
+        };
+
+        document.getElementById("prevBtn").onclick = function(){
+
+            if(currentIndex > 0){
+
+                currentIndex--;
+
+                track.style.transform =
+                    `translateX(-${currentIndex * cardWidth}px)`;
+
+            }
+
+        };
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+}
+
+loadFurnitureProjects();
+
+
+
+
+
+            // ============================================================
+            // MOBILE MENU
+            // ============================================================
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            const icon = hamburger.querySelector('i');
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+                document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    icon.classList.add('fa-bars');
+                    icon.classList.remove('fa-times');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // ============================================================
+            // FAQ TOGGLE
+            // ============================================================
+            function initFaq() {
+                const firstFaq = document.querySelector('.faq-item.active');
+                if (firstFaq) {
+                    firstFaq.querySelector('.faq-answer').style.maxHeight = firstFaq.querySelector('.faq-answer')
+                        .scrollHeight + 'px';
+                }
+            }
+
+            window.toggleFaq = function(el) {
+                const parent = el.closest('.faq-item');
+                const isActive = parent.classList.contains('active');
+
+                const siblings = parent.parentElement.querySelectorAll('.faq-item');
+                siblings.forEach(function(sib) {
+                    if (sib !== parent) {
+                        sib.classList.remove('active');
+                        const answer = sib.querySelector('.faq-answer');
+                        if (answer) {
+                            answer.style.maxHeight = '0';
+                        }
+                    }
+                });
+
+                parent.classList.toggle('active');
+                const answer = parent.querySelector('.faq-answer');
+                if (answer) {
+                    if (parent.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    } else {
+                        answer.style.maxHeight = '0';
+                    }
+                }
+            };
+
+            // ============================================================
+            // NEWSLETTER
+            // ============================================================
+            window.handleNewsletter = function() {
+                const input = document.getElementById('newsletterEmail');
+                const email = input.value.trim();
+                if (!email || !email.includes('@')) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                const original = input.placeholder;
+                input.placeholder = '✓ Subscribed!';
+                input.value = '';
+                setTimeout(function() {
+                    input.placeholder = original;
+                }, 2500);
+            };
+
+            // ============================================================
+            // SMOOTH SCROLL
+            // ============================================================
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const offset = 80;
+                        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                        history.pushState(null, null, targetId);
+                    }
+                });
+            });
+
+            // ============================================================
+            // CHAT WIDGET
+            // ============================================================
+            const chat = document.getElementById('chatWidget');
+            chat.onclick = function() {
+                alert('Open Chatbot');
+            };
+
+            // ============================================================
+            // ACTIVE NAV LINK
+            // ============================================================
+            const allNavLinks = document.querySelectorAll('.nav-links a');
+            allNavLinks.forEach(function(link) {
+                if (link.getAttribute('href') === 'electrical.html' || link.getAttribute('href') === '#') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+        })();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portfolio</title>
+
+<link rel="stylesheet" href="next1.css">
+<link rel="stylesheet" href="portfolio.css">
+
+</head>
+
+<body>
+<!-- ===========================
+PORTFOLIO COMPONENT
+=========================== -->
+
+<section class="portfolio">
+
+    <div class="portfolio-header reveal">
+        <span class="section-tag">Portfolio</span>
+
+        <h2 class="section-title">
+            Featured
+            <span class="highlight">Projects</span>
+        </h2>
+
+        <p class="section-sub">
+            Explore our recent work across residential,
+            commercial and luxury interiors.
+        </p>
+    </div>
+
+    <div class="portfolio-filters reveal">
+
+        <button class="filter-btn active" data-filter="all">All</button>
+
+        <button class="filter-btn" data-filter="residential">
+            Residential
+        </button>
+
+        <button class="filter-btn" data-filter="commercial">
+            Commercial
+        </button>
+
+        <button class="filter-btn" data-filter="luxury">
+            Luxury
+        </button>
+
+    </div>
+
+    <!-- Cards yaha automatically aayenge -->
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+
+    <div class="portfolio-cta reveal">
+    </div>
+
+</section>
+
+<!-- Data -->
+<script src="projects.js"></script>
+
+<!-- Portfolio -->
+<script src="portfolio.js"></script>
+
+
+
+
+</body>
+</html>
