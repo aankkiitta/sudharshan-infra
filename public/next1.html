@@ -1225,227 +1225,188 @@ TESTIMONIALS
 
             loadReviews();
 
-
-
-            // ============================================================
-// CONTACT FORM - WITH DATABASE SAVE
+// ============================================================
+// CONTACT FORM - LIVE DATABASE
 // ============================================================
 
-// Initialize contact form submissions in localStorage
-function initContactSubmissions() {
-    if (!localStorage.getItem('contactSubmissions')) {
-        localStorage.setItem('contactSubmissions', JSON.stringify([]));
-    }
-}
+window.handleContact = async function (e) {
 
-// Save contact submission to database (localStorage)
-function saveContactSubmission(data) {
-    try {
-        // Get existing submissions
-        let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-        
-        // Add new submission with timestamp
-        const newSubmission = {
-            id: Date.now(),
-            ...data,
-            is_read: false,
-            created_at: new Date().toISOString()
-        };
-        
-        submissions.push(newSubmission);
-        
-        // Save back to localStorage
-        localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
-        
-        // Also save to inquiries for backward compatibility
-        let inquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
-        inquiries.push({
-            id: Date.now(),
-            name: data.name,
-            email: data.email,
-            phone: data.phone || 'No phone',
-            subject: data.subject || data.projectType || 'General Inquiry',
-            message: data.message,
-            is_read: false,
-            created_at: new Date().toISOString()
-        });
-        localStorage.setItem('inquiries', JSON.stringify(inquiries));
-        
-        return true;
-    } catch (error) {
-        console.error('Error saving contact submission:', error);
-        return false;
-    }
-}
-
-
-// Email validation helper
-function isValidEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-
-// Toast notification for contact form
-function showToast(message, type = "success") {
-    // Remove existing toast
-    const oldToast = document.querySelector(".toast");
-    if (oldToast) oldToast.remove();
-    
-    // Create new toast
-    const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    
-    setTimeout(() => toast.classList.add("show"), 10);
-    setTimeout(() => {
-        toast.classList.remove("show");
-        setTimeout(() => toast.remove(), 300);
-    }, 4000);
-}
-
-// Initialize contact submissions on page load
-document.addEventListener('DOMContentLoaded', function() {
-    initContactSubmissions();
-    
-    // Add subject field if missing
-    const form = document.getElementById('contactForm');
-    if (form) {
-        const subjectGroup = form.querySelector('#cSubject');
-        if (!subjectGroup) {
-            // Find the project type group and insert subject before it
-            const projectGroup = document.getElementById('cProject')?.closest('.form-group');
-            if (projectGroup) {
-                const subjectHTML = `
-                    <div class="form-group">
-                        <label for="cSubject">Subject</label>
-                        <input type="text" id="cSubject" placeholder="Brief subject line" />
-                    </div>
-                `;
-                projectGroup.insertAdjacentHTML('beforebegin', subjectHTML);
-            }
-        }
-    }
-});
-
-// Function to get all contact submissions (for admin panel)
-function getContactSubmissions() {
-    try {
-        return JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-    } catch (e) {
-        return [];
-    }
-}
-
-// Function to delete a contact submission
-function deleteContactSubmission(id) {
-    try {
-        let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-        submissions = submissions.filter(sub => sub.id !== id);
-        localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
-
-// Function to mark contact submission as read
-function markContactSubmissionRead(id) {
-    try {
-        let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-        const submission = submissions.find(sub => sub.id === id);
-        if (submission) {
-            submission.is_read = true;
-            localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
-            return true;
-        }
-        return false;
-    } catch (e) {
-        return false;
-    }
-}
-            // ============================================================
-            // CONTACT FORM
-            // ============================================================
-       window.handleContact = async function(e) {
     e.preventDefault();
 
-    const btn = document.getElementById('submitBtn');
-    const original = btn.innerHTML;
+    const form = document.getElementById("contactForm");
+    const btn = document.getElementById("submitBtn");
 
-    const data = {
-        name: document.getElementById('cName').value.trim(),
-        email: document.getElementById('cEmail').value.trim(),
-        phone: document.getElementById('cPhone').value.trim(),
-        subject: document.getElementById('cSubject').value.trim(),
-        projectType: document.getElementById('cProject').value,
-        message: document.getElementById('cMessage').value.trim()
-    };
-
-    if (!data.name || !data.email || !data.message) {
-        showToast('Please fill all required fields.', 'error');
+    if (!form || !btn) {
+        console.error("Contact form or submit button not found");
         return;
     }
 
+    const name = document.getElementById("cName").value.trim();
+    const email = document.getElementById("cEmail").value.trim();
+    const phone = document.getElementById("cPhone").value.trim();
+    const subject = document.getElementById("cSubject").value.trim();
+    const projectType = document.getElementById("cProject").value;
+    const message = document.getElementById("cMessage").value.trim();
+
+    // Validation
+    if (!name || !email || !message) {
+        showToast(
+            "Please fill in all required fields.",
+            "error"
+        );
+        return;
+    }
+
+    // Email validation
+    const emailRegex =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        showToast(
+            "Please enter a valid email address.",
+            "error"
+        );
+        return;
+    }
+
+    // Disable button
+    const originalText = btn.innerHTML;
+
+    btn.disabled = true;
+
     btn.innerHTML =
         '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    btn.disabled = true;
 
     try {
 
         const response = await fetch(
-            'https://sudharshan-infra.onrender.com/api/inquiries',
+            "https://sudharshan-infra.onrender.com/api/inquiries",
             {
-                method: 'POST',
+                method: "POST",
+
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
+
                 body: JSON.stringify({
-                    name: data.name,
-                    email: data.email,
-                    phone: data.phone,
-                    subject: data.subject || data.projectType,
-                    message: data.message
+                    name: name,
+                    email: email,
+                    phone: phone || null,
+                    subject: subject || projectType || "General Inquiry",
+                    message: message,
+                    projectType: projectType || null
                 })
             }
         );
 
-        const result = await response.json();
+        // Check HTTP status first
+        if (!response.ok) {
 
-        if (!response.ok || !result.success) {
-            throw new Error(result.message || 'Failed to send inquiry');
+            const errorText = await response.text();
+
+            console.error(
+                "Server Error:",
+                response.status,
+                errorText
+            );
+
+            throw new Error(
+                "Server returned " + response.status
+            );
         }
 
+        const result = await response.json();
+
+        console.log(
+            "Inquiry API Response:",
+            result
+        );
+
+        if (!result.success) {
+
+            throw new Error(
+                result.message ||
+                "Inquiry could not be saved"
+            );
+        }
+
+        // SUCCESS
         btn.innerHTML =
             '<i class="fas fa-check-circle"></i> Sent!';
 
         showToast(
-            'Your message has been sent successfully!',
-            'success'
+            "Your message has been sent successfully!",
+            "success"
         );
 
-        document.getElementById('contactForm').reset();
+        // Clear form
+        form.reset();
 
     } catch (error) {
 
-        console.error('Inquiry Error:', error);
+        console.error(
+            "CONTACT FORM ERROR:",
+            error
+        );
 
         btn.innerHTML =
             '<i class="fas fa-exclamation-circle"></i> Failed';
 
         showToast(
-            'Failed to send message. Please try again.',
-            'error'
+            "Failed to send message. Please try again.",
+            "error"
         );
 
     } finally {
 
-        setTimeout(() => {
-            btn.innerHTML = original;
+        setTimeout(function () {
+
+            btn.innerHTML = originalText;
             btn.disabled = false;
+
         }, 2000);
     }
 };
+
+
+// ============================================================
+// TOAST
+// ============================================================
+
+function showToast(message, type = "success") {
+
+    const oldToast =
+        document.querySelector(".toast");
+
+    if (oldToast) {
+        oldToast.remove();
+    }
+
+    const toast =
+        document.createElement("div");
+
+    toast.className =
+        "toast " + type;
+
+    toast.textContent =
+        message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(function () {
+        toast.classList.add("show");
+    }, 10);
+
+    setTimeout(function () {
+
+        toast.classList.remove("show");
+
+        setTimeout(function () {
+            toast.remove();
+        }, 300);
+
+    }, 4000);
+}
             // ============================================================
             // NEWSLETTER
             // ============================================================
