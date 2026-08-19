@@ -2164,13 +2164,15 @@
     </footer>
 
 
+  
     <!-- ============================================================
-    CHAT WIDGET
+    CHAT BOT FLOATING
     ============================================================ -->
-    <div class="chat-widget" id="chatWidget">
-        <img src="chatbot1.png" alt="Chatbot">
-    </div>
+    <!-- Chatbot -->
+    <div id="chatbot-container"></div>
 
+    <script src="load-chatbot.js"></script>
+ 
     <!-- ============================================================
     JAVASCRIPT
     ============================================================ -->
@@ -2232,24 +2234,20 @@ async function loadFurnitureProjects() {
 
         const track = document.getElementById("officeProjects");
         track.innerHTML = "";
+projects.forEach(project => {
+    track.innerHTML += `
+        <div class="gallery-item"
+             onclick="window.location.href='${project.link}'">
 
-        projects.forEach(project => {
+            <img src="${project.image}" alt="${project.title}">
 
-            track.innerHTML += `
-                <div class="gallery-item">
-                    <img src="${project.image}" alt="${project.title}">
+            <div class="gallery-label">
+                ${project.title}
+            </div>
 
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                    </div>
-
-                    <div class="gallery-label">
-                        ${project.title}
-                    </div>
-                </div>
-            `;
-
-        });
+        </div>
+    `;
+});
 
         const cards = document.querySelectorAll("#officeProjects .gallery-item");
 

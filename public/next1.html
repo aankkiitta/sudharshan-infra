@@ -269,7 +269,7 @@ HERO
                             aesthetics, and quality craftsmanship.
                         </p>
 
-                        <a href="portfolio.html" class="btn-sm btn-sm-primary">
+                        <a href="home-renovation.html" class="btn-sm btn-sm-primary">
                             Learn More
                             <i class="fas fa-arrow-right"></i>
                         </a>
@@ -305,8 +305,88 @@ PORTFOLIO
             </div>
 
             <!-- Portfolio Cards -->
-            <div class="portfolio-grid" id="portfolioGrid"></div>
+<!-- Portfolio Cards -->
+<div class="portfolio-grid" id="portfolioGrid">
 
+    <!-- Project 1 -->
+    <div class="portfolio-item" data-category="luxury">
+        <img src="images/project3.jpg" alt="Luxury Bedroom">
+        <span class="card-badge">Luxury</span>
+        <div class="portfolio-overlay">
+            <h3>Luxury Bedroom</h3>
+            <p>Premium bedroom interior with elegant furniture, modern lighting and luxury finishes.</p>
+            <a href="project1.html" class="overlay-btn">
+                View Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="portfolio-item" data-category="residential">
+        <img src="images/project2.jpg" alt="Modern Living Room">
+        <span class="card-badge">Residential</span>
+        <div class="portfolio-overlay">
+            <h3>Modern Living Room</h3>
+            <p>Contemporary living space with custom furniture, warm lighting and elegant finishes.</p>
+            <a href="project2.html" class="overlay-btn">
+                View Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="portfolio-item" data-category="commercial">
+        <img src="images/project4.jpg" alt="Corporate Office">
+        <span class="card-badge">Commercial</span>
+        <div class="portfolio-overlay">
+            <h3>Corporate Office</h3>
+            <p>Professional office interior designed for productivity, comfort and modern business needs.</p>
+            <a href="project4.html" class="overlay-btn">
+                View Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="portfolio-item" data-category="luxury">
+        <img src="images/project5.jpg" alt="Luxury Villa">
+        <span class="card-badge">Luxury</span>
+        <div class="portfolio-overlay">
+            <h3>Luxury Villa</h3>
+            <p>Elegant villa interiors combining premium materials, sophisticated furniture and timeless design.</p>
+            <a href="project5.html" class="overlay-btn">
+                View Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Project 5 -->
+    <div class="portfolio-item" data-category="residential">
+        <img src="images/project6.jpg" alt="Contemporary Kitchen">
+        <span class="card-badge">Residential</span>
+        <div class="portfolio-overlay">
+            <h3>Contemporary Kitchen</h3>
+            <p>Custom kitchen furniture with smart storage, premium finishes and modern functionality.</p>
+            <a href="project6.html" class="overlay-btn">
+                View Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Project 6 -->
+    <div class="portfolio-item" data-category="commercial">
+        <img src="images/project7.jpg" alt="Executive Workspace">
+        <span class="card-badge">Commercial</span>
+        <div class="portfolio-overlay">
+            <h3>Executive Workspace</h3>
+            <p>Premium executive workspace featuring bespoke furniture and a refined professional atmosphere.</p>
+            <a href="project7.html" class="overlay-btn">
+                View Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+</div>
             <div class="portfolio-cta reveal">
                 <a href="view-all-project.html" class="btn-secondary">
                     <i class="fas fa-grid-2"></i>
@@ -440,7 +520,7 @@ TESTIMONIALS
 
             <div class="about-image-wrapper reveal-left">
                 <div class="about-image-main"
-                    style="background-image:url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80');">
+                    style="background-image:url('/uploads/owner.png');">
                 </div>
 
                 <div class="experience-badge">
@@ -726,56 +806,6 @@ TESTIMONIALS
 
 
 
-
-            // load portfilio project
-
-
-
-            async function loadPortfolio() {
-
-                try {
-
-                    const response = await fetch("./projects.json");
-                    const projects = await response.json();
-
-                    console.log(projects); // Check karo data aa raha hai
-
-                    const grid = document.getElementById("portfolioGrid");
-
-                    grid.innerHTML = "";
-
-
-                    projects.slice(0, 6).forEach(project => {
-
-                        grid.innerHTML += `
-        <div class="portfolio-item" data-category="${project.category}">
-
-            <img src="${project.image}" alt="${project.title}">
-
-            <div class="portfolio-overlay">
-                <h3>${project.title}</h3>
-                <p>${project.category}</p>
-
-                <a href="${project.link}" class="portfolio-btn">
-                    View Project
-                </a>
-            </div>
-
-        </div>
-    `;
-
-                    });
-
-
-                } catch (err) {
-
-                    console.error("Portfolio Load Error:", err);
-
-                }
-
-            }
-
-            loadPortfolio();
 
 
 

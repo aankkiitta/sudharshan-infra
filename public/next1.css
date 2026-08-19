@@ -674,8 +674,9 @@
             top: 16px;
             left: 16px;
             z-index: 2;
-            background: var(--color-secondary);
-            color: var(--color-white);
+            background: #285b35 !important;
+    color: #fff !important;
+
             font-size: 0.55rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -1133,7 +1134,7 @@
             rgba(44,85,48,.90),
             rgba(44,85,48,.90)
         ),
-        url("/uploads/logo.png") center center/cover no-repeat;
+        url("/uploads/review-bg.png") center center/cover no-repeat;
 
     color:#fff;
     text-align:center;
@@ -2662,6 +2663,18 @@
     overflow:hidden;
     background:
         linear-gradient(rgba(44,85,48,.90), rgba(44,85,48,.90)),
-        url("/uploads/logo.png") center/cover no-repeat;
+        url("/uploads/review-bg.png") center/cover no-repeat;
     color:#fff;
 }
+
+
+
+
+
+
+
+
+
+
+
+
