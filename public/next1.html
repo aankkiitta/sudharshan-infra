@@ -1278,72 +1278,6 @@ function saveContactSubmission(data) {
     }
 }
 
-// Handle contact form submission
-window.handleContact = function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = {
-        name: document.getElementById('cName').value.trim(),
-        email: document.getElementById('cEmail').value.trim(),
-        phone: document.getElementById('cPhone').value.trim(),
-        subject: document.getElementById('cSubject') ? document.getElementById('cSubject').value.trim() : 'General Inquiry',
-        projectType: document.getElementById('cProject').value,
-        message: document.getElementById('cMessage').value.trim()
-    };
-    
-    // Validate required fields
-    if (!formData.name || !formData.email || !formData.message) {
-        showToast('Please fill in all required fields.', 'error');
-        return;
-    }
-    
-    // Validate email
-    if (!isValidEmail(formData.email)) {
-        showToast('Please enter a valid email address.', 'error');
-        return;
-    }
-    
-    const btn = document.getElementById('submitBtn');
-    const original = btn.innerHTML;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    btn.disabled = true;
-    
-    // Simulate API call to save to database
-    setTimeout(function() {
-        // Save to database (localStorage)
-        const saved = saveContactSubmission(formData);
-        
-        if (saved) {
-            btn.innerHTML = '<i class="fas fa-check-circle"></i> Sent!';
-            btn.style.background = '#2c5530';
-            showToast('Your message has been sent successfully!', 'success');
-            
-            // Reset form after delay
-            setTimeout(function() {
-                btn.innerHTML = original;
-                btn.style.background = '';
-                btn.disabled = false;
-                document.getElementById('contactForm').reset();
-            }, 2000);
-            
-            // Update admin panel inquiry count if open
-            if (typeof updateStats === 'function') {
-                updateStats();
-            }
-        } else {
-            btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
-            btn.style.background = '#dc3545';
-            showToast('Failed to send message. Please try again.', 'error');
-            
-            setTimeout(function() {
-                btn.innerHTML = original;
-                btn.style.background = '';
-                btn.disabled = false;
-            }, 3000);
-        }
-    }, 1500);
-};
 
 // Email validation helper
 function isValidEmail(email) {
@@ -1433,25 +1367,85 @@ function markContactSubmissionRead(id) {
             // ============================================================
             // CONTACT FORM
             // ============================================================
-            window.handleContact = function (e) {
-                e.preventDefault();
-                const btn = document.getElementById('submitBtn');
-                const original = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                btn.disabled = true;
+       window.handleContact = async function(e) {
+    e.preventDefault();
 
-                setTimeout(function () {
-                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Sent!';
-                    btn.style.background = '#2c5530';
-                    setTimeout(function () {
-                        btn.innerHTML = original;
-                        btn.style.background = '';
-                        btn.disabled = false;
-                        document.getElementById('contactForm').reset();
-                    }, 2000);
-                }, 1500);
-            };
+    const btn = document.getElementById('submitBtn');
+    const original = btn.innerHTML;
 
+    const data = {
+        name: document.getElementById('cName').value.trim(),
+        email: document.getElementById('cEmail').value.trim(),
+        phone: document.getElementById('cPhone').value.trim(),
+        subject: document.getElementById('cSubject').value.trim(),
+        projectType: document.getElementById('cProject').value,
+        message: document.getElementById('cMessage').value.trim()
+    };
+
+    if (!data.name || !data.email || !data.message) {
+        showToast('Please fill all required fields.', 'error');
+        return;
+    }
+
+    btn.innerHTML =
+        '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    btn.disabled = true;
+
+    try {
+
+        const response = await fetch(
+            'https://sudharshan-infra.onrender.com/api/inquiries',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    subject: data.subject || data.projectType,
+                    message: data.message
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(result.message || 'Failed to send inquiry');
+        }
+
+        btn.innerHTML =
+            '<i class="fas fa-check-circle"></i> Sent!';
+
+        showToast(
+            'Your message has been sent successfully!',
+            'success'
+        );
+
+        document.getElementById('contactForm').reset();
+
+    } catch (error) {
+
+        console.error('Inquiry Error:', error);
+
+        btn.innerHTML =
+            '<i class="fas fa-exclamation-circle"></i> Failed';
+
+        showToast(
+            'Failed to send message. Please try again.',
+            'error'
+        );
+
+    } finally {
+
+        setTimeout(() => {
+            btn.innerHTML = original;
+            btn.disabled = false;
+        }, 2000);
+    }
+};
             // ============================================================
             // NEWSLETTER
             // ============================================================
