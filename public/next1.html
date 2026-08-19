@@ -673,64 +673,70 @@ TESTIMONIALS
     <!-- ============================================================
     CONTACT
     ============================================================ -->
-    <section class="contact" id="contact">
-        <div class="container contact-grid">
-            <div class="contact-info reveal-left">
-                <div class="contact-image"
-                    style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');">
-                </div>
-                <span class="section-tag">Get In Touch</span>
-                <h2 class="section-title">Let's <span class="highlight">Create</span> Together</h2>
-                <p>Reach out for a free consultation. We'll bring your vision to life.</p>
-                <div class="detail"><i class="fas fa-map-marker-alt"></i>202 shivam Residency Dombivli , maharashtra
-                </div>
-                <div class="detail"><i class="fas fa-phone-alt"></i>91+ 9867474721</div>
-                <div class="detail"><i class="fas fa-envelope"></i> chauhan.ramvilas@gmail.com</div>
-                <div class="detail"><i class="fas fa-clock"></i> Mon–Fri: 8am – 6pm EST</div>
-
+<!-- ============================================================
+    CONTACT
+    ============================================================ -->
+<section class="contact" id="contact">
+    <div class="container contact-grid">
+        <div class="contact-info reveal-left">
+            <div class="contact-image"
+                style="background-image:url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80');">
             </div>
-
-            <div class="contact-form reveal-right">
-                <h3>Send a Message</h3>
-                <p>We'll respond within 24 hours.</p>
-                <form id="contactForm" onsubmit="handleContact(event)">
-                    <div class="form-group">
-                        <label for="cName">Full Name</label>
-                        <input type="text" id="cName" placeholder="xyz" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="cEmail">Email Address</label>
-                        <input type="email" id="cEmail" placeholder="xyz@example.com" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="cPhone">Phone Number</label>
-                        <input type="tel" id="cPhone" placeholder="+1 (555) 000-0000" />
-                    </div>
-                    <div class="form-group">
-                        <label for="cProject">Project Type</label>
-                        <select id="cProject">
-                            <option value="">Select a project type</option>
-                            <option value="kitchen">Kitchen</option>
-                            <option value="wardrobe">Wardrobe / Closet</option>
-                            <option value="living">Living Room</option>
-                            <option value="office">Office</option>
-                            <option value="dining">Dining Room</option>
-                            <option value="bathroom">Bathroom</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="cMessage">Project Details</label>
-                        <textarea id="cMessage"
-                            placeholder="Tell us about your vision, timeline, and budget..."></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                </form>
+            <span class="section-tag">Get In Touch</span>
+            <h2 class="section-title">Let's <span class="highlight">Create</span> Together</h2>
+            <p>Reach out for a free consultation. We'll bring your vision to life.</p>
+            <div class="detail"><i class="fas fa-map-marker-alt"></i>202 shivam Residency Dombivli , maharashtra
             </div>
+            <div class="detail"><i class="fas fa-phone-alt"></i>91+ 9867474721</div>
+            <div class="detail"><i class="fas fa-envelope"></i> chauhan.ramvilas@gmail.com</div>
+            <div class="detail"><i class="fas fa-clock"></i> Mon–Fri: 8am – 6pm EST</div>
         </div>
-    </section>
+
+        <div class="contact-form reveal-right">
+            <h3>Send a Message</h3>
+            <p>We'll respond within 24 hours.</p>
+            <form id="contactForm" onsubmit="handleContact(event)">
+                <div class="form-group">
+                    <label for="cName">Full Name</label>
+                    <input type="text" id="cName" placeholder="Your full name" required />
+                </div>
+                <div class="form-group">
+                    <label for="cEmail">Email Address</label>
+                    <input type="email" id="cEmail" placeholder="your@email.com" required />
+                </div>
+                <div class="form-group">
+                    <label for="cPhone">Phone Number</label>
+                    <input type="tel" id="cPhone" placeholder="+1 (555) 000-0000" />
+                </div>
+                <div class="form-group">
+                    <label for="cSubject">Subject</label>
+                    <input type="text" id="cSubject" placeholder="Brief subject line" />
+                </div>
+                <div class="form-group">
+                    <label for="cProject">Project Type</label>
+                    <select id="cProject">
+                        <option value="">Select a project type</option>
+                        <option value="kitchen">Kitchen</option>
+                        <option value="wardrobe">Wardrobe / Closet</option>
+                        <option value="living">Living Room</option>
+                        <option value="office">Office</option>
+                        <option value="dining">Dining Room</option>
+                        <option value="bathroom">Bathroom</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="cMessage">Project Details</label>
+                    <textarea id="cMessage" rows="4"
+                        placeholder="Tell us about your vision, timeline, and budget..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
 
     <!-- ============================================================
     FOOTER
@@ -1218,6 +1224,212 @@ TESTIMONIALS
             }
 
             loadReviews();
+
+
+
+            // ============================================================
+// CONTACT FORM - WITH DATABASE SAVE
+// ============================================================
+
+// Initialize contact form submissions in localStorage
+function initContactSubmissions() {
+    if (!localStorage.getItem('contactSubmissions')) {
+        localStorage.setItem('contactSubmissions', JSON.stringify([]));
+    }
+}
+
+// Save contact submission to database (localStorage)
+function saveContactSubmission(data) {
+    try {
+        // Get existing submissions
+        let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+        
+        // Add new submission with timestamp
+        const newSubmission = {
+            id: Date.now(),
+            ...data,
+            is_read: false,
+            created_at: new Date().toISOString()
+        };
+        
+        submissions.push(newSubmission);
+        
+        // Save back to localStorage
+        localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+        
+        // Also save to inquiries for backward compatibility
+        let inquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+        inquiries.push({
+            id: Date.now(),
+            name: data.name,
+            email: data.email,
+            phone: data.phone || 'No phone',
+            subject: data.subject || data.projectType || 'General Inquiry',
+            message: data.message,
+            is_read: false,
+            created_at: new Date().toISOString()
+        });
+        localStorage.setItem('inquiries', JSON.stringify(inquiries));
+        
+        return true;
+    } catch (error) {
+        console.error('Error saving contact submission:', error);
+        return false;
+    }
+}
+
+// Handle contact form submission
+window.handleContact = function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = {
+        name: document.getElementById('cName').value.trim(),
+        email: document.getElementById('cEmail').value.trim(),
+        phone: document.getElementById('cPhone').value.trim(),
+        subject: document.getElementById('cSubject') ? document.getElementById('cSubject').value.trim() : 'General Inquiry',
+        projectType: document.getElementById('cProject').value,
+        message: document.getElementById('cMessage').value.trim()
+    };
+    
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.message) {
+        showToast('Please fill in all required fields.', 'error');
+        return;
+    }
+    
+    // Validate email
+    if (!isValidEmail(formData.email)) {
+        showToast('Please enter a valid email address.', 'error');
+        return;
+    }
+    
+    const btn = document.getElementById('submitBtn');
+    const original = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    btn.disabled = true;
+    
+    // Simulate API call to save to database
+    setTimeout(function() {
+        // Save to database (localStorage)
+        const saved = saveContactSubmission(formData);
+        
+        if (saved) {
+            btn.innerHTML = '<i class="fas fa-check-circle"></i> Sent!';
+            btn.style.background = '#2c5530';
+            showToast('Your message has been sent successfully!', 'success');
+            
+            // Reset form after delay
+            setTimeout(function() {
+                btn.innerHTML = original;
+                btn.style.background = '';
+                btn.disabled = false;
+                document.getElementById('contactForm').reset();
+            }, 2000);
+            
+            // Update admin panel inquiry count if open
+            if (typeof updateStats === 'function') {
+                updateStats();
+            }
+        } else {
+            btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed';
+            btn.style.background = '#dc3545';
+            showToast('Failed to send message. Please try again.', 'error');
+            
+            setTimeout(function() {
+                btn.innerHTML = original;
+                btn.style.background = '';
+                btn.disabled = false;
+            }, 3000);
+        }
+    }, 1500);
+};
+
+// Email validation helper
+function isValidEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Toast notification for contact form
+function showToast(message, type = "success") {
+    // Remove existing toast
+    const oldToast = document.querySelector(".toast");
+    if (oldToast) oldToast.remove();
+    
+    // Create new toast
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add("show"), 10);
+    setTimeout(() => {
+        toast.classList.remove("show");
+        setTimeout(() => toast.remove(), 300);
+    }, 4000);
+}
+
+// Initialize contact submissions on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initContactSubmissions();
+    
+    // Add subject field if missing
+    const form = document.getElementById('contactForm');
+    if (form) {
+        const subjectGroup = form.querySelector('#cSubject');
+        if (!subjectGroup) {
+            // Find the project type group and insert subject before it
+            const projectGroup = document.getElementById('cProject')?.closest('.form-group');
+            if (projectGroup) {
+                const subjectHTML = `
+                    <div class="form-group">
+                        <label for="cSubject">Subject</label>
+                        <input type="text" id="cSubject" placeholder="Brief subject line" />
+                    </div>
+                `;
+                projectGroup.insertAdjacentHTML('beforebegin', subjectHTML);
+            }
+        }
+    }
+});
+
+// Function to get all contact submissions (for admin panel)
+function getContactSubmissions() {
+    try {
+        return JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+    } catch (e) {
+        return [];
+    }
+}
+
+// Function to delete a contact submission
+function deleteContactSubmission(id) {
+    try {
+        let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+        submissions = submissions.filter(sub => sub.id !== id);
+        localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+// Function to mark contact submission as read
+function markContactSubmissionRead(id) {
+    try {
+        let submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
+        const submission = submissions.find(sub => sub.id === id);
+        if (submission) {
+            submission.is_read = true;
+            localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
+            return true;
+        }
+        return false;
+    } catch (e) {
+        return false;
+    }
+}
             // ============================================================
             // CONTACT FORM
             // ============================================================
