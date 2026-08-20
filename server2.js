@@ -487,22 +487,21 @@ app.post("/api/reviews", reviewUpload.single("image"), (req, res) => {
 });
 
 // ==================== GET REVIEWS (Protected) ====================
-app.get("/api/reviews", (req, res) => {
+app.get("/api/reviews", isAdminAuthenticated, (req, res) => {
     db.query(
         "SELECT * FROM reviews ORDER BY id DESC",
         (err, rows) => {
             if (err) {
                 console.error("Reviews query error:", err);
-
                 return res.status(500).json({
                     success: false,
-                    message: "Failed to load reviews"
+                    message: err.message
                 });
             }
 
             res.json({
                 success: true,
-                reviews: rows || []
+                reviews: rows
             });
         }
     );
