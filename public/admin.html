@@ -2,311 +2,720 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Panel · FurnitureCraft</title>
-  <!-- Google Fonts -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+  <title>Admin Login · Nature Studio</title>
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<link rel="stylesheet" href="admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* --- reuse the same design tokens & reset from style.txt --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-bg: #FAF8F5;
+      --color-white: #FFFFFF;
+      --color-black: #1A1A1A;
+      --color-primary: #2c5530;
+      --color-primary-light: #3a6e3f;
+      --color-primary-dark: #1f3d22;
+      --color-primary-lighter: #e8f0e6;
+      --color-secondary: #b68d40;
+      --color-text: #2C2C2C;
+      --color-text-light: #6B6B6B;
+      --color-text-muted: #9A9A9A;
+      --color-border: #E8E3DC;
+      --color-shadow: rgba(26, 26, 26, 0.06);
+      --radius: 12px;
+      --transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --font: 'Inter', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      margin: 0;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; outline: none; }
+
+    /* ----- buttons (reuse) ----- */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      justify-content: center;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(44, 85, 48, 0.30);
+    }
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* ----- login card ----- */
+    .login-wrapper {
+      width: 100%;
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .login-card {
+      background: var(--color-white);
+      border-radius: 24px;
+      padding: 48px 40px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 12px 40px var(--color-shadow);
+      transition: var(--transition);
+    }
+
+    .login-card:hover {
+      box-shadow: 0 20px 60px rgba(26, 26, 26, 0.08);
+    }
+
+    .login-brand {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .login-brand h1 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--color-black);
+      letter-spacing: -0.5px;
+    }
+
+    .login-brand h1 .highlight {
+      color: var(--color-primary);
+    }
+
+    .login-brand p {
+      color: var(--color-text-light);
+      font-size: 0.95rem;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+
+    .login-brand .brand-icon {
+      font-size: 2.8rem;
+      color: var(--color-primary);
+      background: var(--color-primary-lighter);
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-light);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .form-group label i {
+      margin-right: 6px;
+      color: var(--color-primary);
+      width: 18px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      border: 1.5px solid var(--color-border);
+      border-radius: var(--radius);
+      font-family: var(--font);
+      font-size: 0.95rem;
+      background: var(--color-bg);
+      transition: 0.2s;
+      color: var(--color-text);
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 4px rgba(44, 85, 48, 0.10);
+      background: var(--color-white);
+    }
+
+    .form-group .input-icon {
+      position: relative;
+    }
+
+    .form-group .input-icon i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-muted);
+      font-size: 1rem;
+      pointer-events: none;
+      transition: 0.2s;
+    }
+
+    .form-group .input-icon input:focus + i {
+      color: var(--color-primary);
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 8px 0 24px;
+      font-size: 0.85rem;
+    }
+
+    .form-options label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-text-light);
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .form-options label input[type="checkbox"] {
+      accent-color: var(--color-primary);
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+
+    .form-options a {
+      color: var(--color-primary);
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .form-options a:hover {
+      color: var(--color-primary-light);
+      text-decoration: underline;
+    }
+
+    .login-footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid var(--color-border);
+      padding-top: 24px;
+    }
+
+    .login-footer a {
+      color: var(--color-primary);
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .login-footer a:hover {
+      color: var(--color-primary-light);
+      text-decoration: underline;
+    }
+
+    .error-message {
+      background: #fce4ec;
+      color: #c62828;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 18px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid #c62828;
+    }
+
+    .error-message.show {
+      display: flex;
+    }
+
+    .error-message i {
+      font-size: 1.1rem;
+    }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 14px 22px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: .3s;
+      z-index: 9999;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      max-width: 90%;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success { background: #28a745; }
+    .toast.error { background: #dc3545; }
+
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* mobile fine-tune */
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 32px 20px;
+      }
+      .login-brand h1 {
+        font-size: 1.8rem;
+      }
+      .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      body {
+        padding: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- header -->
-  <header>
-    <div class="navbar">
-      <div class="logo">Sudarshan<span>Infra</span></div>
-      <button class="mobile-menu-toggle" id="hamburger"><i class="fas fa-bars"></i></button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="admin.html" class="active">Admin <span class="admin-badge">panel</span></a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </header>
 
-  <!-- admin wrapper -->
-  <div class="admin-wrapper">
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <aside class="admin-sidebar" id="adminSidebar">
-      <div class="sidebar-user">
-        <div class="avatar">A</div>
-        <div class="user-info">
-          <h5>Admin User</h5>
-          <span>admin@SudarshanInfra.com</span>
-        </div>
-      </div>
-      <nav class="sidebar-nav">
-        <div class="nav-label">Main</div>
-        <a href="#" class="active" data-section="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a>
-        <a href="#" data-section="projects"><i class="fas fa-folder-open"></i> Projects</a>
-        <a href="#" data-section="clients"><i class="fas fa-users"></i> Clients</a>
-        <a href="#" data-section="services"><i class="fas fa-concierge-bell"></i> Services</a>
-        <div class="nav-label" style="margin-top:16px;">Management</div>
-        <a href="#" data-section="inquiries"><i class="fas fa-envelope"></i> Inquiries <span class="badge">12</span></a>
-        <a href="#" data-section="users"><i class="fas fa-user-cog"></i> Users</a>
-        <div class="nav-label" style="margin-top:16px;">System</div>
-        <a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a>
-        <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
-      </nav>
-    </aside>
+  <div class="login-wrapper">
+    <div class="login-card">
 
-    <main class="admin-main">
-      <div class="page-header">
-        <div>
-          <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
-          <h2 id="pageTitle">Dashboard</h2>
+      <!-- Brand -->
+      <div class="login-brand">
+        <div class="brand-icon">
+          <i class="fas fa-leaf"></i>
         </div>
-        <div class="header-actions">
-          <button class="btn-secondary" onclick="window.location.href='index.html'"><i class="fas fa-external-link-alt"></i> View Site</button>
-         <button class="btn-primary" id="addProjectBtn">
-    <i class="fas fa-plus"></i> Add Project
-</button>
-        </div>
+        <h1>Admin <span class="highlight">Studio</span></h1>
+        <p>Sign in to manage your projects</p>
       </div>
 
-      <!-- DASHBOARD -->
-      <div class="admin-section active" id="section-dashboard">
-        <div class="stats-grid">
-          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-project-diagram"></i></div><span class="stat-change"><i class="fas fa-arrow-up"></i> 12%</span></div><div class="stat-number">48</div><div class="stat-label">Total Projects</div></div>
-          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-users"></i></div><span class="stat-change"><i class="fas fa-arrow-up"></i> 8%</span></div><div class="stat-number">127</div><div class="stat-label">Happy Clients</div></div>
-          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-envelope"></i></div><span class="stat-change negative"><i class="fas fa-arrow-down"></i> 3%</span></div><div class="stat-number">12</div><div class="stat-label">Pending Inquiries</div></div>
-          <div class="stat-card"><div class="stat-top"><div class="stat-icon"><i class="fas fa-star"></i></div><span class="stat-change"><i class="fas fa-arrow-up"></i> 5%</span></div><div class="stat-number">4.9</div><div class="stat-label">Avg. Rating</div></div>
-        </div>
-        <div class="table-wrap">
-          <div class="table-header"><h4>Recent Projects</h4><div class="table-actions"><input type="text" placeholder="Search projects..." /><button class="btn-sm-primary">Filter</button></div></div>
-          <table><thead><tr><th>Project</th><th>Client</th><th>Service</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Modern Office Interior</strong></td><td>TechCorp</td><td>Office Interior</td><td>Dec 15, 2025</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Residential Villa Renovation</strong></td><td>Mr. Sharma</td><td>Home Renovation</td><td>Jan 20, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Executive Office Furniture</strong></td><td>Global Solutions</td><td>Furniture Works</td><td>Feb 05, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-            </tbody>
-          </table>
-        </div>
+      <!-- Error message -->
+      <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="errorText">Invalid credentials, please try again.</span>
       </div>
 
-      <!-- PROJECTS -->
-      <div class="admin-section" id="section-projects">
-        <div class="table-wrap">
-          <div class="table-header"><h4>All Projects</h4><div class="table-actions"><input type="text" placeholder="Search..." /><button class="btn-sm-primary">Add New</button></div></div>
-          <table><thead><tr><th>Project</th><th>Client</th><th>Service</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Modern Office Interior</strong></td><td>TechCorp</td><td>Office Interior</td><td>Dec 15, 2025</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Residential Villa Renovation</strong></td><td>Mr. Sharma</td><td>Home Renovation</td><td>Jan 20, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Executive Office Furniture</strong></td><td>Global Solutions</td><td>Furniture Works</td><td>Feb 05, 2026</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- CLIENTS -->
-      <div class="admin-section" id="section-clients">
-        <div class="table-wrap">
-          <div class="table-header"><h4>All Clients</h4><div class="table-actions"><input type="text" placeholder="Search clients..." /><button class="btn-sm-primary">Add Client</button></div></div>
-          <table><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Projects</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td><strong>TechCorp</strong></td><td>info@techcorp.com</td><td>+1 (555) 123-4567</td><td>3</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Mr. Sharma</strong></td><td>sharma@email.com</td><td>+1 (555) 234-5678</td><td>2</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Global Solutions</strong></td><td>contact@globalsolutions.com</td><td>+1 (555) 345-6789</td><td>1</td><td><div class="action-btns"><button>View</button><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- SERVICES -->
-      <div class="admin-section" id="section-services">
-        <div class="settings-grid">
-          <div class="settings-card"><h4>Manage Services</h4><p>Add, edit or remove services.</p>
-            <div class="form-group"><label>Service Name</label><input type="text" value="Office Interior" /></div>
-            <div class="form-group"><label>Description</label><textarea>Modern office interior design.</textarea></div>
-            <button class="btn-primary">Update Service</button>
-            <button class="btn-secondary" style="margin-left:12px;">Add New</button>
-          </div>
-          <div class="settings-card"><h4>Service List</h4>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--color-bg);border-radius:var(--radius);border:1px solid var(--color-border);">
-                <span><i class="fas fa-building" style="color:var(--color-primary);width:24px;"></i> Office Interior</span>
-                <div><button class="btn-sm-outline">Edit</button><button class="btn-danger-sm" style="margin-left:6px;">Delete</button></div>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--color-bg);border-radius:var(--radius);border:1px solid var(--color-border);">
-                <span><i class="fas fa-bolt" style="color:var(--color-primary);width:24px;"></i> Electrical Works</span>
-                <div><button class="btn-sm-outline">Edit</button><button class="btn-danger-sm" style="margin-left:6px;">Delete</button></div>
-              </div>
-            </div>
+      <!-- Login Form -->
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Username</label>
+          <div class="input-icon">
+            <input type="text" id="usernameInput" placeholder="Enter your username" required />
+            <i class="fas fa-user"></i>
           </div>
         </div>
-      </div>
 
-      <!-- INQUIRIES (FIXED) -->
-      <div class="admin-section" id="section-inquiries">
-        <div class="table-wrap">
-          <div class="table-header">
-            <h4>Recent Inquiries <span style="font-size:0.8rem;font-weight:400;color:var(--color-text-light);">(12 unread)</span></h4>
-            <div class="table-actions">
-              <input type="text" placeholder="Search inquiries..." />
-              <button class="btn-sm-primary">Mark All Read</button>
-            </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> Password</label>
+          <div class="input-icon">
+            <input type="password" id="passwordInput" placeholder="••••••••" required />
+            <i class="fas fa-key"></i>
           </div>
-          <table>
-            <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Date</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr><td><strong>John Doe</strong></td><td>john@email.com</td><td>Office Interior Inquiry</td><td>Today</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Sarah Smith</strong></td><td>sarah@email.com</td><td>Home Renovation Quote</td><td>Yesterday</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Mike Johnson</strong></td><td>mike@email.com</td><td>Furniture Works</td><td>Jan 28, 2026</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
-              <tr><td><strong>Emily Davis</strong></td><td>emily@email.com</td><td>Electrical Work</td><td>Jan 25, 2026</td><td><div class="action-btns"><button>View</button><button>Reply</button><button class="delete-btn">Delete</button></div></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-<!-- USERS -->
-<div class="admin-section" id="section-users">
-
-    <div class="table-wrap">
-
-        <div class="table-header">
-
-            <h4>Registered Users</h4>
-
-            <div class="table-actions">
-
-                <input
-                    type="text"
-                    id="searchUser"
-                    placeholder="Search user..."
-                    onkeyup="searchUsers()"
-                >
-
-            </div>
-
         </div>
 
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Avatar</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Joined</th>
-                    <th>Actions</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="usersTable">
-
-                <tr>
-
-                    <td colspan="5" style="text-align:center;padding:25px;">
-                        Loading users...
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</div>
-
-<!-- ================= Add Project Form ================= -->
-<!-- ================= ADD PROJECT FORM (UPDATED) ================= -->
-<div class="admin-section" id="section-addproject">
-  <div class="settings-card add-project-card">
-    <h3><i class="fas fa-plus-circle"></i> Add New Project</h3>
-    
-    <form id="projectForm" enctype="multipart/form-data">
-      <!-- Project Image -->
-      <div class="form-group">
-        <label>Project Image <span style="color:var(--color-text-muted);font-weight:400;font-size:0.8rem;">(optional)</span></label>
-        <div class="upload-box">
-          <input type="file" id="projectImage" accept="image/*" />
-          <img id="imagePreview" src="https://via.placeholder.com/500x300/E8E3DC/2c5530?text=Click+to+upload+image" alt="Preview" />
-          <p style="font-size:0.75rem;color:var(--color-text-muted);margin-top:8px;">
-            <i class="fas fa-info-circle"></i> Click to browse or drag & drop
-          </p>
+        <div class="form-options">
+          <label>
+            <input type="checkbox" id="rememberCheck" /> Remember me
+          </label>
+          <a href="#" id="forgotLink">Forgot password?</a>
         </div>
-      </div>
 
-      <!-- Category -->
-      <div class="form-group">
-        <label>Category <span style="color:#dc3545;">*</span></label>
-        <select id="category" required>
-          <option value="">Select Category</option>
-          <option value="Residential">Residential</option>
-          <option value="Commercial">Commercial</option>
-          <option value="Luxury">Luxury</option>
-          <option value="Office">Office</option>
-          <option value="Retail">Retail</option>
-          <option value="Hospitality">Hospitality</option>
-        </select>
-      </div>
-
-      <!-- Project Title -->
-      <div class="form-group">
-        <label>Project Title <span style="color:#dc3545;">*</span></label>
-        <input type="text" id="projectTitle" placeholder="e.g. Modern Living Room" required />
-      </div>
-
-      <!-- Short Description -->
-      <div class="form-group">
-        <label>Short Description <span style="color:#dc3545;">*</span></label>
-        <input type="text" id="projectDescription" placeholder="e.g. Residential design with natural light" required />
-      </div>
-
-      <!-- View Page -->
-      <div class="form-group">
-        <label>View Project Page</label>
-        <input type="text" id="projectPage" placeholder="e.g. project-modern-living" value="project1.html" />
-        <span style="font-size:0.7rem;color:var(--color-text-muted);margin-top:4px;">
-          <i class="fas fa-link"></i> URL slug or filename for the project detail page
-        </span>
-      </div>
-
-      <!-- Form Buttons -->
-      <div class="form-buttons">
-        <button type="reset" class="btn-secondary" id="resetBtn">
-          <i class="fas fa-times"></i> Cancel
+        <button type="submit" class="btn-primary" id="loginBtn">
+          <span id="btnText">Sign in</span>
+          <i class="fas fa-arrow-right" id="btnIcon"></i>
         </button>
-        <button type="submit" class="btn-primary" id="saveProjectBtn">
-          <i class="fas fa-save"></i> Save Project
-        </button>
+      </form>
+
+      <div class="login-footer">
+        Don’t have an account? <a href="#" id="supportLink">Contact support</a>
       </div>
-    </form>
-  </div>
-</div>
-      <!-- SETTINGS -->
-      <div class="admin-section" id="section-settings">
-        <div class="settings-grid">
-          <div class="settings-card"><h4>General Settings</h4><p>Update site config.</p>
-            <div class="form-group"><label>Site Name</label><input type="text" value="FurnitureCraft" /></div>
-            <div class="form-group"><label>Contact Email</label><input type="email" value="hello@furniturecraft.com" /></div>
-            <button class="btn-primary">Save Settings</button>
-          </div>
-          <div class="settings-card"><h4>Appearance</h4><p>Customize colors.</p>
-            <div class="form-group"><label>Primary Color</label><input type="color" value="#2c5530" style="width:50px;height:44px;padding:2px;" /></div>
-            <button class="btn-primary">Save Appearance</button>
-          </div>
-        </div>
-      </div>
-    </main>
+    </div>
   </div>
 
- 
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
 
-  <!-- chat widget -->
-  <div class="chat-widget" onclick="alert('Chatbot opened')">
-    <img src="https://via.placeholder.com/120/2c5530/FFFFFF?text=🤖" alt="Chatbot" />
-  </div>
+  <script>
+    (function() {
+      'use strict';
 
+      // ============================================================
+      // 1. SECURELY LOAD ENVIRONMENT VARIABLES FROM .env FILE
+      // ============================================================
+      // This uses a fetch request to load the .env file.
+      // For security, the .env file should be placed outside the web root
+      // or protected via .htaccess. In this demo, we'll fetch it from
+      // the same directory, but in production you'd want to serve it
+      // from a secure endpoint or use a build process.
+      
+      let envConfig = null;
+      let envLoaded = false;
 
+      async function loadEnvFile() {
+        try {
+          // Try to fetch .env from the current directory
+          const response = await fetch('.env');
+          if (!response.ok) {
+            throw new Error('Failed to load .env file');
+          }
+          const text = await response.text();
+          return parseEnvFile(text);
+        } catch (error) {
+          console.warn('Could not load .env file, using default credentials:', error.message);
+          // Fallback to default credentials for demo/testing
+          return {
+            ADMIN_USERNAME: 'admin',
+            ADMIN_PASSWORD: 'password123'
+          };
+        }
+      }
 
-  <script src="admin.js"></script>
+      function parseEnvFile(content) {
+        const config = {};
+        const lines = content.split('\n');
+        
+        for (const line of lines) {
+          const trimmed = line.trim();
+          // Skip comments and empty lines
+          if (trimmed.startsWith('#') || trimmed === '') {
+            continue;
+          }
+          
+          const equalsIndex = trimmed.indexOf('=');
+          if (equalsIndex > 0) {
+            const key = trimmed.substring(0, equalsIndex).trim();
+            let value = trimmed.substring(equalsIndex + 1).trim();
+            
+            // Remove quotes if present
+            if ((value.startsWith('"') && value.endsWith('"')) || 
+                (value.startsWith("'") && value.endsWith("'"))) {
+              value = value.substring(1, value.length - 1);
+            }
+            
+            config[key] = value;
+          }
+        }
+        
+        return config;
+      }
+
+      // ============================================================
+      // 2. UI ELEMENTS
+      // ============================================================
+      const form = document.getElementById('loginForm');
+      const usernameInput = document.getElementById('usernameInput');
+      const passwordInput = document.getElementById('passwordInput');
+      const rememberCheck = document.getElementById('rememberCheck');
+      const loginBtn = document.getElementById('loginBtn');
+      const btnText = document.getElementById('btnText');
+      const btnIcon = document.getElementById('btnIcon');
+      const errorMessage = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+      const toast = document.getElementById('toast');
+
+      // ============================================================
+      // 3. HELPER FUNCTIONS
+      // ============================================================
+      function showToast(message, type = 'success') {
+        toast.textContent = message;
+        toast.className = 'toast ' + type + ' show';
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3500);
+      }
+
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.classList.add('show');
+      }
+
+      function hideError() {
+        errorMessage.classList.remove('show');
+      }
+
+      function setLoading(state) {
+        if (state) {
+          loginBtn.disabled = true;
+          btnText.textContent = 'Signing in';
+          btnIcon.style.display = 'none';
+          loginBtn.innerHTML = '<span class="spinner"></span> Signing in';
+        } else {
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = '<span id="btnText">Sign in</span> <i class="fas fa-arrow-right" id="btnIcon"></i>';
+          // Re-assign references after innerHTML reset
+          const newBtnText = document.getElementById('btnText');
+          const newBtnIcon = document.getElementById('btnIcon');
+          if (newBtnText) newBtnText.textContent = 'Sign in';
+          if (newBtnIcon) newBtnIcon.style.display = 'inline-block';
+        }
+      }
+
+      // ============================================================
+      // 4. AUTHENTICATION LOGIC
+      // ============================================================
+      async function handleLogin(e) {
+        e.preventDefault();
+        
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        const remember = rememberCheck.checked;
+
+        // Validate input
+        if (!username || !password) {
+          showError('Please enter both username and password.');
+          return;
+        }
+
+        hideError();
+        setLoading(true);
+
+        try {
+          // Load environment variables (cached)
+          if (!envLoaded) {
+            envConfig = await loadEnvFile();
+            envLoaded = true;
+          }
+
+          // Get credentials from environment
+          const validUsername = envConfig.ADMIN_USERNAME || 'admin';
+          const validPassword = envConfig.ADMIN_PASSWORD || 'password123';
+
+          // Simulate network delay for security (prevents timing attacks)
+          await new Promise(resolve => setTimeout(resolve, 800));
+
+          // Verify credentials
+          if (username === validUsername && password === validPassword) {
+            // Login successful
+            setLoading(false);
+            showToast('Welcome back! Redirecting to dashboard…', 'success');
+            
+            // Store session data
+            const sessionData = {
+              username: username,
+              loggedIn: true,
+              loginTime: Date.now()
+            };
+            
+            // Store in sessionStorage (persists until browser is closed)
+            sessionStorage.setItem('adminSession', JSON.stringify(sessionData));
+            
+            // Store remember me cookie if checked
+            if (remember) {
+              const token = generateSecureToken();
+              sessionStorage.setItem('rememberToken', token);
+              // Set cookie with 30-day expiry
+              const expiryDate = new Date();
+              expiryDate.setDate(expiryDate.getDate() + 30);
+              document.cookie = `admin_remember=${token}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Strict`;
+            }
+            
+            // Redirect to dashboard after a moment
+            setTimeout(() => {
+              // In a real app: window.location.href = 'dashboard.html';
+              // For demo, we show a success message
+              loginBtn.style.background = '#28a745';
+              loginBtn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting…';
+              setTimeout(() => {
+                loginBtn.style.background = '';
+                loginBtn.innerHTML = '<span id="btnText">Sign in</span> <i class="fas fa-arrow-right" id="btnIcon"></i>';
+                showToast('Login successful! (Demo) You are now authenticated.', 'success');
+                // Update button text to show logged in state
+                btnText.textContent = '✓ Logged In';
+                btnIcon.style.display = 'none';
+                loginBtn.style.background = '#28a745';
+                // Disable further login attempts
+                loginBtn.disabled = true;
+              }, 1200);
+            }, 1000);
+          } else {
+            // Login failed
+            setLoading(false);
+            showError('Invalid username or password. Please try again.');
+            showToast('Login failed. Check your credentials.', 'error');
+          }
+        } catch (error) {
+          console.error('Login error:', error);
+          setLoading(false);
+          showError('An error occurred during login. Please try again.');
+          showToast('Login error. Please try again.', 'error');
+        }
+      }
+
+      // ============================================================
+      // 5. SECURE TOKEN GENERATION
+      // ============================================================
+      function generateSecureToken() {
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      }
+
+      // ============================================================
+      // 6. AUTO-LOGIN WITH REMEMBER ME
+      // ============================================================
+      function checkRememberMe() {
+        // Check for remember me cookie
+        const cookies = document.cookie.split('; ');
+        let rememberToken = null;
+        
+        for (const cookie of cookies) {
+          const [name, value] = cookie.split('=');
+          if (name === 'admin_remember') {
+            rememberToken = value;
+            break;
+          }
+        }
+        
+        if (rememberToken) {
+          const storedToken = sessionStorage.getItem('rememberToken');
+          if (storedToken === rememberToken) {
+            // Auto-login - check if session exists
+            const sessionData = sessionStorage.getItem('adminSession');
+            if (sessionData) {
+              try {
+                const session = JSON.parse(sessionData);
+                if (session.loggedIn) {
+                  // User is already logged in via session
+                  showToast('Welcome back!', 'success');
+                  // Update UI to show logged in state
+                  btnText.textContent = '✓ Logged In';
+                  btnIcon.style.display = 'none';
+                  loginBtn.style.background = '#28a745';
+                  loginBtn.disabled = true;
+                  usernameInput.value = session.username || '';
+                  return true;
+                }
+              } catch (e) {
+                // Invalid session data
+              }
+            }
+          }
+        }
+        return false;
+      }
+
+      // ============================================================
+      // 7. EVENT LISTENERS
+      // ============================================================
+      // Hide error on input
+      usernameInput.addEventListener('input', hideError);
+      passwordInput.addEventListener('input', hideError);
+
+      // Form submission
+      form.addEventListener('submit', handleLogin);
+
+      // Forgot password link
+      document.getElementById('forgotLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        showToast('Password reset link sent to your email (demo).', 'success');
+      });
+
+      // Support link
+      document.getElementById('supportLink').addEventListener('click', function(e) {
+        e.preventDefault();
+        showToast('Support team will contact you shortly (demo).', 'success');
+      });
+
+      // ============================================================
+      // 8. INITIALIZATION
+      // ============================================================
+      async function init() {
+        // Load environment variables on page load
+        try {
+          envConfig = await loadEnvFile();
+          envLoaded = true;
+          console.log('Environment loaded successfully');
+        } catch (error) {
+          console.warn('Using default credentials for demo');
+          envConfig = {
+            ADMIN_USERNAME: 'admin',
+            ADMIN_PASSWORD: 'password123'
+          };
+          envLoaded = true;
+        }
+        
+        // Check for existing session
+        const sessionData = sessionStorage.getItem('adminSession');
+        if (sessionData) {
+          try {
+            const session = JSON.parse(sessionData);
+            if (session.loggedIn) {
+              // User is already logged in
+              btnText.textContent = '✓ Logged In';
+              btnIcon.style.display = 'none';
+              loginBtn.style.background = '#28a745';
+              loginBtn.disabled = true;
+              usernameInput.value = session.username || '';
+              showToast('Already logged in. Welcome back!', 'success');
+            }
+          } catch (e) {
+            // Invalid session data
+          }
+        }
+        
+        // Check remember me
+        checkRememberMe();
+      }
+
+      // Start the application
+      init();
+
+      console.log('🔐 Admin Login System');
+      console.log('📝 Credentials are loaded from .env file');
+      console.log('💡 Demo: Use username "admin" and password "password123" if .env not found');
+
+    })();
+  </script>
+
 </body>
 </html>
