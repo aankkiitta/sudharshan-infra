@@ -376,7 +376,7 @@
       </form>
 
       <div class="login-footer">
-        Don’t have an account? <a href="#" id="supportLink">Contact support</a>
+        Don't have an account? <a href="#" id="supportLink">Contact support</a>
       </div>
     </div>
   </div>
@@ -389,63 +389,23 @@
       'use strict';
 
       // ============================================================
-      // 1. SECURELY LOAD ENVIRONMENT VARIABLES FROM .env FILE
+      // 1. CHECK IF ALREADY LOGGED IN - REDIRECT TO ADMIN
       // ============================================================
-      // This uses a fetch request to load the .env file.
-      // For security, the .env file should be placed outside the web root
-      // or protected via .htaccess. In this demo, we'll fetch it from
-      // the same directory, but in production you'd want to serve it
-      // from a secure endpoint or use a build process.
-      
-      let envConfig = null;
-      let envLoaded = false;
-
-      async function loadEnvFile() {
+      async function checkExistingSession() {
         try {
-          // Try to fetch .env from the current directory
-          const response = await fetch('.env');
-          if (!response.ok) {
-            throw new Error('Failed to load .env file');
+          const response = await fetch('/api/admin/check-session', {
+            method: 'GET',
+            credentials: 'include'
+          });
+          const data = await response.json();
+          if (data.authenticated) {
+            // Already logged in, redirect to admin panel
+            window.location.href = '/admin.html';
           }
-          const text = await response.text();
-          return parseEnvFile(text);
         } catch (error) {
-          console.warn('Could not load .env file, using default credentials:', error.message);
-          // Fallback to default credentials for demo/testing
-          return {
-            ADMIN_USERNAME: 'admin',
-            ADMIN_PASSWORD: 'password123'
-          };
+          // Session check failed, stay on login page
+          console.log('No active session');
         }
-      }
-
-      function parseEnvFile(content) {
-        const config = {};
-        const lines = content.split('\n');
-        
-        for (const line of lines) {
-          const trimmed = line.trim();
-          // Skip comments and empty lines
-          if (trimmed.startsWith('#') || trimmed === '') {
-            continue;
-          }
-          
-          const equalsIndex = trimmed.indexOf('=');
-          if (equalsIndex > 0) {
-            const key = trimmed.substring(0, equalsIndex).trim();
-            let value = trimmed.substring(equalsIndex + 1).trim();
-            
-            // Remove quotes if present
-            if ((value.startsWith('"') && value.endsWith('"')) || 
-                (value.startsWith("'") && value.endsWith("'"))) {
-              value = value.substring(1, value.length - 1);
-            }
-            
-            config[key] = value;
-          }
-        }
-        
-        return config;
       }
 
       // ============================================================
@@ -456,8 +416,6 @@
       const passwordInput = document.getElementById('passwordInput');
       const rememberCheck = document.getElementById('rememberCheck');
       const loginBtn = document.getElementById('loginBtn');
-      const btnText = document.getElementById('btnText');
-      const btnIcon = document.getElementById('btnIcon');
       const errorMessage = document.getElementById('errorMessage');
       const errorText = document.getElementById('errorText');
       const toast = document.getElementById('toast');
@@ -486,187 +444,72 @@
       function setLoading(state) {
         if (state) {
           loginBtn.disabled = true;
-          btnText.textContent = 'Signing in';
-          btnIcon.style.display = 'none';
           loginBtn.innerHTML = '<span class="spinner"></span> Signing in';
         } else {
           loginBtn.disabled = false;
           loginBtn.innerHTML = '<span id="btnText">Sign in</span> <i class="fas fa-arrow-right" id="btnIcon"></i>';
-          // Re-assign references after innerHTML reset
-          const newBtnText = document.getElementById('btnText');
-          const newBtnIcon = document.getElementById('btnIcon');
-          if (newBtnText) newBtnText.textContent = 'Sign in';
-          if (newBtnIcon) newBtnIcon.style.display = 'inline-block';
         }
-      }// ============================================================
-// 4. AUTHENTICATION LOGIC
-// ============================================================
-async function handleLogin(e) {
-  e.preventDefault();
-
-  const username = usernameInput.value.trim();
-  const password = passwordInput.value.trim();
-  const remember = rememberCheck.checked;
-
-  // Validate input
-  if (!username || !password) {
-    showError('Please enter both username and password.');
-    return;
-  }
-
-  hideError();
-  setLoading(true);
-
-  try {
-    // Send login details to backend
-    const response = await fetch('/api/admin/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    });
-
-    const data = await response.json();
-
-    // Login successful
-    if (response.ok && data.success) {
-
-      setLoading(false);
-
-      // Store login session
-      const sessionData = {
-        username: username,
-        loggedIn: true,
-        loginTime: Date.now()
-      };
-
-      sessionStorage.setItem(
-        'adminSession',
-        JSON.stringify(sessionData)
-      );
-
-      // Remember me
-      if (remember) {
-        const token = generateSecureToken();
-
-        sessionStorage.setItem(
-          'rememberToken',
-          token
-        );
-
-        const expiryDate = new Date();
-        expiryDate.setDate(
-          expiryDate.getDate() + 30
-        );
-
-        document.cookie =
-          `admin_remember=${token}; ` +
-          `expires=${expiryDate.toUTCString()}; ` +
-          `path=/; SameSite=Strict`;
-      }
-
-      // Success message
-      showToast(
-        'Login successful! Redirecting...',
-        'success'
-      );
-
-      // Redirect to admin dashboard
-      setTimeout(() => {
-        window.location.href = '/admin3.html';
-      }, 800);
-
-    } else {
-
-      // Login failed
-      setLoading(false);
-
-      showError(
-        data.message ||
-        'Invalid username or password.'
-      );
-
-      showToast(
-        'Login failed. Check your credentials.',
-        'error'
-      );
-    }
-
-  } catch (error) {
-
-    console.error('Login error:', error);
-
-    setLoading(false);
-
-    showError(
-      'Unable to connect to server. Please try again.'
-    );
-
-    showToast(
-      'Server connection error.',
-      'error'
-    );
-  }
-}
-      // ============================================================
-      // 5. SECURE TOKEN GENERATION
-      // ============================================================
-      function generateSecureToken() {
-        const array = new Uint8Array(32);
-        crypto.getRandomValues(array);
-        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
       }
 
       // ============================================================
-      // 6. AUTO-LOGIN WITH REMEMBER ME
+      // 4. LOGIN HANDLER - AUTHENTICATE THROUGH BACKEND API
       // ============================================================
-      function checkRememberMe() {
-        // Check for remember me cookie
-        const cookies = document.cookie.split('; ');
-        let rememberToken = null;
-        
-        for (const cookie of cookies) {
-          const [name, value] = cookie.split('=');
-          if (name === 'admin_remember') {
-            rememberToken = value;
-            break;
+      async function handleLogin(e) {
+        e.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        const remember = rememberCheck.checked;
+
+        // Validate input
+        if (!username || !password) {
+          showError('Please enter both username and password.');
+          return;
+        }
+
+        hideError();
+        setLoading(true);
+
+        try {
+          const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+              username: username,
+              password: password,
+              remember: remember
+            })
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            // Login successful - redirect to admin panel
+            showToast('Login successful! Redirecting...', 'success');
+            
+            setTimeout(() => {
+              window.location.href = '/admin.html';
+            }, 500);
+          } else {
+            // Login failed
+            setLoading(false);
+            showError(data.message || 'Invalid username or password.');
+            showToast('Login failed. Please check your credentials.', 'error');
           }
+
+        } catch (error) {
+          console.error('Login error:', error);
+          setLoading(false);
+          showError('Unable to connect to server. Please try again.');
+          showToast('Server connection error.', 'error');
         }
-        
-        if (rememberToken) {
-          const storedToken = sessionStorage.getItem('rememberToken');
-          if (storedToken === rememberToken) {
-            // Auto-login - check if session exists
-            const sessionData = sessionStorage.getItem('adminSession');
-            if (sessionData) {
-              try {
-                const session = JSON.parse(sessionData);
-                if (session.loggedIn) {
-                  // User is already logged in via session
-                  showToast('Welcome back!', 'success');
-                  // Update UI to show logged in state
-                  btnText.textContent = '✓ Logged In';
-                  btnIcon.style.display = 'none';
-                  loginBtn.style.background = '#28a745';
-                  loginBtn.disabled = true;
-                  usernameInput.value = session.username || '';
-                  return true;
-                }
-              } catch (e) {
-                // Invalid session data
-              }
-            }
-          }
-        }
-        return false;
       }
 
       // ============================================================
-      // 7. EVENT LISTENERS
+      // 5. EVENT LISTENERS
       // ============================================================
       // Hide error on input
       usernameInput.addEventListener('input', hideError);
@@ -678,62 +521,23 @@ async function handleLogin(e) {
       // Forgot password link
       document.getElementById('forgotLink').addEventListener('click', function(e) {
         e.preventDefault();
-        showToast('Password reset link sent to your email (demo).', 'success');
+        showToast('Please contact support to reset your password.', 'success');
       });
 
       // Support link
       document.getElementById('supportLink').addEventListener('click', function(e) {
         e.preventDefault();
-        showToast('Support team will contact you shortly (demo).', 'success');
+        showToast('Support team will contact you shortly.', 'success');
       });
 
       // ============================================================
-      // 8. INITIALIZATION
+      // 6. INITIALIZATION - CHECK SESSION ON PAGE LOAD
       // ============================================================
-      async function init() {
-        // Load environment variables on page load
-        try {
-          envConfig = await loadEnvFile();
-          envLoaded = true;
-          console.log('Environment loaded successfully');
-        } catch (error) {
-          console.warn('Using default credentials for demo');
-          envConfig = {
-            ADMIN_USERNAME: 'admin',
-            ADMIN_PASSWORD: 'password123'
-          };
-          envLoaded = true;
-        }
-        
-        // Check for existing session
-        const sessionData = sessionStorage.getItem('adminSession');
-        if (sessionData) {
-          try {
-            const session = JSON.parse(sessionData);
-            if (session.loggedIn) {
-              // User is already logged in
-              btnText.textContent = '✓ Logged In';
-              btnIcon.style.display = 'none';
-              loginBtn.style.background = '#28a745';
-              loginBtn.disabled = true;
-              usernameInput.value = session.username || '';
-              showToast('Already logged in. Welcome back!', 'success');
-            }
-          } catch (e) {
-            // Invalid session data
-          }
-        }
-        
-        // Check remember me
-        checkRememberMe();
-      }
-
-      // Start the application
-      init();
+      // Check if already logged in
+      checkExistingSession();
 
       console.log('🔐 Admin Login System');
-      console.log('📝 Credentials are loaded from .env file');
-      console.log('💡 Demo: Use username "admin" and password "password123" if .env not found');
+      console.log('📝 Credentials are verified on the backend server');
 
     })();
   </script>

@@ -7,7 +7,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const path = require("path");
-
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -61,6 +62,52 @@ const pool = mysql.createPool({
     enableKeepAlive: true,
     keepAliveInitialDelay: 0
 });
+
+
+
+// Session middleware for admin authentication
+app.use(cookieParser());
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-session-secret-change-this',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        sameSite: 'strict'
+    }
+}));
+
+
+// ==================== ADMIN AUTHENTICATION MIDDLEWARE ====================
+function isAdminAuthenticated(req, res, next) {
+    // Check session
+    if (req.session && req.session.admin) {
+        return next();
+    }
+    
+    // Check JWT token in cookies
+    const token = req.cookies.admin_token;
+    if (token) {
+        try {
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            if (decoded && decoded.username === process.env.ADMIN_USERNAME) {
+                req.session.admin = { username: decoded.username };
+                return next();
+            }
+        } catch (err) {
+            // Invalid token
+        }
+    }
+    
+    res.status(401).json({ 
+        success: false, 
+        message: 'Unauthorized - Please login first' 
+    });
+}
+
 
 // Promisify pool for async/await support
 const promisePool = pool.promise();
