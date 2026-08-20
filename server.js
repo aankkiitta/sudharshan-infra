@@ -825,7 +825,7 @@ app.get("/api/projects", (req, res) => {
 
 // ==================== HOME PAGE ====================
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "login.html"));
+    res.sendFile(path.join(__dirname, "public", "next1.html"));
 });
 
 // ==================== 404 HANDLER ====================
