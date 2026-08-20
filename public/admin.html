@@ -527,14 +527,37 @@
           }
 
           // Get credentials from environment
-          const validUsername = envConfig.ADMIN_USERNAME || 'admin';
-          const validPassword = envConfig.ADMIN_PASSWORD || 'password123';
+   const response = await fetch('/api/admin/login', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        username,
+        password
+    })
+});
 
-          // Simulate network delay for security (prevents timing attacks)
-          await new Promise(resolve => setTimeout(resolve, 800));
+const data = await response.json();
 
-          // Verify credentials
-          if (username === validUsername && password === validPassword) {
+if (data.success) {
+    setLoading(false);
+    showToast('Welcome back! Redirecting to dashboard…', 'success');
+
+    sessionStorage.setItem('adminSession', JSON.stringify({
+        username: username,
+        loggedIn: true,
+        loginTime: Date.now()
+    }));
+
+    setTimeout(() => {
+        window.location.href = '/admin.html';
+    }, 1000);
+
+} else {
+    setLoading(false);
+    showError(data.message || 'Invalid username or password.');
+}
             // Login successful
             setLoading(false);
             showToast('Welcome back! Redirecting to dashboard…', 'success');

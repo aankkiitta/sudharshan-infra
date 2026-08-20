@@ -624,6 +624,29 @@ app.put("/api/inquiries/:id/read", (req, res) => {
 
 
 
+
+
+app.post('/api/admin/login', (req, res) => {
+    const { username, password } = req.body;
+
+    if (
+        username === process.env.ADMIN_USERNAME &&
+        password === process.env.ADMIN_PASSWORD
+    ) {
+        return res.json({
+            success: true
+        });
+    }
+
+    return res.status(401).json({
+        success: false,
+        message: 'Invalid username or password'
+    });
+});
+
+
+
+
 // ==================== PROJECTS (Preserved) ====================
 // If projects route exists, keep it
 // Add a basic projects endpoint if needed
