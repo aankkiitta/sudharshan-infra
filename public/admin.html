@@ -35,6 +35,7 @@
       --transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       --font: 'Inter', sans-serif;
       --font-serif: 'Playfair Display', serif;
+      --sidebar-width: 260px;
     }
 
     body {
@@ -43,45 +44,24 @@
       color: var(--color-text);
       line-height: 1.6;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
       margin: 0;
     }
 
     a { text-decoration: none; color: inherit; }
     button { font-family: var(--font); cursor: pointer; border: none; background: none; outline: none; }
 
-    /* ----- buttons (reuse) ----- */
-    .btn-primary {
-      display: inline-flex;
+    /* ============================================================
+       LOGIN PAGE STYLES
+       ============================================================ */
+    .login-page {
+      display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 28px;
-      background: var(--color-primary);
-      color: var(--color-white);
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: var(--transition);
-      border: none;
-      cursor: pointer;
       justify-content: center;
-      width: 100%;
-    }
-    .btn-primary:hover {
-      background: var(--color-primary-light);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(44, 85, 48, 0.30);
-    }
-    .btn-primary:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none !important;
+      min-height: 100vh;
+      padding: 24px;
+      background: var(--color-bg);
     }
 
-    /* ----- login card ----- */
     .login-wrapper {
       width: 100%;
       max-width: 460px;
@@ -272,6 +252,89 @@
       font-size: 1.1rem;
     }
 
+    /* ----- buttons ----- */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      justify-content: center;
+      width: 100%;
+    }
+    .btn-primary:hover {
+      background: var(--color-primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(44, 85, 48, 0.30);
+    }
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--color-black);
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: 1.5px solid var(--color-border);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .btn-sm-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 20px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-sm-primary:hover {
+      background: var(--color-primary-light);
+      transform: translateY(-2px);
+    }
+
+    .btn-danger-sm {
+      background: #dc3545;
+      color: var(--color-white);
+      padding: 6px 16px;
+      border-radius: 60px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-danger-sm:hover {
+      background: #c82333;
+      transform: translateY(-2px);
+    }
+
     /* toast */
     .toast {
       position: fixed;
@@ -305,79 +368,543 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* mobile fine-tune */
-    @media (max-width: 480px) {
-      .login-card {
-        padding: 32px 20px;
-      }
-      .login-brand h1 {
-        font-size: 1.8rem;
-      }
-      .form-options {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-      body {
-        padding: 16px;
-      }
+    /* ============================================================
+       ADMIN PANEL STYLES
+       ============================================================ */
+    .admin-wrapper {
+      display: flex;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
     }
+
+    .admin-sidebar {
+      width: var(--sidebar-width);
+      background: var(--color-white);
+      border-right: 1px solid var(--color-border);
+      padding: 24px 0;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar-user {
+      padding: 0 24px 20px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-primary-lighter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .user-info h5 { font-size: 0.9rem; font-weight: 700; }
+    .user-info span { font-size: 0.75rem; color: var(--color-text-light); }
+
+    .sidebar-nav { padding: 0 12px; }
+    .sidebar-nav .nav-label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-text-muted);
+      padding: 8px 12px 4px;
+    }
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      color: var(--color-text-light);
+      font-weight: 500;
+      font-size: 0.88rem;
+      transition: var(--transition);
+      margin-bottom: 2px;
+    }
+    .sidebar-nav a:hover { background: var(--color-primary-lighter); color: var(--color-primary); }
+    .sidebar-nav a.active {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+    .sidebar-nav a i { width: 20px; text-align: center; color: var(--color-text-muted); }
+    .sidebar-nav a.active i { color: var(--color-white); }
+    .sidebar-nav a .badge {
+      margin-left: auto;
+      background: var(--color-primary);
+      color: var(--color-white);
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 1px 10px;
+      border-radius: 40px;
+    }
+    .sidebar-nav a.active .badge { background: var(--color-white); color: var(--color-primary); }
+
+    .admin-main {
+      flex: 1;
+      padding: 28px 36px;
+      background: var(--color-bg);
+      overflow-y: auto;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .page-header h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    .page-header h2 .highlight { color: var(--color-primary); }
+
+    .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .sidebar-toggle {
+      display: none;
+      background: var(--color-white);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 8px 12px;
+      font-size: 1.2rem;
+      margin-right: 12px;
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.25);
+      z-index: 997;
+      top: 0;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--color-white);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      transition: var(--transition);
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-primary-lighter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+    }
+    .stat-change {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 12px;
+      border-radius: 40px;
+      background: #e8f5e9;
+      color: var(--color-primary);
+    }
+    .stat-change.negative { background: #fce4ec; color: #c62828; }
+    .stat-number { font-size: 2rem; font-weight: 800; margin-top: 4px; }
+    .stat-label { font-size: 0.85rem; color: var(--color-text-light); }
+
+    .table-wrap {
+      background: var(--color-white);
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      overflow: hidden;
+      box-shadow: 0 2px 12px var(--color-shadow);
+      margin-bottom: 32px;
+    }
+    .table-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .table-header h4 { font-weight: 700; }
+    .table-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .table-actions input {
+      padding: 8px 16px;
+      border: 1px solid var(--color-border);
+      border-radius: 60px;
+      font-family: var(--font);
+      font-size: 0.85rem;
+      background: var(--color-bg);
+      min-width: 180px;
+    }
+    .table-actions input:focus { outline: none; border-color: var(--color-primary); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    table th {
+      text-align: left;
+      padding: 12px 24px;
+      font-weight: 600;
+      color: var(--color-text-light);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-bg);
+    }
+    table td {
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    table tr:last-child td { border-bottom: none; }
+    table tr:hover td { background: rgba(44,85,48,0.02); }
+
+    .status {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .status.completed { background: #e8f5e9; color: var(--color-primary); }
+    .status.pending { background: #fff3e0; color: #e65100; }
+
+    .admin-section { display: none; animation: fadeIn 0.3s ease; }
+    .admin-section.active { display: block; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+    .action-btns {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .action-btns button {
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border: 1px solid var(--color-border);
+      color: var(--color-text-light);
+      transition: var(--transition);
+      background: white;
+    }
+    .action-btns button:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: var(--color-primary-lighter);
+    }
+    .action-btns .delete-btn:hover {
+      border-color: #dc3545;
+      color: #dc3545;
+      background: #fce4ec;
+    }
+
+    .review-card {
+      background: var(--color-white);
+      border-radius: var(--radius);
+      padding: 20px;
+      border: 1px solid var(--color-border);
+      margin-bottom: 12px;
+      transition: var(--transition);
+    }
+    .review-card:hover { border-color: var(--color-primary); }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+    .review-user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-primary-lighter);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .review-name { font-weight: 600; font-size: 0.95rem; }
+    .review-email { font-size: 0.8rem; color: var(--color-text-light); }
+    .review-stars { color: #f5b342; font-size: 0.9rem; letter-spacing: 2px; }
+    .review-text { margin: 8px 0; color: var(--color-text); font-size: 0.95rem; padding-left: 52px; }
+    .review-date { font-size: 0.75rem; color: var(--color-text-muted); padding-left: 52px; }
+    .review-actions { display: flex; gap: 8px; margin-top: 8px; padding-left: 52px; }
+
+    .inquiry-message {
+      background: var(--color-bg);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin: 8px 0;
+      font-size: 0.9rem;
+      border-left: 3px solid var(--color-primary);
+      max-width: 400px;
+    }
+
+    @media (max-width: 992px) {
+      .sidebar-toggle { display: inline-block; }
+      .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transform: translateX(-100%);
+        z-index: 998;
+        width: 280px;
+        box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        height: 100vh;
+      }
+      .admin-sidebar.open { transform: translateX(0); }
+      .admin-main { padding: 20px; }
+    }
+
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .admin-main { padding: 16px; }
+      .login-card { padding: 32px 20px; }
+      .login-brand h1 { font-size: 1.8rem; }
+      .form-options { flex-direction: column; align-items: flex-start; gap: 12px; }
+    }
+
+    /* Hide login page when admin panel is shown */
+    #loginPage { display: flex; }
+    #adminPanel { display: none; }
+
+    #adminPanel.visible { display: block; }
+    #loginPage.hidden { display: none; }
   </style>
 </head>
 <body>
 
-  <div class="login-wrapper">
-    <div class="login-card">
+  <!-- ============================================================
+       LOGIN PAGE
+       ============================================================ -->
+  <div id="loginPage" class="login-page">
+    <div class="login-wrapper">
+      <div class="login-card">
 
-      <!-- Brand -->
-      <div class="login-brand">
-        <div class="brand-icon">
-          <i class="fas fa-leaf"></i>
+        <div class="login-brand">
+          <div class="brand-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h1>Admin <span class="highlight">Studio</span></h1>
+          <p>Sign in to manage your projects</p>
         </div>
-        <h1>Admin <span class="highlight">Studio</span></h1>
-        <p>Sign in to manage your projects</p>
-      </div>
 
-      <!-- Error message -->
-      <div class="error-message" id="errorMessage">
-        <i class="fas fa-exclamation-circle"></i>
-        <span id="errorText">Invalid credentials, please try again.</span>
-      </div>
+        <div class="error-message" id="errorMessage">
+          <i class="fas fa-exclamation-circle"></i>
+          <span id="errorText">Invalid credentials, please try again.</span>
+        </div>
 
-      <!-- Login Form -->
-      <form id="loginForm" autocomplete="off">
-        <div class="form-group">
-          <label><i class="fas fa-user"></i> Username</label>
-          <div class="input-icon">
-            <input type="text" id="usernameInput" placeholder="Enter your username" required />
-            <i class="fas fa-user"></i>
+        <form id="loginForm" autocomplete="off">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Username</label>
+            <div class="input-icon">
+              <input type="text" id="usernameInput" placeholder="Enter your username" required />
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label><i class="fas fa-lock"></i> Password</label>
+            <div class="input-icon">
+              <input type="password" id="passwordInput" placeholder="••••••••" required />
+              <i class="fas fa-key"></i>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <label>
+              <input type="checkbox" id="rememberCheck" /> Remember me
+            </label>
+            <a href="#" id="forgotLink">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn-primary" id="loginBtn">
+            <span id="btnText">Sign in</span>
+            <i class="fas fa-arrow-right" id="btnIcon"></i>
+          </button>
+        </form>
+
+        <div class="login-footer">
+          Don't have an account? <a href="#" id="supportLink">Contact support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       ADMIN PANEL
+       ============================================================ -->
+  <div id="adminPanel">
+    <div class="admin-wrapper">
+
+      <!-- Sidebar Overlay (mobile) -->
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+      <!-- Sidebar -->
+      <aside class="admin-sidebar" id="sidebar">
+        <div class="sidebar-user">
+          <div class="avatar" id="adminAvatar">AD</div>
+          <div class="user-info">
+            <h5 id="adminName">Admin</h5>
+            <span>Administrator</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <div class="nav-label">Main</div>
+          <a href="#" class="active" data-section="dashboard"><i class="fas fa-th-large"></i> Dashboard</a>
+          <a href="#" data-section="projects"><i class="fas fa-folder-open"></i> Projects</a>
+          <a href="#" data-section="reviews"><i class="fas fa-star"></i> Reviews <span class="badge">12</span></a>
+          <a href="#" data-section="inquiries"><i class="fas fa-envelope"></i> Inquiries <span class="badge">4</span></a>
+          <div class="nav-label" style="margin-top:20px;">System</div>
+          <a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a>
+          <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="admin-main">
+        <div class="page-header">
+          <div style="display: flex; align-items: center;">
+            <button class="sidebar-toggle" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+            <h2>Admin <span class="highlight">Studio</span></h2>
+          </div>
+          <div class="header-actions">
+            <button class="btn-secondary" style="padding:8px 18px; font-size:0.8rem;"><i class="fas fa-download"></i> Export</button>
+            <button class="btn-primary" style="padding:8px 22px; font-size:0.8rem; width:auto;"><i class="fas fa-plus"></i> New</button>
           </div>
         </div>
 
-        <div class="form-group">
-          <label><i class="fas fa-lock"></i> Password</label>
-          <div class="input-icon">
-            <input type="password" id="passwordInput" placeholder="••••••••" required />
-            <i class="fas fa-key"></i>
+        <!-- DASHBOARD -->
+        <div class="admin-section active" id="section-dashboard">
+          <div class="stats-grid">
+            <div class="stat-card"><div class="stat-top"><span class="stat-icon"><i class="fas fa-layer-group"></i></span><span class="stat-change">+12%</span></div><div class="stat-number">58</div><div class="stat-label">Total Projects</div></div>
+            <div class="stat-card"><div class="stat-top"><span class="stat-icon"><i class="fas fa-star"></i></span><span class="stat-change">+6%</span></div><div class="stat-number">4.8</div><div class="stat-label">Avg Rating</div></div>
+            <div class="stat-card"><div class="stat-top"><span class="stat-icon"><i class="fas fa-envelope"></i></span><span class="stat-change negative">-2%</span></div><div class="stat-number">24</div><div class="stat-label">New Inquiries</div></div>
+            <div class="stat-card"><div class="stat-top"><span class="stat-icon"><i class="fas fa-users"></i></span><span class="stat-change">+18%</span></div><div class="stat-number">312</div><div class="stat-label">Visitors</div></div>
+          </div>
+
+          <div class="table-wrap">
+            <div class="table-header"><h4>Recent Projects</h4><div class="table-actions"><input type="text" placeholder="Search projects…"></div></div>
+            <table>
+              <thead><tr><th>Name</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr><td>Forest Retreat</td><td>Architecture</td><td><span class="status completed">Completed</span></td><td><div class="action-btns"><button><i class="fas fa-edit"></i> Edit</button><button class="delete-btn"><i class="fas fa-trash"></i></button></div></td></tr>
+                <tr><td>Coastal Villa</td><td>Interior</td><td><span class="status pending">In Progress</span></td><td><div class="action-btns"><button><i class="fas fa-edit"></i> Edit</button><button class="delete-btn"><i class="fas fa-trash"></i></button></div></td></tr>
+                <tr><td>Mountain Cabin</td><td>Landscape</td><td><span class="status completed">Completed</span></td><td><div class="action-btns"><button><i class="fas fa-edit"></i> Edit</button><button class="delete-btn"><i class="fas fa-trash"></i></button></div></td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <div class="form-options">
-          <label>
-            <input type="checkbox" id="rememberCheck" /> Remember me
-          </label>
-          <a href="#" id="forgotLink">Forgot password?</a>
+        <!-- PROJECTS -->
+        <div class="admin-section" id="section-projects">
+          <div class="table-wrap">
+            <div class="table-header"><h4>All Projects</h4><div class="table-actions"><input type="text" placeholder="Filter…"><button class="btn-sm-primary"><i class="fas fa-plus"></i> Add</button></div></div>
+            <table>
+              <thead><tr><th>Title</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr><td>Eco House</td><td>Sustainable</td><td>2025-01-10</td><td><span class="status completed">Done</span></td><td><div class="action-btns"><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+                <tr><td>Zen Garden</td><td>Landscape</td><td>2025-02-04</td><td><span class="status pending">Pending</span></td><td><div class="action-btns"><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+                <tr><td>Modern Loft</td><td>Interior</td><td>2025-02-18</td><td><span class="status completed">Completed</span></td><td><div class="action-btns"><button>Edit</button><button class="delete-btn">Delete</button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <button type="submit" class="btn-primary" id="loginBtn">
-          <span id="btnText">Sign in</span>
-          <i class="fas fa-arrow-right" id="btnIcon"></i>
-        </button>
-      </form>
+        <!-- REVIEWS -->
+        <div class="admin-section" id="section-reviews">
+          <div class="review-card">
+            <div class="review-header"><div class="review-user"><div class="review-avatar">AK</div><div><div class="review-name">Ava K.</div><div class="review-email">ava@example.com</div></div></div><div class="review-stars">★★★★★</div></div>
+            <div class="review-text">Absolutely stunning work! The attention to detail is unmatched.</div>
+            <div class="review-date">Feb 20, 2025</div>
+            <div class="review-actions"><button class="btn-sm-primary"><i class="fas fa-check"></i> Approve</button><button class="btn-danger-sm"><i class="fas fa-trash"></i> Remove</button></div>
+          </div>
+          <div class="review-card">
+            <div class="review-header"><div class="review-user"><div class="review-avatar">MR</div><div><div class="review-name">Marcus R.</div><div class="review-email">marcus@mail.com</div></div></div><div class="review-stars">★★★★☆</div></div>
+            <div class="review-text">Great experience, very professional team. Would recommend.</div>
+            <div class="review-date">Feb 18, 2025</div>
+            <div class="review-actions"><button class="btn-sm-primary"><i class="fas fa-check"></i> Approve</button><button class="btn-danger-sm"><i class="fas fa-trash"></i> Remove</button></div>
+          </div>
+        </div>
 
-      <div class="login-footer">
-        Don’t have an account? <a href="#" id="supportLink">Contact support</a>
-      </div>
+        <!-- INQUIRIES -->
+        <div class="admin-section" id="section-inquiries">
+          <div class="review-card" style="background:white;">
+            <div class="review-user"><div class="review-avatar">LN</div><div><div class="review-name">Laura N.</div><div class="review-email">laura@domain.com</div></div></div>
+            <div class="inquiry-message">Hi, I'd love to discuss a collaboration for our new eco-resort project. Do you have availability next month?</div>
+            <div class="review-actions" style="padding-left:0; margin-top:12px;"><button class="btn-sm-primary"><i class="fas fa-reply"></i> Reply</button><button class="btn-danger-sm">Archive</button></div>
+          </div>
+          <div class="review-card" style="background:white;">
+            <div class="review-user"><div class="review-avatar">TP</div><div><div class="review-name">Thomas P.</div><div class="review-email">thomas@work.com</div></div></div>
+            <div class="inquiry-message">I'm interested in the landscape design package. Can you share more details and pricing?</div>
+            <div class="review-actions" style="padding-left:0; margin-top:12px;"><button class="btn-sm-primary"><i class="fas fa-reply"></i> Reply</button><button class="btn-danger-sm">Archive</button></div>
+          </div>
+        </div>
+
+        <!-- SETTINGS -->
+        <div class="admin-section" id="section-settings">
+          <div style="background:var(--color-white); border-radius:var(--radius); padding:32px; border:1px solid var(--color-border);">
+            <h3 style="margin-bottom:20px; font-family:var(--font-serif);"><i class="fas fa-cog" style="color:var(--color-primary);"></i> Settings</h3>
+            <div class="form-group"><label>Site Name</label><input type="text" value="Nature Studio" style="background:var(--color-bg);"></div>
+            <div class="form-group"><label>Admin Email</label><input type="email" value="admin@nature.studio" style="background:var(--color-bg);"></div>
+            <div class="form-group"><label>Theme</label><select style="background:var(--color-bg); padding:10px 16px; border:1px solid var(--color-border); border-radius:var(--radius); width:100%;"><option>Light</option><option>Dark</option></select></div>
+            <button class="btn-primary" style="width:auto;">Save Settings</button>
+          </div>
+        </div>
+      </main>
     </div>
   </div>
 
@@ -389,68 +916,10 @@
       'use strict';
 
       // ============================================================
-      // 1. SECURELY LOAD ENVIRONMENT VARIABLES FROM .env FILE
+      // 1. UI ELEMENTS
       // ============================================================
-      // This uses a fetch request to load the .env file.
-      // For security, the .env file should be placed outside the web root
-      // or protected via .htaccess. In this demo, we'll fetch it from
-      // the same directory, but in production you'd want to serve it
-      // from a secure endpoint or use a build process.
-      
-      let envConfig = null;
-      let envLoaded = false;
-
-      async function loadEnvFile() {
-        try {
-          // Try to fetch .env from the current directory
-          const response = await fetch('.env');
-          if (!response.ok) {
-            throw new Error('Failed to load .env file');
-          }
-          const text = await response.text();
-          return parseEnvFile(text);
-        } catch (error) {
-          console.warn('Could not load .env file, using default credentials:', error.message);
-          // Fallback to default credentials for demo/testing
-          return {
-            ADMIN_USERNAME: 'admin',
-            ADMIN_PASSWORD: 'password123'
-          };
-        }
-      }
-
-      function parseEnvFile(content) {
-        const config = {};
-        const lines = content.split('\n');
-        
-        for (const line of lines) {
-          const trimmed = line.trim();
-          // Skip comments and empty lines
-          if (trimmed.startsWith('#') || trimmed === '') {
-            continue;
-          }
-          
-          const equalsIndex = trimmed.indexOf('=');
-          if (equalsIndex > 0) {
-            const key = trimmed.substring(0, equalsIndex).trim();
-            let value = trimmed.substring(equalsIndex + 1).trim();
-            
-            // Remove quotes if present
-            if ((value.startsWith('"') && value.endsWith('"')) || 
-                (value.startsWith("'") && value.endsWith("'"))) {
-              value = value.substring(1, value.length - 1);
-            }
-            
-            config[key] = value;
-          }
-        }
-        
-        return config;
-      }
-
-      // ============================================================
-      // 2. UI ELEMENTS
-      // ============================================================
+      const loginPage = document.getElementById('loginPage');
+      const adminPanel = document.getElementById('adminPanel');
       const form = document.getElementById('loginForm');
       const usernameInput = document.getElementById('usernameInput');
       const passwordInput = document.getElementById('passwordInput');
@@ -461,6 +930,14 @@
       const errorMessage = document.getElementById('errorMessage');
       const errorText = document.getElementById('errorText');
       const toast = document.getElementById('toast');
+      const adminName = document.getElementById('adminName');
+      const adminAvatar = document.getElementById('adminAvatar');
+
+      // ============================================================
+      // 2. ENVIRONMENT VARIABLES (Hardcoded for demo)
+      // ============================================================
+      const VALID_USERNAME = 'admin';
+      const VALID_PASSWORD = 'password123';
 
       // ============================================================
       // 3. HELPER FUNCTIONS
@@ -492,7 +969,6 @@
         } else {
           loginBtn.disabled = false;
           loginBtn.innerHTML = '<span id="btnText">Sign in</span> <i class="fas fa-arrow-right" id="btnIcon"></i>';
-          // Re-assign references after innerHTML reset
           const newBtnText = document.getElementById('btnText');
           const newBtnIcon = document.getElementById('btnIcon');
           if (newBtnText) newBtnText.textContent = 'Sign in';
@@ -500,17 +976,40 @@
         }
       }
 
+      function generateSecureToken() {
+        const array = new Uint8Array(32);
+        crypto.getRandomValues(array);
+        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      }
+
       // ============================================================
-      // 4. AUTHENTICATION LOGIC
+      // 4. SHOW ADMIN PANEL
+      // ============================================================
+      function showAdminPanel(username) {
+        // Hide login, show admin panel
+        loginPage.classList.add('hidden');
+        loginPage.style.display = 'none';
+        adminPanel.style.display = 'block';
+        adminPanel.classList.add('visible');
+
+        // Update user info
+        const displayName = username.charAt(0).toUpperCase() + username.slice(1);
+        adminName.textContent = displayName;
+        adminAvatar.textContent = username.charAt(0).toUpperCase();
+
+        showToast('Welcome back, ' + displayName + '!', 'success');
+      }
+
+      // ============================================================
+      // 5. AUTHENTICATION LOGIC
       // ============================================================
       async function handleLogin(e) {
         e.preventDefault();
-        
+
         const username = usernameInput.value.trim();
         const password = passwordInput.value.trim();
         const remember = rememberCheck.checked;
 
-        // Validate input
         if (!username || !password) {
           showError('Please enter both username and password.');
           return;
@@ -519,118 +1018,87 @@
         hideError();
         setLoading(true);
 
-        try {
-          // Load environment variables (cached)
-          if (!envLoaded) {
-            envConfig = await loadEnvFile();
-            envLoaded = true;
-          }
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 800));
 
-          // Get credentials from environment
-   const response = await fetch('/api/admin/login', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        username,
-        password
-    })
-});
-
-const data = await response.json();
-
-if (data.success) {
-    setLoading(false);
-    showToast('Welcome back! Redirecting to dashboard…', 'success');
-
-    sessionStorage.setItem('adminSession', JSON.stringify({
-        username: username,
-        loggedIn: true,
-        loginTime: Date.now()
-    }));
-
-    setTimeout(() => {
-        window.location.href = '/admin.html';
-    }, 1000);
-
-} else {
-    setLoading(false);
-    showError(data.message || 'Invalid username or password.');
-}
-            // Login successful
-            setLoading(false);
-            showToast('Welcome back! Redirecting to dashboard…', 'success');
-            
-            // Store session data
-            const sessionData = {
-              username: username,
-              loggedIn: true,
-              loginTime: Date.now()
-            };
-            
-            // Store in sessionStorage (persists until browser is closed)
-            sessionStorage.setItem('adminSession', JSON.stringify(sessionData));
-            
-            // Store remember me cookie if checked
-            if (remember) {
-              const token = generateSecureToken();
-              sessionStorage.setItem('rememberToken', token);
-              // Set cookie with 30-day expiry
-              const expiryDate = new Date();
-              expiryDate.setDate(expiryDate.getDate() + 30);
-              document.cookie = `admin_remember=${token}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Strict`;
-            }
-            
-            // Redirect to dashboard after a moment
-            setTimeout(() => {
-              // In a real app: window.location.href = 'dashboard.html';
-              // For demo, we show a success message
-              loginBtn.style.background = '#28a745';
-              loginBtn.innerHTML = '<i class="fas fa-check-circle"></i> Redirecting…';
-              setTimeout(() => {
-                loginBtn.style.background = '';
-                loginBtn.innerHTML = '<span id="btnText">Sign in</span> <i class="fas fa-arrow-right" id="btnIcon"></i>';
-                showToast('Login successful! (Demo) You are now authenticated.', 'success');
-                // Update button text to show logged in state
-                btnText.textContent = '✓ Logged In';
-                btnIcon.style.display = 'none';
-                loginBtn.style.background = '#28a745';
-                // Disable further login attempts
-                loginBtn.disabled = true;
-              }, 1200);
-            }, 1000);
-          } else {
-            // Login failed
-            setLoading(false);
-            showError('Invalid username or password. Please try again.');
-            showToast('Login failed. Check your credentials.', 'error');
-          }
-        } catch (error) {
-          console.error('Login error:', error);
+        // Verify credentials
+        if (username === VALID_USERNAME && password === VALID_PASSWORD) {
           setLoading(false);
-          showError('An error occurred during login. Please try again.');
-          showToast('Login error. Please try again.', 'error');
+
+          // Store session
+          const sessionData = {
+            username: username,
+            loggedIn: true,
+            loginTime: Date.now()
+          };
+          sessionStorage.setItem('adminSession', JSON.stringify(sessionData));
+
+          if (remember) {
+            const token = generateSecureToken();
+            sessionStorage.setItem('rememberToken', token);
+            const expiryDate = new Date();
+            expiryDate.setDate(expiryDate.getDate() + 30);
+            document.cookie = `admin_remember=${token}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Strict`;
+          }
+
+          // Show admin panel
+          showAdminPanel(username);
+        } else {
+          setLoading(false);
+          showError('Invalid username or password. Please try again.');
+          showToast('Login failed. Check your credentials.', 'error');
         }
       }
 
       // ============================================================
-      // 5. SECURE TOKEN GENERATION
+      // 6. LOGOUT
       // ============================================================
-      function generateSecureToken() {
-        const array = new Uint8Array(32);
-        crypto.getRandomValues(array);
-        return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+      function logout() {
+        sessionStorage.removeItem('adminSession');
+        sessionStorage.removeItem('rememberToken');
+        document.cookie = 'admin_remember=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+        // Show login, hide admin panel
+        adminPanel.style.display = 'none';
+        adminPanel.classList.remove('visible');
+        loginPage.style.display = 'flex';
+        loginPage.classList.remove('hidden');
+
+        // Reset login button
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<span id="btnText">Sign in</span> <i class="fas fa-arrow-right" id="btnIcon"></i>';
+        const newBtnText = document.getElementById('btnText');
+        const newBtnIcon = document.getElementById('btnIcon');
+        if (newBtnText) newBtnText.textContent = 'Sign in';
+        if (newBtnIcon) newBtnIcon.style.display = 'inline-block';
+        loginBtn.style.background = '';
+        passwordInput.value = '';
+
+        showToast('Logged out successfully.', 'success');
       }
 
       // ============================================================
-      // 6. AUTO-LOGIN WITH REMEMBER ME
+      // 7. CHECK EXISTING SESSION
       // ============================================================
+      function checkSession() {
+        const sessionData = sessionStorage.getItem('adminSession');
+        if (sessionData) {
+          try {
+            const session = JSON.parse(sessionData);
+            if (session.loggedIn && session.username) {
+              showAdminPanel(session.username);
+              return true;
+            }
+          } catch (e) {
+            // Invalid session data
+          }
+        }
+        return false;
+      }
+
       function checkRememberMe() {
-        // Check for remember me cookie
         const cookies = document.cookie.split('; ');
         let rememberToken = null;
-        
         for (const cookie of cookies) {
           const [name, value] = cookie.split('=');
           if (name === 'admin_remember') {
@@ -638,29 +1106,19 @@ if (data.success) {
             break;
           }
         }
-        
+
         if (rememberToken) {
           const storedToken = sessionStorage.getItem('rememberToken');
           if (storedToken === rememberToken) {
-            // Auto-login - check if session exists
             const sessionData = sessionStorage.getItem('adminSession');
             if (sessionData) {
               try {
                 const session = JSON.parse(sessionData);
-                if (session.loggedIn) {
-                  // User is already logged in via session
-                  showToast('Welcome back!', 'success');
-                  // Update UI to show logged in state
-                  btnText.textContent = '✓ Logged In';
-                  btnIcon.style.display = 'none';
-                  loginBtn.style.background = '#28a745';
-                  loginBtn.disabled = true;
-                  usernameInput.value = session.username || '';
+                if (session.loggedIn && session.username) {
+                  showAdminPanel(session.username);
                   return true;
                 }
-              } catch (e) {
-                // Invalid session data
-              }
+              } catch (e) {}
             }
           }
         }
@@ -668,74 +1126,69 @@ if (data.success) {
       }
 
       // ============================================================
-      // 7. EVENT LISTENERS
+      // 8. EVENT LISTENERS
       // ============================================================
-      // Hide error on input
       usernameInput.addEventListener('input', hideError);
       passwordInput.addEventListener('input', hideError);
-
-      // Form submission
       form.addEventListener('submit', handleLogin);
 
-      // Forgot password link
       document.getElementById('forgotLink').addEventListener('click', function(e) {
         e.preventDefault();
         showToast('Password reset link sent to your email (demo).', 'success');
       });
 
-      // Support link
       document.getElementById('supportLink').addEventListener('click', function(e) {
         e.preventDefault();
         showToast('Support team will contact you shortly (demo).', 'success');
       });
 
+      document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        logout();
+      });
+
+      // Sidebar toggle for mobile
+      document.getElementById('sidebarToggle').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('sidebarOverlay').classList.toggle('active');
+      });
+
+      document.getElementById('sidebarOverlay').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.remove('open');
+        document.getElementById('sidebarOverlay').classList.remove('active');
+      });
+
+      // Section navigation
+      document.querySelectorAll('.sidebar-nav a[data-section]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const section = this.dataset.section;
+
+          // Update active state
+          document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+          this.classList.add('active');
+
+          // Show section
+          document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+          const target = document.getElementById('section-' + section);
+          if (target) target.classList.add('active');
+
+          // Close mobile sidebar
+          document.getElementById('sidebar').classList.remove('open');
+          document.getElementById('sidebarOverlay').classList.remove('active');
+        });
+      });
+
       // ============================================================
-      // 8. INITIALIZATION
+      // 9. INITIALIZATION
       // ============================================================
-      async function init() {
-        // Load environment variables on page load
-        try {
-          envConfig = await loadEnvFile();
-          envLoaded = true;
-          console.log('Environment loaded successfully');
-        } catch (error) {
-          console.warn('Using default credentials for demo');
-          envConfig = {
-            ADMIN_USERNAME: 'admin',
-            ADMIN_PASSWORD: 'password123'
-          };
-          envLoaded = true;
-        }
-        
-        // Check for existing session
-        const sessionData = sessionStorage.getItem('adminSession');
-        if (sessionData) {
-          try {
-            const session = JSON.parse(sessionData);
-            if (session.loggedIn) {
-              // User is already logged in
-              btnText.textContent = '✓ Logged In';
-              btnIcon.style.display = 'none';
-              loginBtn.style.background = '#28a745';
-              loginBtn.disabled = true;
-              usernameInput.value = session.username || '';
-              showToast('Already logged in. Welcome back!', 'success');
-            }
-          } catch (e) {
-            // Invalid session data
-          }
-        }
-        
-        // Check remember me
+      // Check if already logged in
+      if (!checkSession()) {
         checkRememberMe();
       }
 
-      // Start the application
-      init();
-
       console.log('🔐 Admin Login System');
-      console.log('📝 Credentials are loaded from .env file');
-      console.log('💡 Demo: Use username "admin" and password "password123" if .env not found');
+      console.log('💡 Demo: Use username "admin" and password "password123"');
 
     })();
   </script>
