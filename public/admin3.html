@@ -1357,7 +1357,7 @@
         fetch('/api/users', { credentials: 'include' })
           .then(res => {
             if (res.status === 401) {
-              window.location.href = '/admin-login.html';
+              window.location.href = '/admin.html';
               return;
             }
             return res.json();
@@ -1456,7 +1456,7 @@
         })
         .then(res => {
           if (res.status === 401) {
-            window.location.href = '/admin-login.html';
+            window.location.href = '/admin.html';
             return;
           }
           return res.json();
@@ -1479,7 +1479,7 @@
         })
         .then(res => {
           if (res.status === 401) {
-            window.location.href = '/admin-login.html';
+            window.location.href = '/admin.html';
             return;
           }
           return res.json();
@@ -1526,7 +1526,7 @@
           })
           .then(res => {
             if (res.status === 401) {
-              window.location.href = '/admin-login.html';
+              window.location.href = '/admin.html';
               return;
             }
             return res.json();
