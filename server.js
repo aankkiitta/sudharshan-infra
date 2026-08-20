@@ -66,20 +66,24 @@ const pool = mysql.createPool({
 
 
 // Session middleware for admin authentication
+
+app.set('trust proxy', 1);
+
 app.use(cookieParser());
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-
+    proxy: true,
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        sameSite: 'lax'
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
+
 
 
 // ==================== ADMIN AUTHENTICATION MIDDLEWARE ====================
