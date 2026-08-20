@@ -61,6 +61,8 @@ const pool = mysql.createPool({
     keepAliveInitialDelay: 0
 });
 
+
+
 // ==================== SESSION MIDDLEWARE (SINGLE AUTH SYSTEM) ====================
 app.set('trust proxy', 1);
 
@@ -76,6 +78,22 @@ app.use(session({
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     }
 }));
+
+// ==================== PROTECTED ADMIN PAGE ====================
+
+function requireAdminPage(req, res, next) {
+    if (req.session && req.session.authenticated === true) {
+        return next();
+    }
+
+    return res.redirect('/admin.html');
+}
+
+// Admin panel can ONLY be opened after login
+app.get('/admin3.html', requireAdminPage, (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin3.html'));
+});
+
 
 // ==================== ADMIN AUTHENTICATION MIDDLEWARE ====================
 function isAdminAuthenticated(req, res, next) {
