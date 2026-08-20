@@ -44,6 +44,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
 // Serve frontend
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ==================== DATABASE CONNECTION ====================
@@ -93,7 +94,7 @@ app.get('/admin3.html', requireAdminPage, (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin3.html'));
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+
 // ==================== ADMIN AUTHENTICATION MIDDLEWARE ====================
 function isAdminAuthenticated(req, res, next) {
     // ONLY use session - NO JWT here to avoid conflicts
