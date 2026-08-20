@@ -10,7 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
+   <style>
+    /* === all styles from style.txt are embedded below === */
     * {
       margin: 0;
       padding: 0;
@@ -35,7 +36,7 @@
       --transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       --font: 'Inter', sans-serif;
       --font-serif: 'Playfair Display', serif;
-      --header-height: 0px; /* header removed */
+      --header-height: 0px;
       --sidebar-width: 260px;
     }
 
@@ -44,7 +45,7 @@
       background: var(--color-bg);
       color: var(--color-text);
       line-height: 1.6;
-      padding-top: 0; /* no header */
+      padding-top: 0;
       min-height: 100vh;
     }
 
@@ -58,7 +59,6 @@
       padding: 0 24px;
     }
 
-    /* ----- buttons ----- */
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -146,16 +146,13 @@
       transform: translateY(-2px);
     }
 
-   
-    /* ----- admin layout ----- */
     .admin-wrapper {
       display: flex;
-      min-height: 100vh; /* full viewport */
+      min-height: 100vh;
       margin: 0;
       padding: 0;
     }
 
-    /* sidebar */
     .admin-sidebar {
       width: var(--sidebar-width);
       background: var(--color-white);
@@ -163,7 +160,7 @@
       padding: 24px 0;
       flex-shrink: 0;
       position: sticky;
-      top: 0; /* no header */
+      top: 0;
       height: 100vh;
       overflow-y: auto;
     }
@@ -229,7 +226,6 @@
     }
     .sidebar-nav a.active .badge { background: var(--color-white); color: var(--color-primary); }
 
-    /* main */
     .admin-main {
       flex: 1;
       padding: 28px 36px;
@@ -286,7 +282,6 @@
     }
     .sidebar-overlay.active { display: block; }
 
-    /* stats */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4,1fr);
@@ -329,7 +324,6 @@
     .stat-number { font-size: 2rem; font-weight: 800; margin-top: 4px; }
     .stat-label { font-size: 0.85rem; color: var(--color-text-light); }
 
-    /* tables */
     .table-wrap {
       background: var(--color-white);
       border-radius: var(--radius);
@@ -454,7 +448,6 @@
     }
     .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--color-primary); }
 
-    /* Reviews Section */
     .review-card {
       background: var(--color-white);
       border-radius: var(--radius);
@@ -518,7 +511,6 @@
       padding-left: 52px;
     }
 
-    /* Inquiry Message */
     .inquiry-message {
       background: var(--color-bg);
       border-radius: var(--radius);
@@ -529,7 +521,6 @@
       max-width: 400px;
     }
 
-    /* Add Project Form */
     .add-project-card {
       max-width: 700px;
       margin: auto;
@@ -641,12 +632,10 @@
       }
     }
 
-    /* Required field indicator */
     .add-project-card .form-group label span[style*="color:#dc3545"] {
       font-weight: 700;
     }
 
-    /* Toast notifications */
     .toast {
       position: fixed;
       top: 20px;
@@ -664,7 +653,6 @@
     .toast.success { background: #28a745; }
     .toast.error { background: #dc3545; }
 
-    /* logout modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
