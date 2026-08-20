@@ -24,14 +24,12 @@ const allowedOrigins = [
 
 const corsOptions = {
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
         if (!origin) return callback(null, true);
-        
         if (allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
             console.warn(`CORS blocked: ${origin}`);
-            callback(null, true); // Allow in production, but log warning
+            callback(null, true);
         }
     },
     credentials: true,
@@ -43,13 +41,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(cookieParser());
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ==================== DATABASE CONNECTION ====================
-// Using connection pool for production
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT || 18849,
@@ -63,56 +61,35 @@ const pool = mysql.createPool({
     keepAliveInitialDelay: 0
 });
 
-
-
-// Session middleware for admin authentication
-
+// ==================== SESSION MIDDLEWARE (SINGLE AUTH SYSTEM) ====================
 app.set('trust proxy', 1);
 
-app.use(cookieParser());
-
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'fallback-secret-key-change-in-production',
     resave: false,
     saveUninitialized: false,
     proxy: true,
     cookie: {
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
         sameSite: 'lax',
-        maxAge: 24 * 60 * 60 * 1000
+        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     }
 }));
 
-
-
 // ==================== ADMIN AUTHENTICATION MIDDLEWARE ====================
 function isAdminAuthenticated(req, res, next) {
-    // Check session
-    if (req.session && req.session.admin) {
+    // ONLY use session - NO JWT here to avoid conflicts
+    if (req.session && req.session.authenticated) {
         return next();
-    }
-    
-    // Check JWT token in cookies
-    const token = req.cookies.admin_token;
-    if (token) {
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            if (decoded && decoded.username === process.env.ADMIN_USERNAME) {
-                req.session.admin = { username: decoded.username };
-                return next();
-            }
-        } catch (err) {
-            // Invalid token
-        }
     }
     
     res.status(401).json({ 
         success: false, 
+        authenticated: false,
         message: 'Unauthorized - Please login first' 
     });
 }
-
 
 // Promisify pool for async/await support
 const promisePool = pool.promise();
@@ -126,7 +103,6 @@ pool.getConnection((err, connection) => {
             sqlState: err.sqlState,
             message: err.message
         });
-        // Don't crash the server, just log the error
         return;
     }
     console.log("✅ MySQL Connected (Pool)");
@@ -149,7 +125,6 @@ const db = {
 const avatarFolder = path.join(__dirname, "uploads", "avatars");
 const reviewFolder = path.join(__dirname, "uploads", "reviews");
 
-// Create directories if they don't exist
 if (!fs.existsSync(avatarFolder)) {
     fs.mkdirSync(avatarFolder, { recursive: true });
     console.log("📁 Created avatar folder");
@@ -160,7 +135,6 @@ if (!fs.existsSync(reviewFolder)) {
     console.log("📁 Created review folder");
 }
 
-// Avatar upload configuration
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, avatarFolder);
@@ -173,7 +147,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ 
     storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    limits: { fileSize: 5 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         if (allowedTypes.includes(file.mimetype)) {
@@ -184,7 +158,6 @@ const upload = multer({
     }
 });
 
-// Review image upload configuration
 const reviewStorage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, reviewFolder);
@@ -197,7 +170,7 @@ const reviewStorage = multer.diskStorage({
 
 const reviewUpload = multer({
     storage: reviewStorage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+    limits: { fileSize: 5 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
         if (allowedTypes.includes(file.mimetype)) {
@@ -250,7 +223,6 @@ app.post("/api/signup", upload.single("avatar"), async (req, res) => {
             });
         }
 
-        // Check if email exists
         db.query(
             "SELECT * FROM users WHERE email=?",
             [email],
@@ -302,7 +274,7 @@ app.post("/api/signup", upload.single("avatar"), async (req, res) => {
     }
 });
 
-// ==================== LOGIN ====================
+// ==================== LOGIN (User - Preserved) ====================
 app.post("/api/login", (req, res) => {
     const { email, password } = req.body;
 
@@ -408,7 +380,7 @@ app.get("/api/profile", (req, res) => {
     });
 });
 
-// ==================== LOGOUT ====================
+// ==================== LOGOUT (User - Preserved) ====================
 app.post("/api/logout", (req, res) => {
     res.json({
         success: true,
@@ -467,7 +439,6 @@ app.post("/api/reviews", reviewUpload.single("image"), (req, res) => {
     const { name, email, review, rating } = req.body;
     const image = req.file ? req.file.filename : "default.png";
 
-    // Validate required fields
     if (!name || !email || !review || !rating) {
         return res.status(400).json({
             success: false,
@@ -497,8 +468,8 @@ app.post("/api/reviews", reviewUpload.single("image"), (req, res) => {
     );
 });
 
-// ==================== GET REVIEWS ====================
-app.get("/api/reviews", (req, res) => {
+// ==================== GET REVIEWS (Protected) ====================
+app.get("/api/reviews", isAdminAuthenticated, (req, res) => {
     db.query(
         "SELECT * FROM reviews ORDER BY id DESC",
         (err, rows) => {
@@ -518,7 +489,8 @@ app.get("/api/reviews", (req, res) => {
     );
 });
 
-app.delete("/api/reviews/:id", (req, res) => {
+// ==================== DELETE REVIEW (Protected) ====================
+app.delete("/api/reviews/:id", isAdminAuthenticated, (req, res) => {
     db.query(
         "DELETE FROM reviews WHERE id=?",
         [req.params.id],
@@ -538,9 +510,6 @@ app.delete("/api/reviews/:id", (req, res) => {
         }
     );
 });
-
-
-
 
 // ==================== INQUIRIES ====================
 
@@ -592,10 +561,8 @@ app.post("/api/inquiries", (req, res) => {
     );
 });
 
-
-// GET ALL INQUIRIES
-app.get("/api/inquiries", (req, res) => {
-
+// GET ALL INQUIRIES (Protected)
+app.get("/api/inquiries", isAdminAuthenticated, (req, res) => {
     const sql = `
         SELECT *
         FROM inquiries
@@ -620,10 +587,8 @@ app.get("/api/inquiries", (req, res) => {
     });
 });
 
-
-// DELETE INQUIRY
-app.delete("/api/inquiries/:id", (req, res) => {
-
+// DELETE INQUIRY (Protected)
+app.delete("/api/inquiries/:id", isAdminAuthenticated, (req, res) => {
     db.query(
         "DELETE FROM inquiries WHERE id=?",
         [req.params.id],
@@ -646,10 +611,8 @@ app.delete("/api/inquiries/:id", (req, res) => {
     );
 });
 
-
-// MARK INQUIRY AS READ / UNREAD
-app.put("/api/inquiries/:id/read", (req, res) => {
-
+// MARK INQUIRY AS READ / UNREAD (Protected)
+app.put("/api/inquiries/:id/read", isAdminAuthenticated, (req, res) => {
     const { is_read } = req.body;
 
     db.query(
@@ -674,102 +637,86 @@ app.put("/api/inquiries/:id/read", (req, res) => {
     );
 });
 
+// ==================== ADMIN AUTHENTICATION (FIXED - SESSION ONLY) ====================
 
-
-
-
-// ==================== ADMIN LOGIN ====================
+// ADMIN LOGIN - Uses session only, NO JWT
 app.post('/api/admin/login', (req, res) => {
     const { username, password, remember } = req.body;
 
+    console.log('Admin login attempt:', { username, remember });
+
     // Validate credentials against environment variables
     if (username !== process.env.ADMIN_USERNAME || password !== process.env.ADMIN_PASSWORD) {
+        console.log('❌ Admin login failed: Invalid credentials');
         return res.status(401).json({
             success: false,
             message: 'Invalid username or password'
         });
     }
 
-    // Create session
-    req.session.admin = { username: username };
+    // Create session - THIS IS THE ONLY AUTH SYSTEM
+    req.session.authenticated = true;
+    req.session.username = username;
 
-    // If remember me, create JWT token
+    // If remember me, extend session lifetime
     if (remember) {
-        const token = jwt.sign(
-            { username: username },
-            process.env.JWT_SECRET,
-            { expiresIn: '30d' }
-        );
-
-        res.cookie('admin_token', token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-            sameSite: 'strict'
-        });
+        req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days
     }
+
+    console.log('✅ Admin login successful, session created');
 
     res.json({
         success: true,
-        message: 'Login successful'
+        message: 'Login successful',
+        redirect: '/admin3.html'
     });
 });
 
-
-
-// ==================== CHECK ADMIN SESSION ====================
+// CHECK ADMIN SESSION - Session only, NO JWT
 app.get('/api/admin/check-session', (req, res) => {
-    // Check session
-    if (req.session && req.session.admin) {
+    console.log('Checking admin session:', !!req.session.authenticated);
+    
+    if (req.session && req.session.authenticated) {
         return res.json({
             authenticated: true,
-            user: { username: req.session.admin.username }
-        });
-    }
-
-    // Check JWT in cookies
-    const token = req.cookies.admin_token;
-    if (token) {
-        try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            if (decoded && decoded.username === process.env.ADMIN_USERNAME) {
-                // Restore session
-                req.session.admin = { username: decoded.username };
-                return res.json({
-                    authenticated: true,
-                    user: { username: decoded.username }
-                });
+            user: { 
+                username: req.session.username || 'admin' 
             }
-        } catch (err) {
-            // Invalid token
-        }
+        });
     }
 
     res.json({ authenticated: false });
 });
 
-
-
-// ==================== ADMIN LOGOUT ====================
+// ADMIN LOGOUT - Clear session
 app.post('/api/admin/logout', (req, res) => {
-    // Clear session
+    console.log('Admin logout');
+
     req.session.destroy((err) => {
         if (err) {
             console.error('Session destruction error:', err);
+            return res.status(500).json({
+                success: false,
+                message: 'Logout failed'
+            });
         }
-    });
 
-    // Clear JWT cookie
-    res.clearCookie('admin_token');
+        // Clear the cookie
+        res.clearCookie('connect.sid', {
+            path: '/',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'lax'
+        });
 
-    res.json({
-        success: true,
-        message: 'Logged out successfully'
+        res.json({
+            success: true,
+            message: 'Logged out successfully'
+        });
     });
 });
 
-
-// ==================== CHANGE ADMIN PASSWORD ====================
+// CHANGE ADMIN PASSWORD (Protected)
 app.post('/api/admin/change-password', isAdminAuthenticated, (req, res) => {
     const { currentPassword, newPassword } = req.body;
 
@@ -790,126 +737,14 @@ app.post('/api/admin/change-password', isAdminAuthenticated, (req, res) => {
     }
 
     // In production, you'd update the environment variable or database
-    // For now, we'll just return success
     res.json({
         success: true,
         message: 'Password updated successfully'
     });
 });
 
-
-// GET REVIEWS - Add isAdminAuthenticated
-app.get("/api/reviews", isAdminAuthenticated, (req, res) => {
-    // Your existing code stays the same
-    db.query(
-        "SELECT * FROM reviews ORDER BY id DESC",
-        (err, rows) => {
-            if (err) {
-                console.error("Reviews query error:", err);
-                return res.status(500).json({
-                    success: false,
-                    message: err.message
-                });
-            }
-            res.json({
-                success: true,
-                reviews: rows
-            });
-        }
-    );
-});
-
-// DELETE REVIEW - Add isAdminAuthenticated
-app.delete("/api/reviews/:id", isAdminAuthenticated, (req, res) => {
-    // Your existing code stays the same
-    db.query(
-        "DELETE FROM reviews WHERE id=?",
-        [req.params.id],
-        (err) => {
-            if (err) {
-                console.error("Review delete error:", err);
-                return res.status(500).json({
-                    success: false,
-                    message: "Database error"
-                });
-            }
-            res.json({
-                success: true,
-                message: "Review deleted successfully"
-            });
-        }
-    );
-});
-
-
-// GET INQUIRIES - Add isAdminAuthenticated
-app.get("/api/inquiries", isAdminAuthenticated, (req, res) => {
-    // Your existing code stays the same
-    const sql = `SELECT * FROM inquiries ORDER BY id DESC`;
-    db.query(sql, (err, rows) => {
-        if (err) {
-            console.error("❌ Inquiries fetch error:", err);
-            return res.status(500).json({
-                success: false,
-                message: "Failed to load inquiries"
-            });
-        }
-        res.json({
-            success: true,
-            inquiries: rows || []
-        });
-    });
-});
-
-// DELETE INQUIRY - Add isAdminAuthenticated
-app.delete("/api/inquiries/:id", isAdminAuthenticated, (req, res) => {
-    // Your existing code stays the same
-    db.query(
-        "DELETE FROM inquiries WHERE id=?",
-        [req.params.id],
-        (err, result) => {
-            if (err) {
-                console.error("❌ Inquiry delete error:", err);
-                return res.status(500).json({
-                    success: false,
-                    message: "Failed to delete inquiry"
-                });
-            }
-            res.json({
-                success: true,
-                message: "Inquiry deleted successfully"
-            });
-        }
-    );
-});
-
-// MARK INQUIRY AS READ - Add isAdminAuthenticated
-app.put("/api/inquiries/:id/read", isAdminAuthenticated, (req, res) => {
-    // Your existing code stays the same
-    const { is_read } = req.body;
-    db.query(
-        "UPDATE inquiries SET is_read=? WHERE id=?",
-        [is_read ? 1 : 0, req.params.id],
-        (err) => {
-            if (err) {
-                console.error("❌ Inquiry read status error:", err);
-                return res.status(500).json({
-                    success: false,
-                    message: "Failed to update inquiry"
-                });
-            }
-            res.json({
-                success: true,
-                message: "Inquiry status updated"
-            });
-        }
-    );
-});
-
-
-// GET USERS - Add isAdminAuthenticated
+// ==================== GET USERS (Protected) ====================
 app.get("/api/users", isAdminAuthenticated, (req, res) => {
-    // Your existing code stays the same
     db.query(
         "SELECT id, full_name, email, avatar, created_at FROM users ORDER BY id DESC",
         (err, result) => {
@@ -928,9 +763,8 @@ app.get("/api/users", isAdminAuthenticated, (req, res) => {
     );
 });
 
-// DELETE USER - Add isAdminAuthenticated
+// ==================== DELETE USER (Protected) ====================
 app.delete("/api/users/:id", isAdminAuthenticated, (req, res) => {
-    // Your existing code stays the same
     db.query(
         "DELETE FROM users WHERE id=?",
         [req.params.id],
@@ -950,13 +784,7 @@ app.delete("/api/users/:id", isAdminAuthenticated, (req, res) => {
     );
 });
 
-
-
-
-
-// ==================== PROJECTS (Preserved) ====================
-// If projects route exists, keep it
-// Add a basic projects endpoint if needed
+// ==================== PROJECTS ====================
 app.get("/api/projects", (req, res) => {
     db.query(
         "SELECT * FROM projects ORDER BY id DESC",
@@ -984,14 +812,12 @@ app.get("/", (req, res) => {
 
 // ==================== 404 HANDLER ====================
 app.use((req, res, next) => {
-    // Only handle API routes with 404 JSON
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
             success: false,
             message: "API endpoint not found"
         });
     }
-    // For non-API routes, serve the frontend or pass to error handler
     next();
 });
 
@@ -1005,7 +831,6 @@ app.use((err, req, res, next) => {
         timestamp: new Date().toISOString()
     });
 
-    // Handle multer errors
     if (err instanceof multer.MulterError) {
         if (err.code === 'LIMIT_FILE_SIZE') {
             return res.status(400).json({
@@ -1019,7 +844,6 @@ app.use((err, req, res, next) => {
         });
     }
 
-    // Handle JSON parsing errors
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
         return res.status(400).json({
             success: false,
@@ -1027,7 +851,6 @@ app.use((err, req, res, next) => {
         });
     }
 
-    // Default error response
     res.status(err.status || 500).json({
         success: false,
         message: process.env.NODE_ENV === 'production' 
@@ -1043,5 +866,9 @@ app.listen(PORT, () => {
     console.log(`🌐 URL: http://localhost:${PORT}`);
     console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`📡 Frontend URL: ${process.env.FRONTEND_URL || 'Not configured'}`);
+    console.log("--------------------------------");
+    console.log("🔐 ADMIN LOGIN:");
+    console.log(`   Username: ${process.env.ADMIN_USERNAME || 'admin'}`);
+    console.log(`   Password: ${process.env.ADMIN_PASSWORD ? '*** Set in env ***' : 'MISSING!'}`);
     console.log("--------------------------------");
 });
