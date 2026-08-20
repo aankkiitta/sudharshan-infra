@@ -4,13 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
   <title>Admin Login · Nature Studio</title>
-  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
-    /* --- reuse the same design tokens & reset from style.txt --- */
     * {
       margin: 0;
       padding: 0;
@@ -53,7 +51,6 @@
     a { text-decoration: none; color: inherit; }
     button { font-family: var(--font); cursor: pointer; border: none; background: none; outline: none; }
 
-    /* ----- buttons (reuse) ----- */
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -81,7 +78,6 @@
       transform: none !important;
     }
 
-    /* ----- login card ----- */
     .login-wrapper {
       width: 100%;
       max-width: 460px;
@@ -272,7 +268,6 @@
       font-size: 1.1rem;
     }
 
-    /* toast */
     .toast {
       position: fixed;
       top: 20px;
@@ -305,7 +300,6 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* mobile fine-tune */
     @media (max-width: 480px) {
       .login-card {
         padding: 32px 20px;
@@ -329,7 +323,6 @@
   <div class="login-wrapper">
     <div class="login-card">
 
-      <!-- Brand -->
       <div class="login-brand">
         <div class="brand-icon">
           <i class="fas fa-leaf"></i>
@@ -338,13 +331,11 @@
         <p>Sign in to manage your projects</p>
       </div>
 
-      <!-- Error message -->
       <div class="error-message" id="errorMessage">
         <i class="fas fa-exclamation-circle"></i>
         <span id="errorText">Invalid credentials, please try again.</span>
       </div>
 
-      <!-- Login Form -->
       <form id="loginForm" autocomplete="off">
         <div class="form-group">
           <label><i class="fas fa-user"></i> Username</label>
@@ -381,7 +372,6 @@
     </div>
   </div>
 
-  <!-- Toast notification -->
   <div class="toast" id="toast"></div>
 
   <script>
@@ -389,7 +379,7 @@
       'use strict';
 
       // ============================================================
-      // 1. CHECK IF ALREADY LOGGED IN - REDIRECT TO ADMIN
+      // 1. CHECK IF ALREADY LOGGED IN - REDIRECT TO ADMIN3.HTML
       // ============================================================
       async function checkExistingSession() {
         try {
@@ -399,11 +389,9 @@
           });
           const data = await response.json();
           if (data.authenticated) {
-            // Already logged in, redirect to admin panel
-            window.location.href = '/admin.html';
+            window.location.href = '/admin3.html';
           }
         } catch (error) {
-          // Session check failed, stay on login page
           console.log('No active session');
         }
       }
@@ -452,7 +440,7 @@
       }
 
       // ============================================================
-      // 4. LOGIN HANDLER - AUTHENTICATE THROUGH BACKEND API
+      // 4. LOGIN HANDLER
       // ============================================================
       async function handleLogin(e) {
         e.preventDefault();
@@ -461,7 +449,6 @@
         const password = passwordInput.value.trim();
         const remember = rememberCheck.checked;
 
-        // Validate input
         if (!username || !password) {
           showError('Please enter both username and password.');
           return;
@@ -487,14 +474,11 @@
           const data = await response.json();
 
           if (response.ok && data.success) {
-            // Login successful - redirect to admin panel
             showToast('Login successful! Redirecting...', 'success');
-            
             setTimeout(() => {
               window.location.href = '/admin3.html';
             }, 500);
           } else {
-            // Login failed
             setLoading(false);
             showError(data.message || 'Invalid username or password.');
             showToast('Login failed. Please check your credentials.', 'error');
@@ -511,29 +495,24 @@
       // ============================================================
       // 5. EVENT LISTENERS
       // ============================================================
-      // Hide error on input
       usernameInput.addEventListener('input', hideError);
       passwordInput.addEventListener('input', hideError);
 
-      // Form submission
       form.addEventListener('submit', handleLogin);
 
-      // Forgot password link
       document.getElementById('forgotLink').addEventListener('click', function(e) {
         e.preventDefault();
         showToast('Please contact support to reset your password.', 'success');
       });
 
-      // Support link
       document.getElementById('supportLink').addEventListener('click', function(e) {
         e.preventDefault();
         showToast('Support team will contact you shortly.', 'success');
       });
 
       // ============================================================
-      // 6. INITIALIZATION - CHECK SESSION ON PAGE LOAD
+      // 6. INITIALIZATION
       // ============================================================
-      // Check if already logged in
       checkExistingSession();
 
       console.log('🔐 Admin Login System');
