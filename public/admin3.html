@@ -952,12 +952,12 @@
             return true;
           } else {
             // Not authenticated - redirect to login
-            window.location.href = '/admin-login.html';
+            window.location.href = '/admin.html';
             return false;
           }
         } catch (error) {
           console.error('Auth check failed:', error);
-          window.location.href = '/admin-login.html';
+          window.location.href = '/admin.html';
           return false;
         }
       }
@@ -974,13 +974,13 @@
           const data = await response.json();
           
           if (data.success) {
-            window.location.href = '/admin-login.html';
+            window.location.href = '/admin.html';
           } else {
             showToast('Logout failed. Please try again.', 'error');
           }
         } catch (error) {
           console.error('Logout error:', error);
-          window.location.href = '/admin-login.html';
+          window.location.href = '/admin.html';
         }
       }
 
@@ -1131,7 +1131,7 @@
             imagePreview.src = 'https://via.placeholder.com/500x300/E8E3DC/2c5530?text=Click+to+upload+image';
           } else if (response.status === 401) {
             // Unauthorized - redirect to login
-            window.location.href = '/admin-login.html';
+            window.location.href = '/admin.html';
           } else {
             showToast(data.message || 'Failed to add project', 'error');
           }
@@ -1221,7 +1221,7 @@
         fetch('/api/reviews', { credentials: 'include' })
           .then(res => {
             if (res.status === 401) {
-              window.location.href = '/admin-login.html';
+              window.location.href = '/admin.html';
               return;
             }
             return res.json();
@@ -1501,7 +1501,7 @@
         })
         .then(res => {
           if (res.status === 401) {
-            window.location.href = '/admin-login.html';
+            window.location.href = '/admin.html';
             return;
           }
           return res.json();
