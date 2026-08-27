@@ -2,12 +2,24 @@
   {
     "id": 1,
     "title": "Luxury Bedroom",
-    "image": "uploads/logo.png",
+    "image": "uploads/office.png",
     "category": "luxury",
     "location": "Miami, USA",
     "year": "2025",
     "description": "Premium bedroom interior with elegant furniture, modern lighting and luxury finishes.",
     "tags": ["Interior", "Luxury", "Bedroom"],
     "link": "project1.html"
+  },
+
+   {
+    "id": 2,
+    "title": "Modern Living Room",
+    "image": "uploads/Residental.png",
+    "category": "residential",
+    "location": "Mumbai, India",
+    "year": "2025",
+    "description": "Contemporary living space with custom furniture, warm lighting and elegant finishes.",
+    "tags": ["Interior", "Residential", "Living Room"],
+    "link": "project2.html"
   }
 ]
