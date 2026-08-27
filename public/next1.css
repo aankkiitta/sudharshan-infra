@@ -2191,9 +2191,9 @@
                 grid-template-columns: 1fr;
                 gap: 50px;
             }
-            .about-image-main {
-                min-height: 360px;
-            }
+             .about-image-main {
+        min-height: 300px;
+    }
             .experience-badge {
                 bottom: -16px;
                 left: -16px;
@@ -2259,9 +2259,9 @@
                 text-align: center;
             }
 
-            .about-image-main {
-                min-height: 280px;
-            }
+             .about-image-main {
+        min-height: 260px;
+    }
             .about-content .section-title {
                 font-size: 1.8rem;
             }
@@ -2439,9 +2439,13 @@
                 justify-content: center;
             }
 
-            .about-image-main {
-                min-height: 220px;
-            }
+          .about-image-main {
+        min-height: 180px;
+        height: 180px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
             .about-stats-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 8px;
