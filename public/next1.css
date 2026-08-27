@@ -210,29 +210,25 @@
         /* ============================================================
            4. HEADER / NAVBAR — logo left, nav right, no actions
            ============================================================ */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height);
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-            transition: var(--transition-slow);
-            transform: translateY(0);
-        }
+   header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    transform: translateY(0);
+}
         header.scrolled {
             background: rgba(255, 255, 255, 0.98);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
             /* padding removed — keeps content centered */;
         }
-        header.hidden {
-            transform: translateY(-100%);
-        }
-
+    
         .navbar {
             display: flex;
             align-items: center;
