@@ -2438,15 +2438,13 @@
                 width: 100%;
                 justify-content: center;
             }
-
-          .about-image-main {
-        min-height: 180px;
-        height: 180px;
-        background-size: contain;
+ .about-image-main {
+        min-height: 220px;
+        height: 220px;
+        background-size: 75% auto;
         background-position: center;
         background-repeat: no-repeat;
-    }
-            .about-stats-grid {
+    }     .about-stats-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 8px;
             }
